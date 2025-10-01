@@ -583,9 +583,8 @@
 				. += span_notice("Inscryption[N ? " by [N]'s " : ""][W ? "Wonder #[W]" : ""]: [K ? K : ""]")
 
 	if(!obscure_name) // Miniature headshot on examine
-
 		if(headshot_link)
-			. += "<span class='info'><img src=[headshot_link] width=100 height=100/></span>"
+			. += "<img src=[headshot_link] width=100 height=100/>"
 
 	if(Adjacent(user))
 		if(isobserver(user))

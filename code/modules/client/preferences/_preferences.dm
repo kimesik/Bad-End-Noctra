@@ -1402,15 +1402,10 @@ GLOBAL_LIST_INIT(name_adjustments, list())
 						change_accent = TRUE
 					else
 						change_accent = FALSE
-					if(!patreon && !change_accent)
-						to_chat(user, "Sorry, this option is Patreon-exclusive or unavailable to your race.")
-						selected_accent = ACCENT_DEFAULT
-						return
 					var/accent
-					if(patreon)
-						accent = browser_input_list(user, "CHOOSE YOUR HERO'S ACCENT", "VOICE OF THE WORLD", GLOB.accent_list, selected_accent)
-						if(accent)
-							selected_accent = accent
+					accent = browser_input_list(user, "CHOOSE YOUR HERO'S ACCENT", "VOICE OF THE WORLD", GLOB.accent_list, selected_accent)
+					if(accent)
+						selected_accent = accent
 					else if(change_accent)
 						accent = browser_input_list(user, "CHOOSE YOUR HERO'S ACCENT", "VOICE OF THE WORLD", pref_species.multiple_accents, selected_accent)
 						if(accent)
@@ -1832,11 +1827,7 @@ GLOBAL_LIST_INIT(name_adjustments, list())
 	else
 		change_accent = FALSE
 
-	if(patreon)
-		character.accent = selected_accent
-	if(change_accent && !patreon)
-		character.accent = selected_accent
-		change_accent = FALSE
+	character.accent = selected_accent
 
 	/* :V */
 	apply_character_kinks(character)
