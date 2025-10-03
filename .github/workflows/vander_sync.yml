@@ -3,6 +3,12 @@ on:
   schedule:
     - cron: "0 3 * * *"   # runs daily at 3am UTC
   workflow_dispatch:       # allow manual trigger
+
+permissions:
+  contents: write
+  pull-requests: write
+  workflows: write
+  
 jobs:
   sync:
     runs-on: ubuntu-latest
