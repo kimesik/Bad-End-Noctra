@@ -304,6 +304,18 @@
 		/datum/sprite_accessory/hair/head/kusanagi_alt,
 		/datum/sprite_accessory/hair/head/shorthair6,
 		/datum/sprite_accessory/hair/head/helmet,
+		/datum/sprite_accessory/hair/head/protagonist,
+		/datum/sprite_accessory/hair/head/hero_protagonist,
+		/datum/sprite_accessory/hair/head/also_protagonist,
+		/datum/sprite_accessory/hair/head/free_spirit,
+		/datum/sprite_accessory/hair/head/generic,
+		/datum/sprite_accessory/hair/head/polite,
+		/datum/sprite_accessory/hair/head/ghastly,
+		/datum/sprite_accessory/hair/head/ghastly_f,
+		/datum/sprite_accessory/hair/head/astolfo,
+		/datum/sprite_accessory/hair/head/astolfo_f,
+		/datum/sprite_accessory/hair/head/heiress,
+		/datum/sprite_accessory/hair/head/playful,
 		)
 
 /datum/customizer/bodypart_feature/hair/head/humanoid/triton

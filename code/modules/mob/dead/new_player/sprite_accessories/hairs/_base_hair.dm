@@ -3,5 +3,10 @@
 	color_key_name = "Hair"
 	layer = HAIR_LAYER
 
+/datum/sprite_accessory/hair/New()
+	. = ..()
+	specuse = ALL_RACES_LIST
+	gender = NEUTER
+
 /datum/sprite_accessory/hair/adjust_appearance_list(list/appearance_list, obj/item/organ/organ, obj/item/bodypart/bodypart, mob/living/carbon/owner)
 	generic_gender_feature_adjust(appearance_list, organ, bodypart, owner, OFFSET_FACE)
