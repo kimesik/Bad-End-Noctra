@@ -671,6 +671,22 @@
 /datum/repeatable_crafting_recipe/leather/bellcollar
 	name = "bell collar"
 	output = /obj/item/clothing/neck/bellcollar
+
+/datum/repeatable_crafting_recipe/leather/leash
+	name = "leather leash"
+	requirements = list(
+		/obj/item/natural/hide/cured = 1
+	)
+	tool_usage = list(
+		/obj/item/needle = list("starts to sew", "start to sew")
+	)
+	starting_atom = /obj/item/needle
+	attacked_atom = /obj/item/natural/hide/cured
+	output = /obj/item/leash/leather
+	craft_time = 10 SECONDS
+	crafting_message = "starts sewing a leather leash"
+	craftdiff = 0
+	category = "Leatherworking"
 	requirements = list(/obj/item/natural/hide/cured = 1,
 				/obj/item/natural/fibers = 2,
 				/obj/item/jingle_bells = 1)

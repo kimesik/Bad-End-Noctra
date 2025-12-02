@@ -221,6 +221,18 @@ GLOBAL_LIST_INIT(loadout_items, subtypesof(/datum/loadout_item))
 	name = "Bell Collar"
 	item_path = /obj/item/clothing/neck/bellcollar
 
+/datum/loadout_item/leash
+	name = "Leash"
+	item_path = /obj/item/leash/leather
+
+/datum/loadout_item/catbell
+	name = "Catbell"
+	item_path = /obj/item/catbell
+
+/datum/loadout_item/cowbell
+	name = "Cowbell"
+	item_path = /obj/item/catbell/cow
+
 /datum/loadout_item/chaperon
 	name = "Chaperon (Normal)"
 	item_path = /obj/item/clothing/head/chaperon

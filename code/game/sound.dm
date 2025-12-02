@@ -390,6 +390,12 @@
 							'sound/foley/footsteps/armor/coatplates (2).ogg',\
 							'sound/foley/footsteps/armor/coatplates (3).ogg',\
 							)
+			if(SFX_COLLARJINGLE)
+				soundin = pick('sound/items/jinglebell (1).ogg',\
+							'sound/items/jinglebell (2).ogg',\
+							'sound/items/jinglebell (3).ogg',\
+							'sound/items/jinglebell (4).ogg',\
+							)
 			if(SFX_JINGLE_BELLS)
 				soundin = pick('sound/items/jinglebell (1).ogg',\
 							'sound/items/jinglebell (2).ogg',\
