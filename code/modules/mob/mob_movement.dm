@@ -182,6 +182,7 @@ w/**
 
 	var/old_direct = mob.dir
 
+	mob.last_client_interact = world.time
 	. = ..()
 
 	if((direct & (direct - 1)) && mob.loc == n) //moved diagonally successfully

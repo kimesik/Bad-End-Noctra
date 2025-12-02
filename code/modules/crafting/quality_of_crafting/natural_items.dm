@@ -276,6 +276,31 @@
 	output = /obj/item/storage/handbasket
 	craftdiff = 1
 
+/datum/repeatable_crafting_recipe/survival/rope_leash
+	name = "rope leash"
+	requirements = list(
+		/obj/item/rope = 1
+	)
+	tool_usage = list(
+		/obj/item/needle = list("starts to sew", "start to sew")
+	)
+	starting_atom = /obj/item/needle
+	attacked_atom = /obj/item/rope
+	output = /obj/item/leash
+	craft_time = 3 SECONDS
+	crafting_message = "starts to sew a rope leash"
+
+/datum/repeatable_crafting_recipe/survival/chain_leash
+	name = "chain leash"
+	requirements = list(
+		/obj/item/rope/chain = 1
+	)
+	starting_atom = /obj/item/rope/chain
+	attacked_atom = /obj/item/rope/chain
+	output = /obj/item/leash/chain
+	craft_time = 2 SECONDS
+	crafting_message = "starts linking a chain leash"
+
 /datum/repeatable_crafting_recipe/survival/bone_spear
 	name = "bone spear"
 	requirements = list(

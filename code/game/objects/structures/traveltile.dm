@@ -115,6 +115,8 @@
 	if(. && required_trait && isliving(AM))
 		var/mob/living/L = AM
 		if(HAS_TRAIT(L, required_trait))
+			if(world.time > L.last_client_interact + 0.3 SECONDS)
+				return FALSE // must have moved or clicked recently
 			return TRUE
 		else
 			//to_chat(L, "<b>It is a dead end.</b>")
@@ -140,6 +142,9 @@
 	if(!get_turf(the_tile))
 		to_chat(user, "<b>I can't find the other side.</b>")
 		return
+	if(leashed_by_other(user))
+		to_chat(user, span_warning("I can't travel! Someone is holding my leash!"))
+		return
 	if(!can_go(user))
 		return
 	var/time2go = 5 SECONDS
@@ -151,12 +156,20 @@
 				break
 	if(!do_after(user, time2go, src, (IGNORE_HELD_ITEM)))
 		return
+	if(leashed_by_other(user))
+		to_chat(user, span_warning("I can't go, somebody has me on their leash."))
+		return
 	if(!can_go(user))
 		return
-	if(user.pulling)
-		user.pulling.recent_travel = world.time
+	var/atom/movable/pullingg = user.pulling
+	var/list/master_leashed_mobs = get_master_leashed_mobs(user, FALSE)
+	var/obj/item/leash/user_freepet_leash = get_freepet_leash(user)
+	var/obj/item/leash/pullingg_freepet_leash
+	if(pullingg)
+		pullingg_freepet_leash = get_freepet_leash(pullingg)
+		pullingg.recent_travel = world.time
 	user.recent_travel = world.time
-	if(can_gain_with_sight)
+	if(can_gain_with_sight && !HAS_TRAIT(user, TRAIT_RESTRAINED))
 		reveal_travel_trait_to_others(user)
 	if(can_gain_by_walking && the_tile.required_trait && !HAS_TRAIT(user, the_tile.required_trait) && !HAS_TRAIT(user, TRAIT_BLIND)) // If you're blind you can't find your way
 		ADD_TRAIT(user, the_tile.required_trait, TRAIT_GENERIC)
@@ -164,7 +177,22 @@
 		show_travel_tile(user)
 		the_tile.show_travel_tile(user)
 	user.log_message("[user.mind?.key ? user.mind?.key : user.real_name] has travelled to [loc_name(the_tile)] from", LOG_GAME, color = "#0000ff")
-	movable_travel_z_level(user, get_turf(the_tile))
+	var/turf/destination = get_turf(the_tile)
+	if(length(master_leashed_mobs))
+		for(var/mob/living/leashed in master_leashed_mobs)
+			if(leashed == pullingg)
+				continue
+			leashed.recent_travel = world.time
+			leashed.forceMove(destination)
+	if(user_freepet_leash)
+		user_freepet_leash.forceMove(destination)
+	if(pullingg)
+		if(pullingg_freepet_leash)
+			pullingg_freepet_leash.forceMove(destination)
+		pullingg.forceMove(destination)
+	user.forceMove(destination)
+	if(pullingg)
+		user.start_pulling(pullingg, suppress_message = TRUE)
 
 /obj/structure/fluff/traveltile/proc/reveal_travel_trait_to_others(mob/living/user)
 	if(!required_trait)

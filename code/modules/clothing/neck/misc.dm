@@ -178,7 +178,10 @@
 /obj/item/clothing/neck/leathercollar
 	name = "leather collar"
 	desc = "A fashionable piece of neckwear popular among Hollow-Kin."
-	icon_state = "collar"
+	icon = 'modular/icons/obj/leashes_collars.dmi'
+	mob_overlay_icon = 'modular/icons/mob/collars_leashes.dmi'
+	icon_state = "leathercollar"
+	item_state = "leathercollar"
 	blocksound = SOFTHIT
 	equip_sound = 'sound/foley/equip/cloak_equip.ogg'
 	pickup_sound = 'sound/foley/equip/cloak_take_off.ogg'
@@ -186,6 +189,9 @@
 	drop_sound = 'sound/foley/dropsound/cloth_drop.ogg'
 	sewrepair = TRUE
 	anvilrepair = null
+	leashable = TRUE
+	bellsound = FALSE
+	bell = FALSE
 	resistance_flags = FLAMMABLE
 	smeltresult = /obj/item/fertilizer/ash
 
@@ -196,7 +202,10 @@
 /obj/item/clothing/neck/bellcollar
 	name = "bell collar"
 	desc = "A leather collar with a small bell attached, popular among Hollow-Kin."
-	icon_state = "bell_collar"
+	icon = 'modular/icons/obj/leashes_collars.dmi'
+	mob_overlay_icon = 'modular/icons/mob/collars_leashes.dmi'
+	icon_state = "catbellcollar"
+	item_state = "catbellcollar"
 	blocksound = SOFTHIT
 	equip_sound = SFX_JINGLE_BELLS
 	pickup_sound = SFX_JINGLE_BELLS
@@ -204,6 +213,9 @@
 	drop_sound = SFX_JINGLE_BELLS
 	sewrepair = TRUE
 	anvilrepair = null
+	leashable = TRUE
+	bellsound = TRUE
+	bell = TRUE
 	resistance_flags = FLAMMABLE
 	smeltresult = /obj/item/fertilizer/ash
 
@@ -213,7 +225,9 @@
 
 /obj/item/clothing/neck/bellcollar/Initialize()
 	. = ..()
-	AddComponent(/datum/component/item_equipped_movement_rustle, custom_sounds = list(SFX_JINGLE_BELLS))
+	AddComponent(/datum/component/item_equipped_movement_rustle, custom_sounds = list(SFX_COLLARJINGLE))
+	if(bellsound)
+		AddComponent(/datum/component/squeak, list(SFX_COLLARJINGLE), 50, 100, 1)
 //..................................................................................................................................
 /*---------------\
 |			 	 |

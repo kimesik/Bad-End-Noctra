@@ -1643,6 +1643,7 @@
 #include "code\game\objects\items\beartraps.dm"
 #include "code\game\objects\items\bedsheets.dm"
 #include "code\game\objects\items\bells.dm"
+#include "code\game\objects\items\leash.dm"
 #include "code\game\objects\items\bombs.dm"
 #include "code\game\objects\items\books.dm"
 #include "code\game\objects\items\bouquet.dm"
