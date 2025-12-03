@@ -943,7 +943,7 @@
 	name = "Received Lux"
 	desc = "I can feel something... is this what it means to have a soul?"
 
-// Small buff to halflings for having over 800 nutrition currently
+// Small buff granted while over 800 nutrition currently
 /datum/status_effect/buff/stuffed
 	id = "stuffed"
 	alert_type = /atom/movable/screen/alert/status_effect/buff/stuffed
@@ -954,7 +954,7 @@
 	name = "Stuffed"
 	desc = "A hearty meal!"
 
-// Buff to halflings for not wearing shoes, comes with stress events
+// Buff granted while not wearing shoes, comes with stress events
 /datum/status_effect/buff/free_feet
 	id = "free_feet"
 	alert_type = /atom/movable/screen/alert/status_effect/buff/free_feet
