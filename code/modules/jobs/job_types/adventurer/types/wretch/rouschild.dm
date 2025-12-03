@@ -3,6 +3,7 @@
 	tutorial = "A child of the sewers, abandoned at birth, you were taken in by a colony of rous and raised as one of their own."
 	allowed_sexes = list(MALE, FEMALE)
 	allowed_races = RACES_PLAYER_ALL
+	blacklisted_species = list(SPEC_ID_OGRE)
 	outfit = /datum/outfit/wretch/rouschild
 	cmode_music = 'sound/music/cmode/adventurer/CombatOutlander2.ogg'
 	total_positions = 2

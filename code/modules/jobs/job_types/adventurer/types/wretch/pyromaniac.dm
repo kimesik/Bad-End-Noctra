@@ -3,6 +3,7 @@
 	tutorial = "A notorious arsonist with a penchant for fire, you wield your own personal vendetta against the chaotic forces within Faience. Bring mayhem and destruction with flame and misfortune! Just... try not to hit yourself with your explosives - you aren't fireproof, after all."
 	allowed_sexes = list(MALE, FEMALE)
 	allowed_races = RACES_PLAYER_ALL
+	blacklisted_species = list(SPEC_ID_OGRE)
 	outfit = /datum/outfit/wretch/pyromaniac
 	total_positions = 2
 

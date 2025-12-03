@@ -12,6 +12,7 @@
 		SPEC_ID_HALF_ORC,\
 		SPEC_ID_TIEFLING,\
 	)
+	blacklisted_species = list(SPEC_ID_OGRE)
 	allowed_ages = list(AGE_ADULT, AGE_CHILD)
 	total_positions = 1
 	cmode_music = 'sound/music/cmode/nobility/combat_noble.ogg'

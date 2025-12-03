@@ -3,6 +3,7 @@
 	tutorial = "You have been ostracized and hunted by society for your dark magics and perversion of life."
 	allowed_sexes = list(MALE, FEMALE)
 	allowed_races = RACES_PLAYER_ALL
+	blacklisted_species = list(SPEC_ID_OGRE)
 	outfit = /datum/outfit/wretch/necromancer
 	cmode_music = 'sound/music/cmode/antag/CombatLich.ogg'
 	total_positions = 1

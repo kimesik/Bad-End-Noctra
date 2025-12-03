@@ -3,6 +3,7 @@
 	tutorial = "You were once a venerated and revered knight - now, a traitor who abandoned your liege. You lyve the lyfe of an outlaw, shunned and looked down upon by society."
 	allowed_sexes = list(MALE, FEMALE)
 	allowed_races = RACES_PLAYER_NONDISCRIMINATED //Royal Knight
+	blacklisted_species = list(SPEC_ID_OGRE)
 	outfit = /datum/outfit/wretch/disgraced
 	total_positions = 1
 

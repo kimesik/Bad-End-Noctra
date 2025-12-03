@@ -3,6 +3,7 @@
 	tutorial = "A disgraced physician forced into exile and years of hardship, you have turned to a private practice surrounding the only things you've ever known - poisons and plague. Revel in the spreading of blight, and unleash craven pestilence."
 	allowed_sexes = list(MALE, FEMALE)
 	allowed_races = RACES_PLAYER_ALL
+	blacklisted_species = list(SPEC_ID_OGRE)
 	outfit = /datum/outfit/wretch/plaguebearer
 	total_positions = 2
 
