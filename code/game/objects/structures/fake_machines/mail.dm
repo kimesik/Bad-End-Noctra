@@ -868,6 +868,15 @@ GLOBAL_LIST_EMPTY(letters_sent)
 			everyhermes.inqlock()
 
 	if(href_list["buy"])
+		var/list/spawnable = list()
+		for(var/turf/turf as anything in get_adjacent_open_turfs(get_turf(src)))
+			if(turf.is_blocked_turf(TRUE, src))
+				continue
+			spawnable += turf
+
+		if(!length(spawnable))
+			return
+
 		var/path = text2path(href_list["buy"])
 		var/datum/inqports/PA = GLOB.inqsupplies[path]
 

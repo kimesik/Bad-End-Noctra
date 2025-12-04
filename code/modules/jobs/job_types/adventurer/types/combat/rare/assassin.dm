@@ -7,7 +7,7 @@
 	category_tags = list(CTAG_PILGRIM)
 	total_positions = 2
 	inherit_parent_title = TRUE //this prevents advjob from being set back to "Assassin" in equipme
-	min_pq = 6
+	antags_can_pick = FALSE //Assassins are antagonists by default, so they can't be chosen if you're already an antagonist.
 
 /datum/outfit/adventurer/assassin/pre_equip(mob/living/carbon/human/H)
 	..()
