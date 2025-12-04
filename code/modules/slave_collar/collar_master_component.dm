@@ -76,7 +76,7 @@ GLOBAL_LIST_EMPTY(collar_masters)
 	SIGNAL_HANDLER
 	var/mob/living/carbon/human/pet = source
 	if(pet)
-		cleanup_pet(pet)
+		INVOKE_ASYNC(src, PROC_REF(cleanup_pet), pet)
 
 /datum/component/collar_master/proc/shock_pet(mob/living/carbon/human/pet, intensity = 10)
 	if(!pet || !(pet in my_pets))
