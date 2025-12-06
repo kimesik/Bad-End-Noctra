@@ -90,6 +90,11 @@
 	cost = 70
 	contains = /obj/item/weapon/polearm/halberd/bardiche
 
+/datum/supply_pack/weapons/iron/bayonet
+	name = "Musket Bayonet"
+	cost = 23
+	contains = /obj/item/weapon/knife/dagger/bayonet
+
 // STEEL MELEE WEAPONS
 
 /datum/supply_pack/weapons/steel
@@ -155,6 +160,16 @@
 
 /datum/supply_pack/weapons/ranged/puffer
 	name = "Smuggled Püffer"
+	cost = 500
+	contains = /obj/item/gun/ballistic/revolver/grenadelauncher/pistol
+
+/datum/supply_pack/weapons/ranged/musket
+	name = "Smuggled Musket"
+	cost = 750 //needs balancing
+	contains = /obj/item/gun/ballistic/revolver/grenadelauncher/pistol/musket
+
+/datum/supply_pack/weapons/ranged/cannon
+	name = "Cannon"
 	cost = 800
 	contains = /obj/item/gun/ballistic/revolver/grenadelauncher/pistol
 
