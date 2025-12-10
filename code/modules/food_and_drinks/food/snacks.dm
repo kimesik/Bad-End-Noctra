@@ -157,6 +157,9 @@ All foods are distributed among various categories. Use common sense.
 				// Each 10 degrees above room temp increases rot rate by 20%
 				temp_modifier = 1.0 + ((turf_temp - 20) / 10) * 0.2
 				temp_modifier = min(temp_modifier, 3.0) // Cap at 3x speed
+		if(!istype(loc, /obj/structure/closet/crate/chest) && !istype(loc, /obj/item/plate) && !istype(loc, /obj/structure/fake_machine/vendor) && !istype(loc, /obj/item/storage/backpack/backpack/artibackpack))
+			if(!locate(/obj/structure/table) in loc)
+				warming -= 20 //ssobj processing has a wait of 20
 			else
 				// Each 3 degrees below room temp decreases rot rate by 20%
 				temp_modifier = max(0.2, 1.0 - ((20 -turf_temp) / 3) * 0.2)
@@ -189,6 +192,8 @@ All foods are distributed among various categories. Use common sense.
 		modified = TRUE
 		rot_away_timer = QDEL_IN_STOPPABLE(src, 10 MINUTES)
 		record_round_statistic(STATS_FOOD_ROTTED)
+		if(istype(src.loc, /obj/item/plate))
+			src.loc.update_icon()
 		return TRUE
 	if(!ismob(loc) && loc)
 		var/obj/item/reagent_containers/NU = new become_rot_type(loc)
@@ -504,23 +509,49 @@ All foods are distributed among various categories. Use common sense.
 	if(istype(W, /obj/item/storage))
 		..() // -> item/attackby()
 		return 0
+	if(istype(W, /obj/item/kitchen/fork))
+		if(do_after(user, 0.5 SECONDS))
+			attack(user, user, user.zone_selected)
 
-	if(W.get_sharpness() && W.wlength == WLENGTH_SHORT)
-		if((slices_num <= 0 || !slices_num) || !slice_path) //is the food sliceable?
-			return FALSE
+	if(istype(W, /obj/item/storage))
+		..() // -> item/attackby()
+		return 0
+
+/*	if(istype(W, /obj/item/reagent_containers/food/snacks))
+		var/obj/item/reagent_containers/food/snacks/S = W
+		if(custom_food_type && ispath(custom_food_type))
+			if(S.w_class > WEIGHT_CLASS_SMALL)
+				to_chat(user, span_warning("[S] is too big for [src]!"))
+				return 0
+			if(!S.customfoodfilling || istype(W, /obj/item/reagent_containers/food/snacks/customizable) || istype(W, /obj/item/reagent_containers/food/snacks/pizzaslice/custom) || istype(W, /obj/item/reagent_containers/food/snacks/cakeslice/custom))
+				to_chat(user, span_warning("[src] can't be filled with [S]!"))
+				return 0
+			if(contents.len >= 20)
+				to_chat(user, span_warning("I can't add more ingredients to [src]!"))
+				return 0
+			var/obj/item/reagent_containers/food/snacks/customizable/C = new custom_food_type(get_turf(src))
+			C.initialize_custom_food(src, S, user)
+			return 0
+	if(user.used_intent.blade_class == slice_bclass && W.wlength == WLENGTH_SHORT)
 		if(slice_bclass == BCLASS_CHOP)
-			user.visible_message("<span class='notice'>[user] chops [src]!</span>")
-			slice(W, user)
-			user.nobles_seen_servant_work()
-			return TRUE
-		if(slice_bclass == BCLASS_CUT)
-			user.visible_message("<span class='notice'>[user] slices [src]!</span>")
-			slice(W, user)
-			user.nobles_seen_servant_work()
-			return TRUE
+			//	RTD meat chopping noise  The 66% random bit is just annoying
+			if(prob(66))
+				user.visible_message(span_warning("[user] chops [src]!"))
+				return 0
+			else
+				user.visible_message(span_notice("[user] chops [src]!"))
+				slice(W, user)
+			return 1
 		else if(slice(W, user))
-			user.nobles_seen_servant_work()
-			return TRUE
+			return 1*/
+	..()
+//Called when you finish tablecrafting a snack.
+/obj/item/reagent_containers/food/snacks/CheckParts(list/parts_list)
+	..()
+//	reagents.clear_reagents()
+	for(var/obj/item/reagent_containers/RC in contents)
+		RC.reagents.trans_to(reagents, RC.reagents.maximum_volume)
+	SSblackbox.record_feedback("tally", "food_made", 1, type)
 
 /obj/item/reagent_containers/food/snacks/proc/slice(obj/item/W, mob/user)
 	if((slices_num <= 0 || !slices_num) || !slice_path) //is the food sliceable?
