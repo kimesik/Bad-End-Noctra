@@ -71,6 +71,7 @@ GLOBAL_LIST_INIT(peasant_positions, list(
 	/datum/job/cook::title,
 	/datum/job/carpenter::title,
 	/datum/job/jester::title,
+	/datum/job/seelie::title,
 	/datum/job/hunter::title,
 	/datum/job/fisher::title,
 	/datum/job/bard::title,
