@@ -137,21 +137,41 @@
 			turf.add_liquid(/datum/reagent/consumable/milk, 5)
 			after_ejaculation(FALSE, parent)
 		else
-			handle_climax(return_type, highest_priority.user, highest_priority.target)
+			handle_climax(return_type, action, highest_priority.user, highest_priority.target)
 		if(action.knot_on_finish)
 			action.try_knot_on_climax(mob, highest_priority.target)
 
 
-/datum/component/arousal/proc/handle_climax(climax_type, mob/living/carbon/human/user, mob/living/carbon/human/target)
+/datum/component/arousal/proc/handle_climax(climax_type, datum/sex_action/action, mob/living/carbon/human/user, mob/living/carbon/human/target)
+	var/mob/living/carbon/human/climaxer = parent
+	var/mob/living/carbon/human/recipient
+	if(climaxer == user && target && target != climaxer)
+		recipient = target
+	else if(climaxer == target && user && user != climaxer)
+		recipient = user
+
+	var/is_oral = FALSE
+	if(action && action.hole_id == BODY_ZONE_PRECISE_MOUTH)
+		is_oral = TRUE
+	else if(istype(action, /datum/sex_action/cunnilingus))
+		is_oral = TRUE
+
 	switch(climax_type)
 		if("onto")
 			log_combat(user, target, "Came onto the target")
 			playsound(target, 'sound/misc/mat/endout.ogg', 50, TRUE, ignore_walls = FALSE)
 			var/turf/turf = get_turf(target)
 			turf.add_liquid(/datum/reagent/consumable/milk, 5)
+			if(recipient)
+				apply_facial_effect(recipient)
 		if("into")
 			log_combat(user, target, "Came inside the target")
 			playsound(target, 'sound/misc/mat/endin.ogg', 50, TRUE, ignore_walls = FALSE)
+			if(recipient)
+				if(is_oral)
+					apply_facial_effect(recipient)
+				else
+					apply_creampie_effect(recipient)
 		if("self")
 			log_combat(user, user, "Ejaculated")
 			user.visible_message(span_love("[user] makes a mess!"))
@@ -160,6 +180,24 @@
 			turf.add_liquid(/datum/reagent/consumable/milk, 5)
 
 	after_ejaculation(climax_type == "into" || climax_type == "oral", user, target)
+
+/datum/component/arousal/proc/apply_facial_effect(mob/living/carbon/human/recipient)
+	if(!recipient)
+		return
+	var/datum/status_effect/facial/facial_effect = recipient.has_status_effect(/datum/status_effect/facial)
+	if(facial_effect)
+		facial_effect.refresh_cum()
+	else
+		recipient.apply_status_effect(/datum/status_effect/facial)
+
+/datum/component/arousal/proc/apply_creampie_effect(mob/living/carbon/human/recipient)
+	if(!recipient)
+		return
+	var/datum/status_effect/facial/internal/creampie_effect = recipient.has_status_effect(/datum/status_effect/facial/internal)
+	if(creampie_effect)
+		creampie_effect.refresh_cum()
+	else
+		recipient.apply_status_effect(/datum/status_effect/facial/internal)
 
 /datum/component/arousal/proc/after_ejaculation(intimate = FALSE, mob/living/carbon/human/user, mob/living/carbon/human/target)
 	SEND_SIGNAL(user, COMSIG_SEX_SET_AROUSAL, 20)
