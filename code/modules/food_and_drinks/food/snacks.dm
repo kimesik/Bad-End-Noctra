@@ -157,7 +157,7 @@ All foods are distributed among various categories. Use common sense.
 				// Each 10 degrees above room temp increases rot rate by 20%
 				temp_modifier = 1.0 + ((turf_temp - 20) / 10) * 0.2
 				temp_modifier = min(temp_modifier, 3.0) // Cap at 3x speed
-		if(!istype(loc, /obj/structure/closet/crate/chest) && ! istype(loc, /obj/item/cooking/platter)  && !istype(loc, /obj/structure/roguemachine/vendor) && !istype (loc, /obj/item/storage/backpack/rogue/artibackpack)&& !istype (loc, /obj/structure/table/cooling))
+		if(!istype(loc, /obj/structure/closet/crate/chest) && !istype(loc, /obj/item/plate) && !istype(loc, /obj/structure/fake_machine/vendor) && !istype(loc, /obj/item/storage/backpack/backpack/artibackpack))
 			if(!locate(/obj/structure/table) in loc)
 				warming -= 20 //ssobj processing has a wait of 20
 			else
@@ -192,7 +192,7 @@ All foods are distributed among various categories. Use common sense.
 		modified = TRUE
 		rot_away_timer = QDEL_IN_STOPPABLE(src, 10 MINUTES)
 		record_round_statistic(STATS_FOOD_ROTTED)
-		if(istype(src.loc, /obj/item/cooking/platter/))
+		if(istype(src.loc, /obj/item/plate))
 			src.loc.update_icon()
 		return TRUE
 	if(!ismob(loc) && loc)
@@ -546,36 +546,12 @@ All foods are distributed among various categories. Use common sense.
 			return 1*/
 	..()
 //Called when you finish tablecrafting a snack.
-/obj/item/reagent_containers/food/snacks/CheckParts(list/parts_list, datum/crafting_recipe/food/R)
+/obj/item/reagent_containers/food/snacks/CheckParts(list/parts_list)
 	..()
 //	reagents.clear_reagents()
 	for(var/obj/item/reagent_containers/RC in contents)
 		RC.reagents.trans_to(reagents, RC.reagents.maximum_volume)
-	if(istype(R))
-		contents_loop:
-			for(var/A in contents)
-				for(var/B in R.real_parts)
-					if(istype(A, B))
-						continue contents_loop
-				qdel(A)
 	SSblackbox.record_feedback("tally", "food_made", 1, type)
-
-	if(W.get_sharpness() && W.wlength == WLENGTH_SHORT)
-		if((slices_num <= 0 || !slices_num) || !slice_path) //is the food sliceable?
-			return FALSE
-		if(slice_bclass == BCLASS_CHOP)
-			user.visible_message("<span class='notice'>[user] chops [src]!</span>")
-			slice(W, user)
-			user.nobles_seen_servant_work()
-			return TRUE
-		if(slice_bclass == BCLASS_CUT)
-			user.visible_message("<span class='notice'>[user] slices [src]!</span>")
-			slice(W, user)
-			user.nobles_seen_servant_work()
-			return TRUE
-		else if(slice(W, user))
-			user.nobles_seen_servant_work()
-			return TRUE
 
 /obj/item/reagent_containers/food/snacks/proc/slice(obj/item/W, mob/user)
 	if((slices_num <= 0 || !slices_num) || !slice_path) //is the food sliceable?
