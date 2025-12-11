@@ -2755,6 +2755,7 @@
 #include "code\modules\jobs\job_types\apprentices\bapprentice.dm"
 #include "code\modules\jobs\job_types\apprentices\clinicapprentice.dm"
 #include "code\modules\jobs\job_types\apprentices\prince.dm"
+#include "code\modules\jobs\job_types\apprentices\courtesan.dm"
 #include "code\modules\jobs\job_types\apprentices\servant.dm"
 #include "code\modules\jobs\job_types\apprentices\shophand.dm"
 #include "code\modules\jobs\job_types\apprentices\squire.dm"
