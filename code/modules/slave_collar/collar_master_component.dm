@@ -124,6 +124,21 @@ GLOBAL_LIST_EMPTY(collar_masters)
 		// Relay the full hearing payload so the master hears what the pet hears.
 		mindparent.current.Hear(arglist(hearing_args))
 
+/datum/component/collar_master/proc/log_collar_action(mob/living/actor, action, list/pets, extra_text)
+	if(!actor || !mindparent)
+		return
+	var/list/pet_names = list()
+	for(var/mob/living/carbon/human/P as anything in pets)
+		if(P)
+			pet_names += key_name(P, TRUE)
+	var/pet_blob = pet_names.len ? pet_names.Join(", ") : "none"
+	var/msg = "[key_name(actor, TRUE)] used collar command '[action]' on [pet_blob]"
+	if(extra_text)
+		msg += " ([extra_text])"
+	msg += "."
+	log_admin(msg)
+	message_admins(span_adminnotice(msg))
+
 /datum/component/collar_master/proc/force_surrender(mob/living/carbon/human/pet)
 	if(!pet || !(pet in my_pets))
 		return FALSE
@@ -195,7 +210,7 @@ GLOBAL_LIST_EMPTY(collar_masters)
 	if(!islist(pet.faction))
 		pet.faction = list()
 	pet.faction |= "[REF(mindparent.current)]"
-	pet.apply_status_effect(/datum/status_effect/in_love, mindparent.current)
+	pet.apply_status_effect(/datum/status_effect/in_love, null, mindparent.current)
 	to_chat(pet, span_love("Overwhelming adoration for [mindparent.current] floods your mind."))
 	to_chat(mindparent.current, span_notice("[pet] is bound to you by the collar's twisted affection."))
 	return TRUE

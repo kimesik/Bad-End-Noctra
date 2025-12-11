@@ -16,7 +16,6 @@
 #define SPEC_ID_TRITON "triton"
 #define SPEC_ID_MEDICATOR "medicator"
 #define SPEC_ID_OGRE "ogre"
-
 #define SPEC_ID_ORC	"orc"
 #define SPEC_ID_GOBLIN	"goblin"
 #define SPEC_ID_ROUSMAN	"rousman"
@@ -64,6 +63,7 @@
 	SPEC_ID_ZIZOMBIE,\
 	SPEC_ID_HUMAN_SPACE,\
 	SPEC_ID_OGRE,\
+	SPEC_ID_SEELIE,\
 )
 
 /// Species where males get underwear, identical to above, elves handled seperately
@@ -102,6 +102,7 @@
 	SPEC_ID_KOBOLD,\
 	SPEC_ID_HOLLOWKIN,\
 	SPEC_ID_HALF_ORC,\
+	SPEC_ID_SEELIE,\
 )
 
 /// Species not considered discriminated against in Vanderlin. Used for nobility, etc.
