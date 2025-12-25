@@ -76,6 +76,12 @@
 /obj/structure/chair/bench/couchablack/r
 	icon_state = "couchablackaright"
 
+/obj/structure/chair/bench/couchamagenta
+	icon_state = "couchamagentaleft"
+
+/obj/structure/chair/bench/couchamagenta/r
+	icon_state = "couchamagentaright"
+
 /obj/structure/chair/bench/throne
 	name = "small throne"
 	icon_state = "thronechair"
@@ -162,12 +168,13 @@
 			if(isturf(loc))
 				var/movefrom = get_dir(M.loc, loc)
 				if(movefrom == dir && item_chair != null)
-					playsound(loc, 'sound/foley/chairfall.ogg', 100, FALSE)
-					var/obj/item/I = new item_chair(loc)
-					item_chair = null
-					I.dir = dir
-					qdel(src)
-					return FALSE
+					if(M.cmode) //RHM edit: chairs fall down only on combat mode
+						playsound(loc, 'sound/foley/chairfall.ogg', 100, FALSE)
+						var/obj/item/I = new item_chair(loc)
+						item_chair = null
+						I.dir = dir
+						qdel(src)
+						return FALSE
 
 /obj/structure/chair/wood/alt/onkick(mob/user)
 	if(!user)
@@ -188,12 +195,13 @@
 	if(M.body_position == LYING_DOWN)
 		return
 	if(get_dir(leaving.loc, new_location) == REVERSE_DIR(dir))
-		playsound(loc, 'sound/foley/chairfall.ogg', 100, FALSE)
-		var/obj/item/I = new item_chair(loc)
-		item_chair = null
-		I.dir = dir
-		qdel(src)
-		return COMPONENT_ATOM_BLOCK_EXIT
+		if(M.cmode) //RHM edit: chairs fall down only on combat mode
+			playsound(loc, 'sound/foley/chairfall.ogg', 100, FALSE)
+			var/obj/item/I = new item_chair(loc)
+			item_chair = null
+			I.dir = dir
+			qdel(src)
+			return COMPONENT_ATOM_BLOCK_EXIT
 
 /obj/structure/chair/wood/alt/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1)
 	if(damage_amount > 5 && item_chair != null)
@@ -220,6 +228,12 @@
 /obj/structure/chair/wood/alt/post_unbuckle_mob(mob/living/M)
 	..()
 	density = FALSE
+
+/obj/structure/chair/wood/alt/fancy/chair4
+	icon_state = "chair_green"
+
+/obj/structure/chair/wood/alt/fancy/chair5
+	icon_state = "chair_purple"
 
 /obj/item/chair/stool/bar
 	name = "barstool"

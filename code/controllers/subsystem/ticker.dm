@@ -45,7 +45,10 @@ SUBSYSTEM_DEF(ticker)
 	//576000 dusk
 	//376000 day
 	var/gametime_offset = 288001		//Deciseconds to add to world.time for station time.
-	var/station_time_rate_multiplier = 40		//factor of station time progressal vs real time.
+	var/station_time_rate_multiplier = 12.5		//factor of station time progressal vs real time.
+	var/time_until_vote = 135 MINUTES
+	var/last_vote_time = null
+	var/firstvote = TRUE
 
 	var/totalPlayers = 0					//used for pregame stats on statpanel
 	var/totalPlayersReady = 0				//used for pregame stats on statpanel
@@ -160,7 +163,7 @@ SUBSYSTEM_DEF(ticker)
 	else
 		login_music = "[global.config.directory]/title_music/sounds/[pick(music)]"
 
-	login_music = pick('sound/music/title.ogg','sound/music/title2.ogg','sound/music/title3.ogg')
+	login_music = pick('modular_rmh/sound/music/house_of_the_rising_sun.ogg','modular_rmh/sound/music/soldier_poet_king.ogg')
 
 	start_at = world.time + (CONFIG_GET(number/lobby_countdown) * 10)
 	if(CONFIG_GET(flag/randomize_shift_time))
@@ -232,7 +235,7 @@ SUBSYSTEM_DEF(ticker)
 			check_queue()
 			check_maprotate()
 
-			check_for_lord()
+			//check_for_lord()
 			if(!roundend_check_paused && SSgamemode.check_finished(force_ending) || force_ending)
 				SSgamemode.refresh_alive_stats()
 				current_state = GAME_STATE_FINISHED
@@ -240,8 +243,6 @@ SUBSYSTEM_DEF(ticker)
 				toggle_dooc(TRUE)
 				declare_completion(force_ending)
 				Master.SetRunLevel(RUNLEVEL_POSTGAME)
-			if(SSgamemode.roundvoteend)
-				return
 
 /datum/controller/subsystem/ticker/proc/readying_update_scale_job()
 
@@ -287,11 +288,11 @@ SUBSYSTEM_DEF(ticker)
 
 /datum/controller/subsystem/ticker/proc/checkreqroles()
 	var/list/readied_jobs = list()
-	var/list/required_jobs = list("Monarch")
-#ifdef TESTING
+	var/list/required_jobs = list()//list("Monarch")
+/*#ifdef TESTING
 	required_jobs = list()
 	readied_jobs = list("Monarch")
-#endif
+#endif*/
 	for(var/V in required_jobs)
 		for(var/mob/dead/new_player/player in GLOB.player_list)
 			if(!player || !player.client)
@@ -305,10 +306,10 @@ SUBSYSTEM_DEF(ticker)
 							continue
 					readied_jobs.Add(V)
 
-	if(CONFIG_GET(flag/ruler_required))
+	/*if(CONFIG_GET(flag/ruler_required))
 		if(!(("Monarch" in readied_jobs) || (start_immediately == TRUE))) //start_immediately triggers when the world is doing a test run or an admin hits start now, we don't need to check for king
 			to_chat(world, span_purple("[pick(no_ruler_lines)]"))
-			return FALSE
+			return FALSE*/
 
 	job_change_locked = TRUE
 	return TRUE
@@ -459,6 +460,8 @@ SUBSYSTEM_DEF(ticker)
 			CHECK_TICK
 			continue
 		var/mob/living/carbon/human/new_player_living = new_player_mob.new_character
+		if(ishuman(new_player_living))
+			SSquirks.AssignQuirks(new_player_living, new_player_mob.client, TRUE)
 		if(!new_player_living.mind || is_unassigned_job(new_player_living.mind.assigned_role))
 			CHECK_TICK
 			continue

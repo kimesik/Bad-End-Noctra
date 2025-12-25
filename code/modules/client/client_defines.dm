@@ -148,3 +148,6 @@
 	var/list/real_like_cooldowns  = list()
 	/// Total Real likes received in a round - For Mentor
 	var/real_likes_received  = 0
+
+	var/datum/mind/saved_mind_by_direct_control
+	var/mob/saved_mind_mob_ref

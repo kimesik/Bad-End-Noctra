@@ -318,6 +318,15 @@
 #define OFFSET_ARMOR "wear_armor"
 #define OFFSET_UNDIES "underwear"
 
+/* Noctra edit BEGIN */
+#define OFFSET_PENIS "penis"
+#define OFFSET_BREASTS "breasts"
+#define OFFSET_TESTICLES "testicles"
+#define OFFSET_VAGINA "vagina"
+#define OFFSET_BELLY "belly"
+#define OFFSET_BUTT "butt"
+/* Noctra edit END */
+
 #define HUNGER_FACTOR		0.15	//factor at which mob nutrition decreases
 #define	HYGIENE_FACTOR  	0.05  //factor at which hygiene decreases
 #define ETHEREAL_CHARGE_FACTOR	0.12 //factor at which ethereal's charge decreases
@@ -336,6 +345,10 @@
 
 #define PULL_PRONE_SLOWDOWN 2
 #define HUMAN_CARRY_SLOWDOWN 0
+
+// Roundstart trait system
+
+#define MAX_QUIRKS 8 //The maximum amount of quirks one character can have at roundstart
 
 //Flags that control what things can spawn species (whitelist)
 //Wabbacjack staff projectiles

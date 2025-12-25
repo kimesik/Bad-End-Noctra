@@ -77,8 +77,8 @@ GLOBAL_LIST_INIT(roleplay_readme, world.file2list("strings/rt/Lore_Primer.txt"))
 			"charflaw" = client.prefs.charflaw,
 			"skin_tone" = client.prefs.skin_tone,
 			"eye_color" = client.prefs.eye_color,
-			"underwear" = client.prefs.underwear,
-			"undershirt" = client.prefs.undershirt,
+			//"underwear" = client.prefs.underwear,
+			//"undershirt" = client.prefs.undershirt,
 			"socks" = client.prefs.socks,
 			"pronouns" = client.prefs.pronouns,
 			"voice_type" = client.prefs.voice_type,
@@ -111,8 +111,8 @@ GLOBAL_LIST_INIT(roleplay_readme, world.file2list("strings/rt/Lore_Primer.txt"))
 	P.charflaw = char_data["charflaw"]
 	P.skin_tone = char_data["skin_tone"]
 	P.eye_color = char_data["eye_color"]
-	P.underwear = char_data["underwear"]
-	P.undershirt = char_data["undershirt"]
+	//P.underwear = char_data["underwear"]
+	//P.undershirt = char_data["undershirt"]
 	P.socks = char_data["socks"]
 	P.pronouns = char_data["pronouns"]
 	P.voice_type = char_data["voice_type"]
@@ -441,6 +441,7 @@ GLOBAL_LIST_INIT(roleplay_readme, world.file2list("strings/rt/Lore_Primer.txt"))
 	GLOB.joined_player_list += character.ckey
 	GLOB.respawncounts[character.ckey] += 1
 
+	SSquirks.AssignQuirks(humanc, humanc.client, TRUE)
 	if(humanc)
 		try_apply_character_post_equipment(humanc)
 

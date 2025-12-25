@@ -76,6 +76,15 @@
 	damage_deflection = 10
 	hardness = 2
 
+/turf/closed/wall/mineral/decostone/long
+	icon_state = "stone_deco-3"
+
+/turf/closed/wall/mineral/decostone/long/east_west
+	dir = 1
+
+/turf/closed/wall/mineral/decostone/end
+	icon_state = "decostone-2"
+
 /turf/closed/wall/mineral/decorstone/window
 	name = "stone murder hole"
 	desc = "A wall of decorated stone with convenient small indents on it, perfect to let loose arrows against invaders."
@@ -431,6 +440,17 @@
 	climbdiff = 1
 	damage_deflection = 20
 	hardness = 10
+
+/turf/closed/wall/mineral/pipe/line
+	icon_state = "pipe-3"
+	smoothing_flags = SMOOTH_BITMASK
+
+/turf/closed/wall/mineral/pipe/joint
+	icon_state = "pipe-7"
+	smoothing_flags = SMOOTH_BITMASK
+
+/turf/closed/wall/mineral/pipe/joint/four
+	icon_state = "pipe-11"
 
 /turf/closed/wall/mineral/underbrick
 	name = "erebus stone wall"

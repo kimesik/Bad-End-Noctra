@@ -249,6 +249,25 @@
 		for(var/atom/movable/screen/scannies/S in screen)
 			S.alpha = 70
 
+/client/verb/anonymize()
+	set category = "Options"
+	set name = "Anonymize"
+
+	if(prefs.anonymize == TRUE)
+		if(alert(src, "Disable Anonymize? (Not Recommended)", "Rivermist Hollow", "YES", "NO") == "YES")
+			prefs.anonymize = FALSE
+			prefs.save_preferences()
+			to_chat(src, "No longer anonymous.")
+			GLOB.anonymize -= ckey
+	else
+		if(alert(src, "Enable Anonymize? This will hide your BYOND name from anyone except \
+		Dungeon Masters while playing here, useful for dealing with negative OOC bias or \
+		maintaining privacy from other BYOND users.", "Rivermist Hollow", "YES", "NO") == "YES")
+			prefs.anonymize = TRUE
+			prefs.save_preferences()
+			to_chat(src, "Anonymous... OK")
+			GLOB.anonymize |= ckey
+
 /client/verb/ui_scaling()
 	set name = "UI Scaling"
 	set category = "Options"
@@ -305,6 +324,6 @@
 	var/list/dat = list()
 	dat += GLOB.roleplay_readme
 	if(dat)
-		var/datum/browser/popup = new(usr, "Primer", "VANDERLIN", 650, 900)
+		var/datum/browser/popup = new(usr, "Primer", "Rivermist Hollow", 650, 900)
 		popup.set_content(dat.Join())
 		popup.open()

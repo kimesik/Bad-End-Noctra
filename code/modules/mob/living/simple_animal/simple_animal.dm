@@ -909,7 +909,7 @@ GLOBAL_VAR_INIT(farm_animals, FALSE)
 /mob/living/simple_animal/proc/poop()
 	if(pooptype)
 		if(isturf(loc))
-			playsound(src, "fart", 50, TRUE)
+			//playsound(src, "fart", 50, TRUE)
 			new pooptype(loc)
 
 /mob/living/simple_animal/proc/handle_habitation(obj/structure/home)

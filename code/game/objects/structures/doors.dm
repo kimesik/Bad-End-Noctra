@@ -55,6 +55,8 @@
 	var/has_bolt = FALSE
 	/// Handle viewport toggle on right click
 	var/has_viewport = FALSE
+	/// Track the last mob that bumped the door for auto-re-locking
+	var/datum/weakref/last_bumper = null
 
 /obj/structure/door/Initialize()
 	. = ..()
@@ -248,6 +250,15 @@
 				user.visible_message(span_warning("The deadite smashes through [src]!"))
 			return
 		if(locked())
+			var/obj/item/held = user.get_active_held_item()
+			if(held?.has_access())
+				user.visible_message(
+					span_warning("[user] fumbles with \the [held]..."),
+					span_notice("I fumble with my \the [held]...")
+				)
+				if(do_after(user, 0.5 SECONDS, src))
+					bump_unlock(user, held)
+					return
 			rattle()
 			return
 		if(TryToSwitchState(AM))
@@ -258,6 +269,14 @@
 					addtimer(CALLBACK(src, PROC_REF(Close), TRUE), delay)
 				else
 					addtimer(CALLBACK(src, PROC_REF(Close), FALSE), delay)
+
+/obj/structure/door/proc/bump_unlock(mob/user, obj/item/key)
+	if(!key)
+		return
+	last_bumper = WEAKREF(user)
+	attackby(key, user)
+	if(!locked())
+		Open()
 
 /obj/structure/door/CanAStarPass(ID, to_dir, datum/requester)
 	. = ..()

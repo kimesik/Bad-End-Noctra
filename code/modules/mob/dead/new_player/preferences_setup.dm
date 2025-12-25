@@ -1,8 +1,8 @@
 /// Randomizes our character preferences according to enabled bitflags.
 // Reflect changes in [mob/living/carbon/human/proc/randomize_human_appearance]
-/datum/preferences/proc/randomise_appearance_prefs(randomise_flags = ALL, include_donator = FALSE)
+/datum/preferences/proc/randomise_appearance_prefs(randomise_flags = ALL)
 	if(randomise_flags & RANDOMIZE_SPECIES)
-		var/rando_race = GLOB.species_list[pick(get_selectable_species(include_donator))]
+		var/rando_race = GLOB.species_list[pick(get_selectable_species())]
 		pref_species = new rando_race()
 
 	if(NOEYESPRITES in pref_species.species_traits)
@@ -50,8 +50,8 @@
 	if(randomise_flags & RANDOMIZE_NAME)
 		real_name = pref_species.random_name(gender, TRUE)
 
-	if(randomise_flags & RANDOMIZE_UNDERWEAR)
-		underwear = pref_species.random_underwear(gender)
+	//if(randomise_flags & RANDOMIZE_UNDERWEAR)
+	//	underwear = pref_species.random_underwear(gender)
 
 	if(randomise_flags & (RANDOMIZE_HAIRSTYLE | RANDOMIZE_HAIR_COLOR))
 		var/datum/customizer_entry/hair/entry = get_customizer_entry_of_type(/datum/customizer_entry/hair/head)
@@ -103,12 +103,12 @@
 	if(randomise[RANDOM_NAME] || antag_override && randomise[RANDOM_NAME_ANTAG])
 		real_name = pref_species.random_name(gender, TRUE)
 
-	if(randomise[RANDOM_UNDERWEAR_COLOR])
-		underwear_color = random_short_color()
-	if(randomise[RANDOM_UNDERSHIRT])
-		undershirt = random_undershirt(gender)
-	if(randomise[RANDOM_UNDERWEAR])
-		underwear = pref_species.random_underwear(gender)
+	//if(randomise[RANDOM_UNDERWEAR_COLOR])
+	//	underwear_color = random_short_color()
+	//if(randomise[RANDOM_UNDERSHIRT])
+	//	undershirt = random_undershirt(gender)
+	//if(randomise[RANDOM_UNDERWEAR])
+	//	underwear = pref_species.random_underwear(gender)
 	if(randomise[RANDOM_SKIN_TONE])
 		var/list/skins = pref_species.get_skin_list()
 		skin_tone = pick_assoc(skins)
@@ -119,9 +119,10 @@
 	if(pref_species.default_features["ears"])
 		features["ears"] = pref_species.default_features["ears"]
 	accessory = "Nothing"
+	body_markings = pref_species.get_random_body_markings(features)
 
 /datum/preferences/proc/random_species()
-	var/random_species_type = GLOB.species_list[pick(get_selectable_species(donator))]
+	var/random_species_type = GLOB.species_list[pick(get_selectable_species())]
 	pref_species = new random_species_type
 	if(randomise[RANDOM_NAME])
 		real_name = pref_species.random_name(gender, TRUE)
@@ -151,6 +152,6 @@
 
 
 /datum/preferences/proc/spec_check()
-	if(!(pref_species.name in get_selectable_species(donator)))
+	if(!(pref_species.name in get_selectable_species()))
 		return FALSE
 	return TRUE

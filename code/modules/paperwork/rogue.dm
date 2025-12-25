@@ -57,7 +57,7 @@
 	if(old_render)
 		user << browse_rsc('html/book.png')
 		var/dat = {"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3.org/TR/html4/loose.dtd\">
-		<html><head><style type=\"text/css\">
+		<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><style type=\"text/css\">
 		body { background-image:url('book.png');background-repeat: repeat; }</style></head><body scroll=yes>"}
 		dat += "[info]<br>"
 		dat += "<a href='?src=[REF(src)];close=1' style='position:absolute;right:50px'>Close</a>"
@@ -226,7 +226,8 @@
 /obj/item/paper/inqslip/read(mob/user)
 	if(!user.client || !user.hud_used)
 		return
-	if(!user.hud_used.reads)
+	if(waxed)
+		to_chat(user, span_notice("It's been sealed. It's ready to send back to the Oratorium."))
 		return
 	if(!user.can_read(src))
 		return

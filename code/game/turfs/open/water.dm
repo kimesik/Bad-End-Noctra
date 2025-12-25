@@ -817,7 +817,7 @@
 	slowdown = 4
 	swim_skill = TRUE
 	wash_in = TRUE
-	fishing_datum = /datum/fish_source/ocean/deep
+	water_reagent = /datum/reagent/water
 
 /datum/reagent/water/salty
 	taste_description = "salt"

@@ -15,6 +15,7 @@
 #define CLOTH 		(1<<14)
 #define MUSHROOM    (1<<15)
 
+
 #define FOOD_FLAGS_IC list( \
 	"Meat", \
 	"Vegetables", \

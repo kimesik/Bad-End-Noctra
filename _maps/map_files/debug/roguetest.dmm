@@ -1123,6 +1123,11 @@
 /obj/structure/flora/grass/herb/symphitum,
 /turf/open/floor/grass/yel,
 /area/outdoors)
+"es" = (
+/obj/structure/carpet/purple,
+/obj/structure/resurrection_rune,
+/turf/open/floor/blocks,
+/area/indoors/town/manor)
 "ew" = (
 /obj/structure/hotspring/border/thirteen,
 /turf/open/floor/dirt/road,
@@ -1661,6 +1666,11 @@
 /obj/machinery/essence/splitter,
 /obj/structure/table/vtable,
 /turf/open/floor/wood,
+/area/indoors/town/manor)
+"oq" = (
+/obj/structure/carpet/purple,
+/obj/structure/resurrection_rune/control,
+/turf/open/floor/blocks,
 /area/indoors/town/manor)
 "ou" = (
 /turf/closed/wall/mineral/decorstone,
@@ -21831,7 +21841,7 @@ WL
 WP
 lf
 ET
-pW
+oq
 ET
 Ar
 WL
@@ -23887,7 +23897,7 @@ WL
 gE
 lf
 ET
-pW
+es
 ET
 Ar
 WL

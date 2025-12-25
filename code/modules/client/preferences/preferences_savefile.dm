@@ -57,9 +57,9 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 			var/new_value
 			if(new_value)
 				job_preferences[initial(J.title)] = new_value
-	if(current_version < 24)
-		if (!(underwear in GLOB.underwear_list))
-			underwear = "Nude"
+	//if(current_version < 24)
+	//	if (!(underwear in GLOB.underwear_list))
+	//		underwear = "Nude"
 	if(current_version < 25)
 		randomise = list(RANDOM_UNDERWEAR = TRUE, RANDOM_UNDERWEAR_COLOR = TRUE, RANDOM_UNDERSHIRT = TRUE, RANDOM_SKIN_TONE = TRUE, RANDOM_EYE_COLOR = TRUE)
 		if(S["name_is_always_random"] == 1)
@@ -278,11 +278,11 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	validate_loadouts()
 
 /datum/preferences/proc/validate_loadouts()
-	if(!parent.patreon.has_access(ACCESS_ASSISTANT_RANK) && !parent.twitch.has_access(ACCESS_TWITCH_SUB_TIER_1))
+	/*if(!parent.patreon.has_access(ACCESS_ASSISTANT_RANK) && !parent.twitch.has_access(ACCESS_TWITCH_SUB_TIER_1))
 		loadout1 = null
 		loadout2 = null
 		loadout3 = null
-		return FALSE
+		return FALSE*/
 
 	for(var/i in 1 to 3)
 		if(!(vars["loadout[i]"] in GLOB.loadout_items)) // bite me
@@ -305,7 +305,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	S["eye_color"] >> eye_color
 	S["voice_color"] >> voice_color
 	S["skin_tone"] >> skin_tone
-	S["underwear"] >> underwear
+	//S["underwear"] >> underwear
 	S["accessory"] >> accessory
 	S["detail"] >> detail
 	S["randomise"] >> randomise
@@ -313,11 +313,12 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	S["gender_choice"] >> gender_choice
 	S["setspouse"] >> setspouse
 	S["selected_accent"] >> selected_accent
+	S["moan_selection"]	>> moan_selection //RMH edit
 
 	// We load our list, but override everything to FALSE to stop a "tainted" save from making it random again.
 	randomise[RANDOM_BODY] = FALSE
 	randomise[RANDOM_BODY_ANTAG] = FALSE
-	randomise[RANDOM_UNDERWEAR] = FALSE
+	//randomise[RANDOM_UNDERWEAR] = FALSE
 	randomise[RANDOM_SKIN_TONE] = FALSE
 	randomise[RANDOM_EYE_COLOR] = FALSE
 
@@ -373,6 +374,9 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	//Load prefs
 	S["job_preferences"] >> job_preferences
 
+	//Quirks
+	S["all_quirks"] >> all_quirks
+
 	//Load headshot link
 	S["headshot_link"]			>> headshot_link
 	if(!is_valid_headshot_link(null, headshot_link, TRUE))
@@ -380,9 +384,13 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 
 	S["pronouns"] >> pronouns
 	S["voice_type"] >> voice_type
+	S["moan_selection"]	>> moan_selection 	//RMH edit
 
 	//Load flavor text
 	S["flavortext"] >> flavortext
+	S["nsfw_headshot_link"]		>> nsfw_headshot_link
+	if(!is_valid_nsfw_headshot_link(null, nsfw_headshot_link, TRUE))
+		nsfw_headshot_link = null
 	S["flavortext_display"]	>> flavortext_display
 	S["ooc_notes"]			>> ooc_notes
 	S["ooc_notes_display"]	>> ooc_notes_display
@@ -413,6 +421,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	voice_color = voice_color
 	pronouns = sanitize_text(pronouns, THEY_THEM)
 	voice_type = sanitize_text(voice_type, VOICE_TYPE_MASC)
+	moan_selection = sanitize_text(moan_selection, MOANPACK_TYPE_DEF)	//RMH edit
 	skin_tone = skin_tone
 	family = family
 	gender_choice = gender_choice
@@ -428,6 +437,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	descriptor_entries = SANITIZE_LIST(descriptor_entries)
 	S["custom_descriptors"] >> custom_descriptors
 	custom_descriptors = SANITIZE_LIST(custom_descriptors)
+	current_slot = slot
 
 	validate_descriptors()
 
@@ -438,8 +448,12 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 		if(job_preferences[j] != JP_LOW && job_preferences[j] != JP_MEDIUM && job_preferences[j] != JP_HIGH)
 			job_preferences -= j
 
+	all_quirks = SANITIZE_LIST(all_quirks)
+
 	S["customizer_entries"] >> customizer_entries
 	validate_customizer_entries()
+
+	load_erp_preferences(S)
 
 	return TRUE
 
@@ -462,15 +476,16 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	WRITE_FILE(S["eye_color"]			, eye_color)
 	WRITE_FILE(S["voice_color"]			, voice_color)
 	WRITE_FILE(S["skin_tone"]			, skin_tone)
-	WRITE_FILE(S["underwear"]			, underwear)
-	WRITE_FILE(S["underwear_color"]		, underwear_color)
-	WRITE_FILE(S["undershirt"]			, undershirt)
+	//WRITE_FILE(S["underwear"]			, underwear)
+	//WRITE_FILE(S["underwear_color"]		, underwear_color)
+	//WRITE_FILE(S["undershirt"]			, undershirt)
 	WRITE_FILE(S["accessory"]			, accessory)
 	WRITE_FILE(S["detail"]				, detail)
-	WRITE_FILE(S["socks"]				, socks)
+	//WRITE_FILE(S["socks"]				, socks)
 	WRITE_FILE(S["randomise"]		, randomise)
 	WRITE_FILE(S["pronouns"]		, pronouns)
 	WRITE_FILE(S["voice_type"]		, voice_type)
+	WRITE_FILE(S["moan_selection"] , moan_selection)	//RMH edit
 	WRITE_FILE(S["species"]			, pref_species.name)
 	WRITE_FILE(S["charflaw"]			, charflaw.type)
 	WRITE_FILE(S["loadout1"]		, loadout1)
@@ -493,6 +508,9 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	//Write prefs
 	WRITE_FILE(S["job_preferences"] , job_preferences)
 
+	//Quirks
+	WRITE_FILE(S["all_quirks"]			, all_quirks)
+
 	//Patron
 	WRITE_FILE(S["selected_patron"]		, selected_patron.type)
 
@@ -502,6 +520,8 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	WRITE_FILE(S["body_markings"] , body_markings)
 	// headshot link
 	WRITE_FILE(S["headshot_link"] , headshot_link)
+	// nsfw headshot link
+	WRITE_FILE(S["nsfw_headshot_link"] , nsfw_headshot_link)
 	// flavor text
 	WRITE_FILE(S["flavortext"] , html_decode(flavortext))
 	WRITE_FILE(S["flavortext_display"], flavortext_display)
@@ -512,6 +532,8 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	// Descriptor entries
 	WRITE_FILE(S["descriptor_entries"] , descriptor_entries)
 	WRITE_FILE(S["custom_descriptors"] , custom_descriptors)
+
+	save_erp_preferences(S)
 
 	return TRUE
 

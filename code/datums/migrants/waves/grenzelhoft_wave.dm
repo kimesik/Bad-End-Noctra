@@ -55,7 +55,7 @@
 	species.accent_language = species.get_accent(species.native_language)
 
 /datum/outfit/grenzelhoft_count
-	name = "Grenzelhoft Count (Migrant Wave)"
+	name = "Grenzelhoft Count"
 	shoes = /obj/item/clothing/shoes/rare/grenzelhoft
 	gloves = /obj/item/clothing/gloves/angle/grenzel
 	wrists = /obj/item/clothing/neck/psycross/g
@@ -127,7 +127,7 @@
 	species.accent_language = species.get_accent(species.native_language)
 
 /datum/outfit/grenzelhoft_countess
-	name = "Grenzelhoft Countess (Migrant Wave)"
+	name = "Grenzelhoft Countess"
 	shoes = /obj/item/clothing/shoes/rare/grenzelhoft
 	gloves = /obj/item/clothing/gloves/angle/grenzel
 	wrists = /obj/item/clothing/neck/psycross/g
@@ -155,7 +155,7 @@
 	allowed_sexes = list(MALE)
 	allowed_races = RACES_PLAYER_GRENZ
 	is_recognized = TRUE
-	exp_types_granted  = list(EXP_TYPE_COMBAT)
+
 	jobstats = list(
 		STATKEY_STR = 2,
 		STATKEY_END = 2,
@@ -193,7 +193,7 @@
 	species.accent_language = species.get_accent(species.native_language)
 
 /datum/outfit/grenzelhoft_knight
-	name = "Grenzelhoft Knight (Migrant Wave)"
+	name = "Grenzelhoft Knight"
 	pants = /obj/item/clothing/pants/tights/colored/black
 	backr = /obj/item/weapon/sword/long/greatsword/flamberge
 	beltl = /obj/item/storage/belt/pouch/coins/mid
@@ -217,7 +217,7 @@
 	tutorial = "You and your fellows are men at arms from Grenzelhoft, following your count with pride. Obey the count and make sure the nobles you arrived with survive."
 	outfit = /datum/outfit/grenzelhoft_man_at_arms
 	allowed_races = RACES_PLAYER_GRENZ
-	exp_types_granted  = list(EXP_TYPE_COMBAT)
+
 	jobstats = list(
 		STATKEY_STR = 2,
 		STATKEY_END = 1,
@@ -242,9 +242,9 @@
 
 /datum/job/migrant/grenzelhoft_man_at_arms/after_spawn(mob/living/carbon/human/spawned, client/player_client)
 	. = ..()
-	spawned.adjust_skillrank(/datum/skill/combat/whipsflails, pick(1, 1, 2), TRUE)
-	spawned.adjust_skillrank(/datum/skill/combat/axesmaces, pick(2, 3), TRUE)
-	spawned.adjust_skillrank(/datum/skill/combat/shields, pick(0, 0, 1), TRUE)
+	spawned.adjust_skillrank(/datum/skill/combat/whipsflails, pick(1, 1, 2))
+	spawned.adjust_skillrank(/datum/skill/combat/axesmaces, pick(2, 3))
+	spawned.adjust_skillrank(/datum/skill/combat/shields, pick(0, 0, 1))
 
 	if(!spawned.dna?.species)
 		return
@@ -253,7 +253,7 @@
 	species.accent_language = species.get_accent(species.native_language)
 
 /datum/outfit/grenzelhoft_man_at_arms
-	name = "Grenzelhoft Man-at-Arms (Migrant Wave)"
+	name = "Grenzelhoft Man-at-Arms"
 	beltr = /obj/item/storage/belt/pouch/coins/poor
 	neck = /obj/item/clothing/neck/chaincoif
 	pants = /obj/item/clothing/pants/grenzelpants
@@ -272,7 +272,6 @@
 
 	if(equipped_human.gender == FEMALE)
 		equipped_human.underwear = "Femleotard"
-		equipped_human.underwear_color = CLOTHING_SOOT_BLACK
 
 /datum/migrant_wave/grenzelhoft_visit
 	name = "The Grenzelhoft visit"

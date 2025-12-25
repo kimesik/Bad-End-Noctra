@@ -24,9 +24,14 @@
 		else
 			return "000"
 
-/proc/random_underwear(gender)
+/*/proc/random_underwear(gender)
 	if(!GLOB.underwear_list.len)
 		init_sprite_accessory_subtypes(/datum/sprite_accessory/underwear, GLOB.underwear_list, GLOB.underwear_m, GLOB.underwear_f)
+
+	. = "Nude"
+
+	if(prob(50))
+		return
 	switch(gender)
 		if(MALE)
 			return pick(GLOB.underwear_m)
@@ -34,6 +39,7 @@
 			return pick(GLOB.underwear_f)
 		else
 			return pick(GLOB.underwear_list)
+
 
 /proc/random_undershirt(gender)
 	if(!GLOB.undershirt_list.len)
@@ -44,7 +50,7 @@
 		if(FEMALE)
 			return pick(GLOB.undershirt_f)
 		else
-			return pick(GLOB.undershirt_list)
+			return pick(GLOB.undershirt_list)*/
 
 /// TO BE DELETED, INTEGRATE INTO SPECIES DATUM
 /proc/random_features()

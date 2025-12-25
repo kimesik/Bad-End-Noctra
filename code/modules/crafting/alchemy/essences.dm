@@ -6,7 +6,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	var/datum/thaumaturgical_essence/contained_essence = null
 	var/essence_amount = 0
-	var/max_essence = 10
+	var/max_essence = 60
 	var/extract_amount = 10 // Amount to try to extract when used
 	var/extract_index = 1
 

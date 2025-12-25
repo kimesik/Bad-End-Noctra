@@ -89,7 +89,7 @@
 /obj/structure/chair/stool
 	name = "stool"
 	desc = ""
-	icon_state = "stool"
+	icon_state = "barstool"
 	icon = 'icons/roguetown/misc/structure.dmi'
 	item_chair = /obj/item/chair/stool
 	max_integrity = 100

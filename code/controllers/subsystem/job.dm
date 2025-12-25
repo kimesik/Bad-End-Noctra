@@ -24,6 +24,9 @@ SUBSYSTEM_DEF(job)
 	var/list/experience_jobs_map = list()
 
 /datum/controller/subsystem/job/Initialize(timeofday)
+	/* Noctra procs BEGIN */
+	remove_younglings()
+	/* Noctra procs END */
 	if(!length(all_occupations))
 		SetupOccupations()
 	return ..()
@@ -42,7 +45,7 @@ SUBSYSTEM_DEF(job)
 		all_occupations += job
 		name_occupations[job.title] = job
 		type_occupations[job_type] = job
-		if(job.job_flags & JOB_NEW_PLAYER_JOINABLE)
+		if(job.job_flags & JOB_NEW_PLAYER_JOINABLE && (job.allowed_ages != list(AGE_CHILD)))
 			joinable_occupations += job
 
 		for(var/t in job.exp_types_granted)
@@ -51,6 +54,11 @@ SUBSYSTEM_DEF(job)
 			experience_jobs_map[t] += job
 	if(SSmapping.map_adjustment)
 		SSmapping.map_adjustment.job_change()
+
+	/* Noctra procs BEGIN */
+	remove_younglings()
+	/* Noctra procs END */
+
 	return TRUE
 
 /datum/controller/subsystem/job/proc/GetJob(rank)

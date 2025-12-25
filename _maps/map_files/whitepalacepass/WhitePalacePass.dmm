@@ -3381,7 +3381,8 @@
 	pixel_y = 5
 	},
 /obj/item/alch/herb/rosa{
-	pixel_x = 6
+	pixel_x = 6;
+	pixel_y = 0
 	},
 /obj/item/servant_bell/lord{
 	pixel_x = 4;
@@ -21242,7 +21243,8 @@
 	pixel_y = 11
 	},
 /obj/item/reagent_containers/glass/cup/glassware/wineglass{
-	pixel_x = -4
+	pixel_x = -4;
+	pixel_y = 0
 	},
 /obj/item/reagent_containers/glass/cup/glassware/wineglass{
 	pixel_x = 4;

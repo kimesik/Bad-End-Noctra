@@ -118,7 +118,7 @@
 	if(prob(75) && !dead)
 		dir = pick(GLOB.cardinals)
 		step(src, dir)
-		for(var/obj/item/reagent_containers/food/snacks/S in loc)
+		/*for(var/obj/item/reagent_containers/food/snacks/S in loc)
 			if(is_type_in_typecache(S, GLOB.RATS_DONT_EAT))
 				return
 			if(S != src)
@@ -130,7 +130,7 @@
 						new /mob/living/simple_animal/hostile/retaliate/bigrat(T)
 						dead = TRUE
 						qdel(src)
-						break
+						break*/
 
 
 

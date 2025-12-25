@@ -11,7 +11,6 @@
 	Sell your product to those who should imbibe - the poor, the downtrodden, the youth. Get them hooked; stay off of your \
 	own supply. You are Baotha's strongest spice-addict."
 	outfit = /datum/outfit/sweetshare
-	allowed_patrons = list(/datum/patron/inhumen/baotha)
 
 	jobstats = list(
 		STATKEY_SPD = 2,
@@ -47,7 +46,7 @@
 	spawned.name = "[honorary] [prev_name]"
 
 /datum/outfit/sweetshare
-	name = "Candyman (Migrant Wave)"
+	name = "Candyman"
 	shirt = /obj/item/clothing/shirt/undershirt/colored/black
 	mask = /obj/item/clothing/face/spectacles/sglasses
 	gloves = /obj/item/clothing/gloves/fingerless

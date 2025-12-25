@@ -36,8 +36,8 @@
 	legacy = TRUE
 	assets = list(
 		"PixelifySans-VariableFont_wght.ttf" = 'interface/fonts/PixelifySans-VariableFont_wght.ttf',
-		"pterra.ttf" = 'interface/fonts/pterra.ttf',
-		"pterra.ttf" = 'interface/fonts/pterra.ttf',
+		"Mookmania.otf" = 'interface/fonts/Mookmania.otf',
+		//"Mookmania.otf" = 'interface/fonts/Mookmania.otf',
 		"chiseld.ttf" = 'interface/fonts/chiseld.ttf',
 		"blackmoor.ttf" = 'interface/fonts/blackmoor.ttf',
 		"handwrite.ttf" = 'interface/fonts/handwrite.ttf',
@@ -46,15 +46,19 @@
 		"book3.ttf" = 'interface/fonts/book1.ttf',
 		"book4.ttf" = 'interface/fonts/book1.ttf',
 		"dwarf.ttf" = 'interface/fonts/languages/dwarf.ttf',
-		"elf.ttf" = 'interface/fonts/languages/elf.ttf',
+		"MarkScript-Regular.ttf" = 'interface/fonts/languages/MarkScript-Regular.ttf',
 		"oldpsydonic.ttf" = 'interface/fonts/languages/oldpsydonic.ttf',
 		"zalad.ttf" = 'interface/fonts/languages/zalad.ttf',
+		"Comforter Brush.otf" = 'interface/fonts/languages/Comforter Brush.otf',
+		"VizaviTYGRA.ttf" = 'interface/fonts/languages/VizaviTYGRA.ttf',
+		"Kamelia.ttf" = 'interface/fonts/languages/Kamelia.ttf',
+		"FDMedian.ttf" = 'interface/fonts/languages/FDMedian.ttf',
+		"Vaticanus.ttf" = 'interface/fonts/Vaticanus.ttf',
+		"otavan.ttf" = 'interface/fonts/languages/otavan.ttf',
 		"hell.ttf" = 'interface/fonts/languages/hell.ttf',
 		"orc.ttf" = 'interface/fonts/languages/orc.ttf',
 		"sand.ttf" = 'interface/fonts/languages/sand.ttf',
 		"undead.ttf" = 'interface/fonts/languages/undead.ttf',
-		"Vaticanus.ttf" = 'interface/fonts/Vaticanus.ttf',
-		"otavan.ttf" = 'interface/fonts/languages/otavan.ttf'
 	)
 
 //this exists purely to avoid meta by pre-loading all language icons.

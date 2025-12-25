@@ -37,7 +37,7 @@
 	cmode_music = 'sound/music/cmode/towner/CombatTowner2.ogg'
 
 /datum/outfit/ratcatcher
-	name = "Ratcatcher (Migrant Wave)"
+	name = "Ratcatcher"
 	r_hand = /obj/item/weapon/pitchfork
 	l_hand = /obj/item/flint
 	armor = /obj/item/clothing/armor/gambeson/light

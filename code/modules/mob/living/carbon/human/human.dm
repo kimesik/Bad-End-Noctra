@@ -127,6 +127,48 @@
 					return
 				if(istype(held_item, /obj/item/reagent_containers/food/snacks/fat) && user?.used_intent?.type == INTENT_USE && shoes_check.polished == 2)
 					to_chat(user, ("You can't possibily make it shine more."))
+	if(user == src)
+		if(get_num_arms(FALSE) < 1)
+			return
+		if(user.zone_selected == BODY_ZONE_PRECISE_GROIN)
+			if(!underwear)
+				return
+			var/under_clothes = get_location_accessible(src, BODY_ZONE_PRECISE_GROIN, skipundies = TRUE)
+			src.visible_message(span_notice("[src] begins to take off [underwear][under_clothes ? " from under their clothes" : ""]..."))
+			var/delay = under_clothes ? 20 : 40
+			if(do_after(user, delay, target = src))
+				var/obj/item/bodypart/chest = get_bodypart(BODY_ZONE_CHEST)
+				chest.remove_bodypart_feature(underwear.undies_feature)
+				underwear.forceMove(get_turf(src))
+				src.put_in_hands(underwear)
+				underwear = null
+				regenerate_icons()
+		if((user.zone_selected == BODY_ZONE_L_LEG) || (user.zone_selected == BODY_ZONE_R_LEG))
+			if(!legwear_socks)
+				return
+			var/under_clothes = get_location_accessible(src, BODY_ZONE_PRECISE_R_FOOT, skipundies = TRUE) || get_location_accessible(src, BODY_ZONE_PRECISE_L_FOOT, skipundies = TRUE)
+			src.visible_message(span_notice("[src] begins to take off [legwear_socks][under_clothes ? " from under their clothes" : ""]..."))
+			var/delay = under_clothes ? 25 : 50
+			if(do_after(user, delay, target = src))
+				var/obj/item/bodypart/chest = get_bodypart(BODY_ZONE_CHEST)
+				chest.remove_bodypart_feature(legwear_socks.legwears_feature)
+				legwear_socks.forceMove(get_turf(src))
+				src.put_in_hands(legwear_socks)
+				legwear_socks = null
+				regenerate_icons()
+		if(user.zone_selected == BODY_ZONE_CHEST)
+			if(!piercings_item)
+				return
+			var/under_clothes = get_location_accessible(src, BODY_ZONE_CHEST, skipundies = TRUE)
+			src.visible_message(span_notice("[src] begins to take off [piercings_item][under_clothes ? " from under their clothes" : ""]..."))
+			var/delay = under_clothes ? 25 : 40
+			if(do_after(user, delay, target = src))
+				var/obj/item/bodypart/chest = get_bodypart(BODY_ZONE_CHEST)
+				chest.remove_bodypart_feature(piercings_item.piercings_feature)
+				piercings_item.forceMove(get_turf(src))
+				src.put_in_hands(piercings_item)
+				piercings_item = null
+				regenerate_icons()
 
 /mob/living/carbon/human/Initialize()
 	// verbs += /mob/living/proc/mob_sleep
@@ -150,6 +192,8 @@
 	GLOB.human_list += src
 	if(ai_controller && flee_in_pain)
 		AddElement(/datum/element/ai_flee_while_in_pain)
+
+	id_check_in_5()
 
 /mob/living/carbon/human/Destroy()
 	QDEL_NULL(physiology)
@@ -598,6 +642,8 @@
 /mob/living/carbon/human/vv_get_dropdown()
 	. = ..()
 	VV_DROPDOWN_OPTION("", "---------")
+	VV_DROPDOWN_OPTION(VV_HK_REAPPLY_PREFS, "Reapply Preferences")
+	VV_DROPDOWN_OPTION(VV_HK_MOD_QUIRKS, "Edit Quirks")
 	VV_DROPDOWN_OPTION(VV_HK_COPY_OUTFIT, "Copy Outfit")
 	VV_DROPDOWN_OPTION(VV_HK_SET_SPECIES, "Set Species")
 	VV_DROPDOWN_OPTION(VV_HK_CORONATE, "Coronate")
@@ -609,6 +655,33 @@
 		if(!check_rights(R_SPAWN))
 			return
 		copy_outfit()
+	if(href_list[VV_HK_REAPPLY_PREFS])
+		if(!check_rights(R_SPAWN))
+			return
+		if(!client || !client.prefs)
+			return
+		client.prefs.apply_prefs_to(src, TRUE)
+	if(href_list[VV_HK_MOD_QUIRKS])
+		if(!check_rights(R_SPAWN))
+			return
+
+		var/list/options = list("Clear"="Clear")
+		for(var/x in subtypesof(/datum/quirk))
+			var/datum/quirk/T = x
+			var/qname = initial(T.name)
+			options[has_quirk(T) ? "[qname] (Remove)" : "[qname] (Add)"] = T
+
+		var/result = input(usr, "Choose quirk to add/remove","Quirk Mod") as null|anything in sortList(options)
+		if(result)
+			if(result == "Clear")
+				for(var/datum/quirk/q in roundstart_quirks)
+					remove_quirk(q.type)
+			else
+				var/T = options[result]
+				if(has_quirk(T))
+					remove_quirk(T)
+				else
+					add_quirk(T,TRUE)
 	if(href_list[VV_HK_SET_SPECIES])
 		if(!check_rights(R_SPAWN))
 			return
@@ -801,7 +874,7 @@
 /mob/living/carbon/human/proc/skele_look()
 	dna.species.go_bald()
 	update_body_parts(redraw = TRUE)
-	underwear = "Nude"
+	//underwear = "Nude"
 
 /mob/living/carbon/human/adjust_nutrition(change) //Honestly FUCK the oldcoders for putting nutrition on /mob someone else can move it up because holy hell I'd have to fix SO many typechecks
 	if(HAS_TRAIT(src, TRAIT_NOHUNGER))
@@ -848,11 +921,11 @@
 	lip_style = target.lip_style
 	lip_color = target.lip_color
 	age = target.age
-	underwear = target.underwear
-	underwear_color = target.underwear_color
-	undershirt = target.undershirt
+	//underwear = target.underwear
+	//underwear_color = target.underwear_color
+	//undershirt = target.undershirt
 	shavelevel = target.shavelevel
-	socks = target.socks
+	//socks = target.socks
 	spouse_mob = target.spouse_mob
 	spouse_indicator = target.spouse_indicator
 	has_stubble = target.has_stubble
@@ -884,11 +957,6 @@
 		ADD_TRAIT(src, TRAIT_FACELESS, TRAIT_GENERIC)
 	else
 		REMOVE_TRAIT(src, TRAIT_FACELESS, TRAIT_GENERIC)
-
-	if(HAS_TRAIT(target, TRAIT_ABOMINATION))
-		ADD_TRAIT(src, TRAIT_ABOMINATION, TRAIT_GENERIC)
-	else
-		REMOVE_TRAIT(src, TRAIT_ABOMINATION, TRAIT_GENERIC)
 
 	regenerate_icons()
 

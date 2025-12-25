@@ -220,7 +220,7 @@ GLOBAL_LIST_EMPTY(rousman_ambush_objects)
 		QDEL_NULL(eyes)
 	eyes = new /obj/item/organ/eyes/night_vision/nightmare
 	eyes.Insert(src)
-	src.underwear = "Nude"
+	//src.underwear = "Nude"
 	if(src.charflaw)
 		QDEL_NULL(src.charflaw)
 	update_body()
@@ -437,13 +437,13 @@ GLOBAL_LIST_EMPTY(rousman_ambush_objects)
 	job = "Assassin Rousman"
 	ADD_TRAIT(src, TRAIT_NOMOOD, TRAIT_GENERIC)
 	ADD_TRAIT(src, TRAIT_NOHUNGER, TRAIT_GENERIC)
-	equipOutfit(new /datum/outfit/npc/rousman/assassin)
+	equipOutfit(new /datum/outfit/job/npc/rousman/assassin)
 	dodgetime = 13
 	canparry = TRUE
 	flee_in_pain = TRUE
 	wander = TRUE
 
-/datum/outfit/npc/rousman/assassin/pre_equip(mob/living/carbon/human/H)
+/datum/outfit/job/npc/rousman/assassin/pre_equip(mob/living/carbon/human/H)
 	..()
 
 	H.base_strength = rand(6, 10)

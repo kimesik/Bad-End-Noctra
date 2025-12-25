@@ -1,6 +1,8 @@
+
 // Brutal Zealot, a class balanced to town guard, with noticeably more strength but less intelligence and perception. Axe/Mace and shield focus.
 /datum/job/advclass/adept/bzealot
 	title = "Brutal Zealot"
+
 	tutorial = "You are a former thug who has been given a chance to redeem yourself by the Inquisitor. You serve him and Psydon with your physical strength and zeal."
 	outfit = /datum/outfit/adept/bzealot
 	category_tags = list(CTAG_ADEPT)
@@ -37,15 +39,9 @@
 		/datum/skill/misc/medicine = SKILL_LEVEL_NOVICE
 	)
 
-/datum/job/advclass/adept/bzealot/after_spawn(mob/living/carbon/human/spawned, client/player_client)
-	. = ..()
-	GLOB.inquisition.add_member_to_school(spawned, "Benetarus", -10, "Zealot")
-
-	if(spawned.dna?.species)
-		spawned.dna.species.soundpack_m = new /datum/voicepack/male/warrior() // Lunkhead.
-
-/datum/outfit/adept/bzealot
-	name = "Brutal Zealot (Adept)"
+/datum/outfit/adept/bzealot/pre_equip(mob/living/carbon/human/H)
+	..()
+	//Armor for class
 	belt = /obj/item/storage/belt/leather
 	head = /obj/item/clothing/head/adeptcowl
 	neck = /obj/item/clothing/neck/gorget/explosive
@@ -54,7 +50,11 @@
 	beltl = /obj/item/weapon/mace/spiked
 	backr = /obj/item/weapon/shield/wood/adept
 	gloves = /obj/item/clothing/gloves/leather
-	backpack_contents = list(
-		/obj/item/storage/keyring/adept = 1,
-		/obj/item/weapon/knife/dagger/silver/psydon = 1
-	)
+	backpack_contents = list(/obj/item/storage/keyring/adept = 1, /obj/item/weapon/knife/dagger/silver/psydon = 1)
+
+	if(H.dna?.species)
+		H.dna.species.soundpack_m = new /datum/voicepack/male/warrior() // Lunkhead.
+
+/datum/outfit/adept/bzealot/post_equip(mob/living/carbon/human/H, visuals_only)
+	. = ..()
+	GLOB.inquisition.add_member_to_school(H, "Benetarus", -10, "Zealot")

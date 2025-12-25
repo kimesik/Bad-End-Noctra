@@ -26,7 +26,26 @@
 	if(answer == CHOICE_NO)
 		to_chat(src, span_warning("You have second thoughts."))
 		return
-	if((mob.has_flaw(/datum/charflaw/hunted) || HAS_TRAIT(mob, TRAIT_ZIZOID_HUNTED)) && !MOBTIMER_FINISHED(mob, MT_LASTDIED, 60 SECONDS))
+	if(answer == CHOICE_YES)
+		if(istype(mob, /mob/living/carbon/spirit))
+			return
+
+		if(istype(mob, /mob/living/carbon/human))
+			var/mob/living/carbon/human/D = mob
+			if(D.buried && D.funeral)
+				D.returntolobby()
+				return
+
+			var/datum/job/target_job = SSjob.GetJob(D.mind.assigned_role)
+			if(target_job)
+				//if(target_job.job_reopens_slots_on_death)
+				target_job.current_positions = max(0, target_job.current_positions - 1)
+				//if(target_job.same_job_respawn_delay)
+					// Store the current time for the player
+					//GLOB.job_respawn_delays[src.ckey] = world.time + target_job.same_job_respawn_delay
+		verbs -= GLOB.ghost_verbs
+		mob.returntolobby()
+	/*if((mob.has_flaw(/datum/charflaw/hunted) || HAS_TRAIT(mob, TRAIT_ZIZOID_HUNTED)) && !MOBTIMER_FINISHED(mob, MT_LASTDIED, 60 SECONDS))
 		to_chat(src, span_warning("Graggar's influence is currently preventing me from fleeing to the Underworld!"))
 		return
 	var/datum/mind/mind = mob.mind
@@ -60,4 +79,4 @@
 
 	var/area/underworld/underworld = get_area(spawn_loc)
 	underworld.Entered(O, null)
-	verbs -= /client/proc/descend
+	verbs -= /client/proc/descend*/

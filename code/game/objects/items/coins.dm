@@ -64,6 +64,8 @@
 						spawned_type = /obj/item/coin/gold
 					if(CTYPE_SILV)
 						spawned_type = /obj/item/coin/silver
+					if("t")
+						spawned_type = /obj/item/coin/gild
 					else
 						spawned_type = /obj/item/coin/copper
 
@@ -389,6 +391,7 @@
 	sellprice = 5
 	base_type = CTYPE_SILV
 	plural_name = "ziliquae"
+
 
 // COPPER
 /obj/item/coin/copper

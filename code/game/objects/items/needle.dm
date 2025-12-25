@@ -178,4 +178,4 @@
 	name = "blessed needle"
 	desc = span_hierophant("A needle blessed by the ordained Pestrans of the Church. A coveted item, for its thread will never end. \n This thread however can only be used to sew wounds.")
 	infinite = TRUE
-	can_repair = FALSE
+	can_repair = TRUE

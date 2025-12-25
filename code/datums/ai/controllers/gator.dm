@@ -16,8 +16,8 @@
 		/datum/ai_planning_subtree/find_food/gator,
 		/datum/ai_planning_subtree/gator_behavior,
 		/datum/ai_planning_subtree/basic_melee_attack_subtree/gator_attack,
-		/datum/ai_planning_subtree/find_dead_bodies,
-		/datum/ai_planning_subtree/eat_dead_body,
+		///datum/ai_planning_subtree/find_dead_bodies,
+		///datum/ai_planning_subtree/eat_dead_body,
 		/datum/ai_planning_subtree/find_water,
 	)
 	idle_behavior = /datum/idle_behavior/gator_idle

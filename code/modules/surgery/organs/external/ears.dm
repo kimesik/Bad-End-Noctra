@@ -130,6 +130,11 @@
 /obj/item/organ/ears/rakshari
 	name = "rakshari ears"
 
+/obj/item/organ/ears/triton
+	name = "triton ears"
+
+
+
 /obj/item/organ/ears/rakshari/Insert(mob/living/carbon/M, special, drop_if_replaced)
 	. = ..()
 	ADD_TRAIT(M, TRAIT_KEENEARS, "[type]")

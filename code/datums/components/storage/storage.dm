@@ -63,6 +63,9 @@
 	/// prevents storage interactions while it is equipped. Think backpacks.
 	var/not_while_equipped = FALSE
 
+	/// prevents liquid spilling on the move.
+	var/no_spill = FALSE
+
 /datum/component/storage/Initialize(datum/component/storage/concrete/master)
 	if(!isatom(parent))
 		return COMPONENT_INCOMPATIBLE
@@ -169,12 +172,15 @@
 
 /datum/component/storage/proc/on_move()
 	var/atom/A = parent
+	if(isnull(A))
+		return
 	for(var/mob/living/L in can_see_contents())
 		if(!L.CanReach(A))
 			hide_from(L)
-	for(var/obj/item/reagent_containers/I in A.contents)
-		if(I.reagents && I.spillable)
-			I.reagents.remove_all(3)
+	if(!no_spill)
+		for(var/obj/item/reagent_containers/I in A.contents)
+			if(I.reagents && I.spillable)
+				I.reagents.remove_all(3)
 
 /datum/component/storage/proc/attack_self(datum/source, mob/M)
 	if(locked)

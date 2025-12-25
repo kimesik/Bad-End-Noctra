@@ -41,7 +41,7 @@
 	..()
 	name = "skeleton"
 	real_name = "skeleton"
-	underwear = "Nude"
+	//underwear = "Nude"
 	mob_biotypes = MOB_UNDEAD
 	faction = list(FACTION_UNDEAD)
 	var/turf/turf = get_turf(src)

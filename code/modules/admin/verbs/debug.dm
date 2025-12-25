@@ -310,8 +310,6 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	log_admin("[key_name(src)] changed the job of [key_name(dressed_human)] to [selected].")
 	message_admins(span_adminnotice("[key_name_admin(src)] changed the job of [ADMIN_LOOKUPFLW(dressed_human)] to [selected]."))
 
-
-
 /client/proc/robust_dress_shop()
 	var/list/baseoutfits = list("Naked", "Custom")
 	var/list/outfits = list()

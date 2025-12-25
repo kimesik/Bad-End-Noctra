@@ -58,9 +58,9 @@
 	sharedSoullinks = null
 	return ..()
 
-/mob/living/update_appearance(updates)
-	. = ..()
+/mob/living/carbon/human/regenerate_icons()
 	update_reflection()
+	. = ..()
 
 /mob/living/proc/create_reflection()
 	//Add custom reflection image
@@ -965,7 +965,8 @@
 	cure_nearsighted()
 	cure_blind()
 	cure_husk()
-	heal_overall_damage(INFINITY, INFINITY, null, TRUE) //heal brute and burn dmg on both organic and robotic limbs, and update health right away.
+	heal_overall_damage(INFINITY, INFINITY, null, FALSE) //heal brute and burn dmg on both organic and robotic limbs,
+	updatehealth()										 //and update health right away.
 	for(var/datum/wound/wound as anything in get_wounds())
 		if(admin_revive)
 			qdel(wound)
@@ -981,6 +982,7 @@
 	jitteriness = 0
 	slowdown = 0
 	stop_sound_channel(CHANNEL_HEARTBEAT)
+	reapply_quirks()
 
 //proc called by revive(), to check if we can actually ressuscitate the mob (we don't want to revive him and have him instantly die again)
 /mob/living/proc/can_be_revived()
@@ -1198,6 +1200,46 @@
 		log_attack("[key_name(src)] has yielded!")
 	surrendering = 0
 
+/mob/living
+	var/had_pacifist = FALSE
+
+/mob/living/verb/toggle_submit()
+	set name = "Toggle Yield"
+	set category = "IC"
+
+	if(stat)
+		return
+
+	if(!surrendering)
+		if(alert(src, "Yield in surrender?",,"YES","NO") == "YES")
+			if(HAS_TRAIT(src, TRAIT_PACIFISM))
+				had_pacifist = TRUE
+			else
+				ADD_TRAIT(src, TRAIT_PACIFISM, TRAIT_GENERIC)
+			surrendering = TRUE
+			changeNext_move(CLICK_CD_EXHAUSTED)
+			var/image/flaggy = image('icons/effects/effects.dmi',src,"surrender",ABOVE_MOB_LAYER)
+			flaggy.appearance_flags = RESET_TRANSFORM|KEEP_APART
+			flaggy.transform = null
+			flaggy.pixel_y = 12
+			flick_overlay_view(flaggy, 150)
+			drop_all_held_items()
+			Stun(20)
+			Knockdown(200)
+			src.visible_message("<span class='notice'>[src] yields utterly - they cannot harm anyone like this!</span>")
+			playsound(src, 'sound/misc/surrender.ogg', 100, FALSE, -1)
+			log_attack("[key_name(src)] has toggled yield ON!")
+	else
+		if(IsKnockdown() || IsStun())
+			to_chat(src, span_warn("I can't rescind my yield when knocked down!"))
+			return
+
+		if(alert(src, "Rescind your yield?",,"YES","NO") == "YES")
+			surrendering = FALSE
+			if(!had_pacifist)
+				REMOVE_TRAIT(src, TRAIT_PACIFISM, TRAIT_GENERIC)
+			had_pacifist = FALSE
+			src.visible_message("<span class='notice'>[src] no longer yields!</span>")
 
 /mob/proc/stop_attack(message = FALSE)
 	if(atkswinging)

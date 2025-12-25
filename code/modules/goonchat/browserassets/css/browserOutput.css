@@ -11,7 +11,7 @@ html, body {
 }
 body {
 	background: #000000;
-	font-family: Pterra;
+	font-family: Mookmania;
 	font-size: 13px;
 	color: #c9c1ba;
 	line-height: 1.2;
@@ -27,8 +27,8 @@ body {
 
 /* Fonts */
 @font-face {
-  font-family: "Pterra";
-  src: url('pterra.ttf') format('truetype');
+  font-family: "Mookmania";
+  src: url('Mookmania.otf') format('truetype');
 }
 @font-face {
   font-family: "Honoka Mincho";
@@ -36,8 +36,8 @@ body {
 }
 
 @font-face {
-  font-family: "Dauphin";
-  src: url('elf.ttf') format('truetype');
+  font-family: "MarkScript-Regular";
+  src: url('MarkScript-Regular.ttf') format('truetype');
 }
 
 @font-face {
@@ -47,22 +47,22 @@ body {
 
 @font-face {
   font-family: "Arabolical";
-  src: url('sand.ttf') format('truetype');
+  src: url('Kamelia.ttf') format('truetype');
 }
 
 @font-face {
-  font-family: "Xaphan";
-  src: url('hell.ttf') format('truetype');
+  font-family: "Comforter Brush";
+  src: url('Comforter Brush.otf') format('truetype');
 }
 
 @font-face {
-  font-family: "FriskyVampire";
-  src: url('undead.ttf') format('truetype');
+  font-family: "FDMedian";
+  src: url('FDMedian.ttf') format('truetype');
 }
 
 @font-face {
-  font-family: "Thief by The Riddler";
-  src: url('orc.ttf') format('truetype');
+  font-family: "VizaviTYGRA";
+  src: url('VizaviTYGRA.ttf') format('truetype');
 }
 
 @font-face {
@@ -76,8 +76,8 @@ body {
 }
 
 @font-face {
-  font-family: "Kingthings Petrock";
-  src: url('draconic.ttf') format('truetype');
+  font-family: "ALOT Gutenberg B Normal";
+  src: url('ALOT Gutenberg B Normal.ttf') format('truetype');
 }
 
 @font-face {
@@ -620,28 +620,28 @@ a.popt {text-decoration: none;}
 *
 ******************************************/
 
-body					{word-wrap: break-word; overflow-x: hidden; overflow-y: scroll; color: #c9c1ba; font-size: 16px; font-family: "Pterra";}
+body					{word-wrap: break-word; overflow-x: hidden; overflow-y: scroll; color: #c9c1ba; font-size: 16px; font-family: "Mookmania";}
 
-h1, h2, h3, h4, h5, h6	{color: #c9c1ba;	font-family: Pterra;}
+h1, h2, h3, h4, h5, h6	{color: #c9c1ba;	font-family: Mookmania;}
 
-em						{font-style: normal;	font-weight: bold; font-family: Pterra;}
+em						{font-style: normal;	font-weight: bold; font-family: Mookmania;}
 
 a:link						{color: #ae83cb;	font-weight: bold;}
 
-.motd					{color: #638500;	font-family: Pterra;}
+.motd					{color: #638500;	font-family: Mookmania;}
 .motd h1, .motd h2, .motd h3, .motd h4, .motd h5, .motd h6
 	{color: #638500;	text-decoration: underline;}
 .motd a, .motd a:link, .motd a:visited, .motd a:active, .motd a:hover
 	{color: #638500;}
-h1.alert, h2.alert	{color: #c9c1ba;font-family: Pterra, TrueType;}
+h1.alert, h2.alert	{color: #c9c1ba;font-family: Mookmania, TrueType;}
 .italics				{font-style: italic;}
 
 .bold					{font-weight: bold;}
 
 .prefix					{font-weight: bold;}
 
-.ooc					{color: #c5c5c5;	font-weight: bold; font-family: Pterra;}
-.adminobserverooc		{color: #cca300;	font-weight: bold; font-family: Pterra;}
+.ooc					{color: #c5c5c5;	font-weight: bold; font-family: Mookmania;}
+.adminobserverooc		{color: #cca300;	font-weight: bold; font-family: Mookmania;}
 .adminooc				{color: #4972bc;	font-weight: bold;}
 
 .adminsay				{color:	#FF4500;	font-weight: bold;}
@@ -649,7 +649,7 @@ h1.alert, h2.alert	{color: #c9c1ba;font-family: Pterra, TrueType;}
 
 .name					{					font-weight: bold;}
 
-.say					{font-family: Pterra;}
+.say					{font-family: Mookmania;}
 .deadsay				{color: #e2c1ff;}
 .binarysay				{color: #20c20e;	background-color: #000000;	display: block;}
 .binarysay a			{color: #00ff00;}
@@ -751,25 +751,25 @@ h1.alert, h2.alert	{color: #c9c1ba;font-family: Pterra, TrueType;}
 .papyrus				{font-family: "Papyrus", cursive, sans-serif;}
 .robot					{font-family: "Courier New", cursive, sans-serif;}
 
-.human 					{font-family: "Honoka Mincho", "Pterra";}
-.elf					{font-family: "Dauphin", cursive, "Pterra";}
-.dwarf 					{font-family: "MasonAlternate", "Pterra";}
-.sandspeak 				{font-family: "Arabolical", "Pterra";}
-.delf 					{font-family: "Dauphin", "Pterra";}
-.hellspeak				{font-family: "Xaphan", "Pterra"; font-size: 110%}
-.undead					{font-family: "FriskyVampire", "Pterra";}
-.orc					{font-family: "Thief by The Riddler", Pterra;}
-.otavan					{font-family: "Notredame", Pterra; font-size: 200%;}
-.beast					{font-family: "Thief by The Riddler", Pterra;}
-.reptile				{font-family: "Kingthings Petrock", Pterra; font-size: 120%;}
-.deepspeak				{font-family: "Underwater Love", Pterra;}
-.lupian					{font-family: "Emperialisme", Pterra; font-size: 120%;}
+.human 					{font-family: "Honoka Mincho", "Mookmania";}
+.elf					{font-family: "MarkScript-Regular", cursive, "Mookmania";}
+.dwarf 					{font-family: "MasonAlternate", "Mookmania";}
+.sandspeak 				{font-family: "Arabolical", "Mookmania";}
+.delf 					{font-family: "MarkScript-Regular", "Mookmania";}
+.hellspeak				{font-family: "Comforter Brush", "Mookmania"; font-size: 110%}
+.undead					{font-family: "FDMedian", "Mookmania";}
+.orc					{font-family: "VizaviTYGRA", Mookmania;}
+.otavan					{font-family: "Notredame", Mookmania; font-size: 200%;}
+.beast					{font-family: "VizaviTYGRA", Mookmania;}
+.reptile				{font-family: "ALOT Gutenberg B Normal", Mookmania; font-size: 120%;}
+.deepspeak				{font-family: "Underwater Love", Mookmania;}
+.lupian					{font-family: "Emperialisme", Mookmania; font-size: 120%;}
 
 .torture				{color: #42ff20}
 
 .command_headset		{font-weight: bold;	font-size: 3;}
 .small					{font-size: 50%;}
-.smallyell				{font-size: 70%;font-family: Pterra;}
+.smallyell				{font-size: 70%;font-family: Mookmania;}
 .big					{font-size: 120%;}
 .reallybig				{font-size: 180%;}
 .extremelybig			{font-size: 220%;}

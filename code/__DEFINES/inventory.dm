@@ -87,6 +87,9 @@
 #define HIDEUNDIESTOP (1<<14)
 /// Don't show default underwear bottoms when wearing this
 #define HIDEUNDIESBOT (1<<15)
+#define HIDEBUTT (1<<16)
+#define HIDEBELLY (1<<17)
+#define HIDECROTCH	(1<<18)
 /// Don't show either
 #define HIDEUNDIES (HIDEUNDIESTOP | HIDEUNDIESBOT)
 

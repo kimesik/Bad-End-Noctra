@@ -296,12 +296,8 @@
 	QDEL_NULL(light)
 	QDEL_NULL(ai_controller)
 
-	// We used to remove stuff from the smoothing queue here,
-	// but list removals can be REALLY costly.
-	// If this is qdeleted and the flag is unset, it'll just get skipped
-	// which is way faster.
 	if(smoothing_flags & SMOOTH_QUEUED)
-		smoothing_flags &= ~SMOOTH_QUEUED
+		SSicon_smooth.remove_from_queues(src)
 
 	return ..()
 
@@ -820,7 +816,9 @@
  */
 /atom/proc/setDir(newdir)
 	SEND_SIGNAL(src, COMSIG_ATOM_DIR_CHANGE, dir, newdir)
+	var/oldDir = dir
 	dir = newdir
+	SEND_SIGNAL(src, COMSIG_ATOM_POST_DIR_CHANGE, oldDir, newdir)
 
 /**
  * Wash this atom

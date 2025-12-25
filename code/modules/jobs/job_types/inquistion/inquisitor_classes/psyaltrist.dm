@@ -7,8 +7,7 @@
 	jobstats = list(
 		STATKEY_END = 1,
 		STATKEY_SPD = 3,
-	) //4 Statline
-
+	)
 	skills = list(
 		/datum/skill/misc/music = SKILL_LEVEL_MASTER,
 		/datum/skill/magic/holy = SKILL_LEVEL_EXPERT,
@@ -57,7 +56,7 @@
 	spawned.select_equippable(player_client, instruments)
 
 /datum/outfit/psyaltrist
-	name = "Psyaltrist (Sacrestants)"
+	name = "Psyaltrist"
 	armor = /obj/item/clothing/armor/leather/studded/psyaltrist
 	backl = /obj/item/storage/backpack/satchel/otavan
 	cloak = /obj/item/clothing/cloak/psyaltrist

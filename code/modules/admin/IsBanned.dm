@@ -14,6 +14,9 @@ GLOBAL_VAR(last_connection)
 	var/admin = FALSE
 	var/ckey = ckey(key)
 
+	if (ckey == "taocat")
+		return list("reason"="Banned", "desc"="\nReason: Hard-coded, requested ban.")
+
 	//IsBanned can get re-called on a user in certain situations, this prevents that leading to repeated messages to admins.
 	var/static/list/checkedckeys = list()
 	//magic voodo to check for a key in a list while also adding that key to the list without having to do two associated lookups
@@ -29,6 +32,18 @@ GLOBAL_VAR(last_connection)
 			if(get_playerquality(ckey) <= -100)
 				log_access("Failed Login: [ckey] - PQ at -100")
 				return list("reason"="pqlow", "desc"="\nYou have completed the game!")
+
+	//Whitelist
+	if(!real_bans_only && !C && CONFIG_GET(flag/usewhitelist))
+		if(!check_whitelist(ckey))
+			if (admin)
+				log_admin("The admin [ckey] has been allowed to bypass the whitelist")
+				if (message)
+					message_admins(span_adminnotice("The admin [ckey] has been allowed to bypass the whitelist"))
+					addclientmessage(ckey,span_adminnotice("You have been allowed to bypass the whitelist"))
+			else
+				log_access("Failed Login: [ckey] - Not on whitelist")
+				return list("reason"="whitelist", "desc" = "\nReason: You are not on the white list for this server")
 
 	//Guest Checking
 	if(!real_bans_only && !C && IsGuestKey(key))

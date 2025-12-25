@@ -82,6 +82,9 @@ GLOBAL_LIST_INIT(name_adjustments, list())
 	/// The type of voice soundpack the mob should use.
 	var/voice_type = VOICE_TYPE_MASC
 
+	/// The type of moans the mob should use.
+	var/moan_selection = MOANPACK_TYPE_DEF	//RMH EDIT: choose moanpack
+
 	/// Age of character.
 	var/age = AGE_ADULT
 
@@ -89,13 +92,13 @@ GLOBAL_LIST_INIT(name_adjustments, list())
 	var/origin = "Default"
 
 	/// Underwear type.
-	var/underwear = "Nude"
+	//var/underwear = "Nude"
 
 	/// Underwear color.
-	var/underwear_color = null
+	//var/underwear_color = null
 
 	/// Undershirt type.
-	var/undershirt = "Nude"
+	//var/undershirt = "Nude"
 
 	/// Accessory type.
 	var/accessory = "Nothing"
@@ -120,6 +123,7 @@ GLOBAL_LIST_INIT(name_adjustments, list())
 
 	/// link to a page containing your headshot image
 	var/headshot_link
+	var/nsfw_headshot_link //Twilight Axis edit далее TA
 
 	/// link to a page containing your ooc extra image
 	var/ooc_extra_link
@@ -137,14 +141,14 @@ GLOBAL_LIST_INIT(name_adjustments, list())
 	/// The patron/god/diety this character worships
 	var/datum/patron/selected_patron
 	/// The default patron to use if none is selected
-	var/static/datum/patron/default_patron = /datum/patron/divine/astrata
+	var/static/datum/patron/default_patron = /datum/patron/faerun/good_gods/Selune
 	var/list/features = MANDATORY_FEATURE_LIST
 	var/list/randomise = list(
 		(RANDOM_BODY) = FALSE,
 		(RANDOM_BODY_ANTAG) = FALSE,
-		(RANDOM_UNDERWEAR) = FALSE,
-		(RANDOM_UNDERWEAR_COLOR) = FALSE,
-		(RANDOM_UNDERSHIRT) = FALSE,
+		//(RANDOM_UNDERWEAR) = FALSE,
+		//(RANDOM_UNDERWEAR_COLOR) = FALSE,
+		//(RANDOM_UNDERSHIRT) = FALSE,
 		(RANDOM_SKIN_TONE) = FALSE,
 		(RANDOM_EYE_COLOR) = FALSE
 	)
@@ -152,6 +156,9 @@ GLOBAL_LIST_INIT(name_adjustments, list())
 	var/phobia = "spiders"
 
 	var/list/custom_names = list()
+
+	//Quirk list
+	var/list/all_quirks = list()
 
 	//Job preferences 2.0 - indexed by job title , no key or value implies never
 	var/list/job_preferences = list()
@@ -223,13 +230,17 @@ GLOBAL_LIST_INIT(name_adjustments, list())
 	var/has_spawned = FALSE
 	///our selected accent
 	var/selected_accent = ACCENT_DEFAULT
-	/// If our owner is patreon or twitch sub
-	var/donator = FALSE
+	/// If our owner has patreon access
+	var/patreon = TRUE
 	/// If our owner is from a race that has more than one accent
 	var/change_accent = FALSE
 
 	/// Custom UI scale
 	var/ui_scale
+	///this is our character slot
+	var/tmp/current_slot = 1
+	/// List storing ERP preference values
+	var/list/erp_preferences
 	/// Assoc list of culinary preferences, where the key is the type of the culinary preference, and value is food/drink typepath
 	var/list/culinary_preferences = list()
 	///this is our chat scale
@@ -251,8 +262,8 @@ GLOBAL_LIST_INIT(name_adjustments, list())
 	headshot_link = null
 
 	// C/parent can be a client_interface
-	if(isclient(parent))
-		donator = parent.is_donator()
+	//if(isclient(parent))
+	//	patreon = parent?.patreon?.has_access(ACCESS_ASSISTANT_RANK)
 
 	for(var/custom_name_id in GLOB.preferences_custom_names)
 		custom_names[custom_name_id] = get_default_name(custom_name_id)
@@ -265,8 +276,9 @@ GLOBAL_LIST_INIT(name_adjustments, list())
 			unlock_content = C.IsByondMember()
 			if(unlock_content)
 				max_save_slots += 5
-		if(donator)
-			max_save_slots += 30
+		max_save_slots += 30
+		//if(patreon)
+		//	max_save_slots += 30
 	var/loaded_preferences_successfully = load_preferences()
 	if(loaded_preferences_successfully)
 		if(load_character())
@@ -274,7 +286,7 @@ GLOBAL_LIST_INIT(name_adjustments, list())
 				real_name = pref_species.random_name(gender,1)
 			return
 	//we couldn't load character data so just randomize the character appearance + name
-	randomise_appearance_prefs(include_donator = donator)		//let's create a random character then - rather than a fat, bald and naked man.
+	randomise_appearance_prefs()		//let's create a random character then - rather than a fat, bald and naked man.
 	if(!charflaw)
 		charflaw = pick(GLOB.character_flaws)
 		charflaw = GLOB.character_flaws[charflaw]
@@ -344,7 +356,7 @@ GLOBAL_LIST_INIT(name_adjustments, list())
 	dat += "</td>"
 
 	dat += "<td style='width:33%;text-align:center'>"
-	dat += "<a href='?_src_=prefs;preference=antag;task=menu'>Special Roles</a>"
+	//dat += "<a href='?_src_=prefs;preference=antag;task=menu'>Special Roles</a>"
 	dat += "</td>"
 
 	dat += "<td style='width:33%;text-align:right'>"
@@ -365,6 +377,10 @@ GLOBAL_LIST_INIT(name_adjustments, list())
 	dat += "</td>"
 
 	dat += "</table>"
+
+	dat += "<center><h2>Quirk Setup</h2>"
+	dat += "<a href='?_src_=prefs;preference=trait;task=menu'>Configure Quirks</a><br></center>"
+	dat += "<center><b>Current Quirks:</b> [all_quirks.len ? all_quirks.Join(", ") : "None"]</center>"
 
 	// Encapsulating table
 	dat += "<table width = '100%'>"
@@ -407,9 +423,9 @@ GLOBAL_LIST_INIT(name_adjustments, list())
 		dat += "<b>Age:</b> <a href='?_src_=prefs;preference=age;task=input'>[age]</a><BR>"
 
 	dat += "<b>Flaw:</b> <a href='?_src_=prefs;preference=charflaw;task=input'>[charflaw]</a><BR>"
-	var/datum/faith/selected_faith = GLOB.faithlist[selected_patron.associated_faith]
-	dat += "<b>Faith:</b> <a href='?_src_=prefs;preference=faith;task=input'>[selected_faith?.name || "FUCK!"]</a><BR>"
-	dat += "<b>Patron:</b> <a href='?_src_=prefs;preference=patron;task=input'>[selected_patron.name || "FUCK!"]</a><BR>"
+	var/datum/faith/selected_faith = GLOB.faithlist[selected_patron?.associated_faith]
+	dat += "<b>Pantheon:</b> <a href='?_src_=prefs;preference=faith;task=input'>[selected_faith?.name || "FUCK!"]</a><BR>"
+	dat += "<b>Patron:</b> <a href='?_src_=prefs;preference=patron;task=input'>[selected_patron?.name || "FUCK!"]</a><BR>"
 	dat += "<b>Family:</b> <a href='?_src_=prefs;preference=family'>[family ? family : "None"]</a><BR>"
 	if(family == FAMILY_FULL || family == FAMILY_NEWLYWED)
 		dat += "<b>Preferred Spouse:</b> <a href='?_src_=prefs;preference=setspouse'>[setspouse ? setspouse : "None"]</a><BR>"
@@ -440,16 +456,23 @@ GLOBAL_LIST_INIT(name_adjustments, list())
 		//dat += "<a href='?_src_=prefs;preference=toggle_random;random_type=[RANDOM_SKIN_TONE]'>[(randomise[RANDOM_SKIN_TONE]) ? "Lock" : "Unlock"]</A>"
 
 	dat += "<br>"
-	dat += "<b>Voice Type:</b> <a href='?_src_=prefs;preference=voicetype;task=input'>[voice_type]</a>"
+	dat += "<b>Voice Type:</b> <a href='?_src_=prefs;preference=voicetype;task=input'>[voice_type]</a><BR>"
+	dat += "<b>Moan Type</b>: <a href='?_src_=prefs;preference=moanselection;task=input'>[moan_selection]</a>"
 	dat += "<br><b>Voice Color:</b> <a href='?_src_=prefs;preference=voice;task=input'>Change</a>"
 	dat += "<br><b>Accent:</b> <a href='?_src_=prefs;preference=selected_accent;task=input'>[selected_accent]</a>"
 	dat += "<br><b>Features:</b> <a href='?_src_=prefs;preference=customizers;task=menu'>Change</a>"
+	dat += "<br><b>Markings:</b> <a href='?_src_=prefs;preference=markings;task=menu'>Change</a>"
+	dat += "<br><b>ERP:</b> <a href='?_src_=prefs;preference=erp;task=menu'>Change</a>"
 	if(length(pref_species.descriptor_choices))
 		dat += "<br><b>Descriptors:</b> <a href='?_src_=prefs;preference=descriptors;task=menu'>Change</a>"
 
 	dat += "<br><b>Headshot:</b> <a href='?_src_=prefs;preference=headshot;task=input'>Change</a>"
 	if(headshot_link != null)
 		dat += "<br><img src='[headshot_link]' width='100px' height='100px'>"
+	dat += "<br><b>NSFW Headshot:</b> <a href='?_src_=prefs;preference=nsfw_headshot;task=input'>Change</a>"
+	if(nsfw_headshot_link != null)
+		dat += "<br><img src='[nsfw_headshot_link]' width='125px' height='175px'>"
+
 	dat += "<br><b>[(length(flavortext) < MINIMUM_FLAVOR_TEXT) ? "<font color = '#802929'>" : ""]Flavortext:[(length(flavortext) < MINIMUM_FLAVOR_TEXT) ? "</font>" : ""]</b><a href='?_src_=prefs;preference=formathelp;task=input'>(?)</a><a href='?_src_=prefs;preference=flavortext;task=input'>Change</a>"
 
 	dat += "<br><b>[(length(ooc_notes) < MINIMUM_OOC_NOTES) ? "<font color = '#802929'>" : ""]OOC Notes:[(length(ooc_notes) < MINIMUM_OOC_NOTES) ? "</font>" : ""]</b><a href='?_src_=prefs;preference=formathelp;task=input'>(?)</a><a href='?_src_=prefs;preference=ooc_notes;task=input'>Change</a>"
@@ -769,6 +792,80 @@ GLOBAL_LIST_INIT(name_adjustments, list())
 			user.client.prefs.lastclass = null
 			user.client.prefs.save_preferences()
 
+/datum/preferences/proc/SetQuirks(mob/user)
+	if(!SSquirks)
+		to_chat(user, span_danger("The quirk subsystem is still initializing! Try again in a minute."))
+		return
+
+	var/list/dat = list()
+	if(!SSquirks.quirks.len)
+		dat += "The quirk subsystem hasn't finished initializing, please hold..."
+		dat += "<center><a href='?_src_=prefs;preference=trait;task=close'>Done</a></center><br>"
+	else
+		dat += "<center><b>Choose quirk setup</b></center><br>"
+		dat += "<div align='center'>Left-click to add or remove quirks. You need negative quirks to have positive ones.<br>\
+		Quirks are applied at roundstart and cannot normally be removed. Most things may not work or work right.</div>"
+		dat += "<center><a href='?_src_=prefs;preference=trait;task=close'>Done</a></center>"
+		dat += "<hr>"
+		dat += "<center><b>Current quirks:</b> [all_quirks.len ? all_quirks.Join(", ") : "None"]</center>"
+		dat += "<center>[GetPositiveQuirkCount()] / [MAX_QUIRKS + max(0, round(get_playerquality(parent.ckey)/10))] max positive quirks<br>\
+		<b>Quirk balance remaining:</b> [GetQuirkBalance()]</center><br>"
+		for(var/V in SSquirks.quirks)
+			var/datum/quirk/T = SSquirks.quirks[V]
+			var/quirk_name = initial(T.name)
+			var/has_quirk
+			var/quirk_cost = initial(T.value) * -1
+			var/lock_reason = "This trait is unavailable."
+			var/quirk_conflict = FALSE
+			for(var/_V in all_quirks)
+				if(_V == quirk_name)
+					has_quirk = TRUE
+			if(initial(T.mood_quirk) && CONFIG_GET(flag/disable_human_mood))
+				lock_reason = "Mood is disabled."
+				quirk_conflict = TRUE
+			if(has_quirk)
+				if(quirk_conflict)
+					all_quirks -= quirk_name
+					has_quirk = FALSE
+				else
+					quirk_cost *= -1 //invert it back, since we'd be regaining this amount
+			if(quirk_cost > 0)
+				quirk_cost = "+[quirk_cost]"
+			var/font_color = "#AAAAFF"
+			if(initial(T.value) != 0)
+				font_color = initial(T.value) > 0 ? "#AAFFAA" : "#FFAAAA"
+			if(quirk_conflict)
+				dat += "<font color='[font_color]'>[quirk_name]</font> - [initial(T.desc)] \
+				<font color='red'><b>LOCKED: [lock_reason]</b></font><br>"
+			else
+				if(has_quirk)
+					dat += "<a href='?_src_=prefs;preference=trait;task=update;trait=[quirk_name]'>[has_quirk ? "Remove" : "Take"] ([quirk_cost] pts.)</a> \
+					<b><font color='[font_color]'>[quirk_name]</font></b> - [initial(T.desc)]<br>"
+				else
+					dat += "<a href='?_src_=prefs;preference=trait;task=update;trait=[quirk_name]'>[has_quirk ? "Remove" : "Take"] ([quirk_cost] pts.)</a> \
+					<font color='[font_color]'>[quirk_name]</font> - [initial(T.desc)]<br>"
+		dat += "<br><center><a href='?_src_=prefs;preference=trait;task=reset'>Reset Quirks</a></center>"
+
+	var/datum/browser/noclose/popup = new(user, "mob_occupation", "<div align='center'>Quirk Preferences</div>", 900, 600) //no reason not to reuse the occupation window, as it's cleaner that way
+	popup.set_window_options("can_close=0")
+	popup.set_content(dat.Join())
+	popup.open(FALSE)
+
+/datum/preferences/proc/GetQuirkBalance()
+	var/bal = 0
+	bal += 2 //vice
+	bal += max(0, round(get_playerquality(parent.ckey)/10))
+	for(var/V in all_quirks)
+		var/datum/quirk/T = SSquirks.quirks[V]
+		bal -= initial(T.value)
+	return bal
+
+/datum/preferences/proc/GetPositiveQuirkCount()
+	. = 0
+	for(var/q in all_quirks)
+		if(SSquirks.quirk_points[q] > 0)
+			.++
+
 /datum/preferences/proc/SetKeybinds(mob/user)
 	var/list/dat = list()
 	// Create an inverted list of keybindings -> key
@@ -917,6 +1014,44 @@ GLOBAL_LIST_INIT(name_adjustments, list())
 		open_multi_ready()
 		return 1
 
+	else if(href_list["preference"] == "trait")
+		switch(href_list["task"])
+			if("close")
+				user << browse(null, "window=mob_occupation")
+				ShowChoices(user)
+			if("update")
+				var/quirk = href_list["trait"]
+				if(!SSquirks.quirks[quirk])
+					return
+				for(var/V in SSquirks.quirk_blacklist) //V is a list
+					var/list/L = V
+					for(var/Q in all_quirks)
+						if((quirk in L) && (Q in L) && !(Q == quirk)) //two quirks have lined up in the list of the list of quirks that conflict with each other, so return (see quirks.dm for more details)
+							to_chat(user, span_danger("[quirk] is incompatible with [Q]."))
+							return
+				var/value = SSquirks.quirk_points[quirk]
+				var/balance = GetQuirkBalance()
+				if(quirk in all_quirks)
+					if(balance + value < 0)
+						to_chat(user, span_warning("Refunding this would cause you to go below your balance!"))
+						return
+					all_quirks -= quirk
+				else
+					if(GetPositiveQuirkCount() >= MAX_QUIRKS + max(0, round(get_playerquality(parent.ckey)/10)))
+						to_chat(user, span_warning("I can't have more than [MAX_QUIRKS + max(0, round(get_playerquality(parent.ckey)/10))] positive quirks!"))
+						return
+					if(balance - value < 0)
+						to_chat(user, span_warning("I don't have enough balance to gain this quirk!"))
+						return
+					all_quirks += quirk
+				SetQuirks(user)
+			if("reset")
+				all_quirks = list()
+				SetQuirks(user)
+			else
+				SetQuirks(user)
+		return TRUE
+
 	else if(href_list["preference"] == "antag")
 		switch(href_list["task"])
 			if("close")
@@ -954,6 +1089,11 @@ GLOBAL_LIST_INIT(name_adjustments, list())
 	else if(href_list["preference"] == "customizers")
 		ShowCustomizers(user)
 		return
+
+	else if(href_list["preference"] == "erp")
+		show_erp_preferences(user)
+		return
+
 	else if(href_list["preference"] == "triumph_buy_menu")
 		SStriumphs.startup_triumphs_menu(user.client)
 
@@ -1070,6 +1210,11 @@ GLOBAL_LIST_INIT(name_adjustments, list())
 				toggles_maptext = new_toggles
 
 	switch(href_list["task"])
+		if("erp_pref")
+			handle_erp_pref_topic(user, href_list)
+			ShowChoices(user)
+			show_erp_preferences(user)
+			return
 		if("change_customizer")
 			handle_customizer_topic(user, href_list)
 			ShowChoices(user)
@@ -1162,6 +1307,37 @@ GLOBAL_LIST_INIT(name_adjustments, list())
 						if(voicetype_input == VOICE_TYPE_ANDRO)
 							to_chat(user, span_warning("This will use the feminine voicepack pitched down a bit to achieve a more androgynous sound."))
 						to_chat(user, span_warning("Your character will now vocalize with a [lowertext(voice_type)] affect."))
+				if ("moanselection")
+					to_chat(user, "<font color='yellow'>This option allws you to customize your character's moanpack, dependant on the voice type. Leave it on 'default' or click 'cancel' to automatically use your voice type and species' moanpack.</font>")
+					/*var moanpack_type_input = input(user, "Choose your character's moanpack type", "Moanpack Type") as null|anything in list(MOANPACK_TYPE_DEF, "Custom")
+					generate_selectable_moanpacks()
+					if(moanpack_type_input)
+						if(moanpack_type_input == MOANPACK_TYPE_DEF)
+							moan_selection = MOANPACK_TYPE_DEF
+							to_chat(user, "<font color='red'>You will use your default species' moanpack.</font>")
+						else if(moanpack_type_input == "Custom")*/
+					if (user.client.prefs.voice_type == VOICE_TYPE_MASC)
+						generate_selectable_moanpacks()
+						var moanpack_sel_input = input(user, "Choose your character's moanpack", "Moanpack") as null|anything in GLOB.selectable_moanpacks_male
+						if(moanpack_sel_input)
+							moan_selection = moanpack_sel_input
+							to_chat(user, "<font color='red'>Your character will now use the '[lowertext(moanpack_sel_input)]' moanpack.</font>")
+						else
+							moan_selection = MOANPACK_TYPE_DEF
+					else
+						generate_selectable_moanpacks()
+						var moanpack_sel_input = input(user, "Choose your character's moanpack", "Moanpack") as null|anything in GLOB.selectable_moanpacks_female
+						if(moanpack_sel_input)
+							moan_selection = moanpack_sel_input
+							to_chat(user, "<font color='red'>Your character will now use the '[lowertext(moanpack_sel_input)]' moanpack.</font>")
+						else
+							moan_selection = MOANPACK_TYPE_DEF
+					/*else
+						generate_selectable_moanpacks()
+						var moanpack_sel_input = input(user, "Choose your character's moanpack", "Moanpack") as null|anything in GLOB.selectable_moanpacks
+						if(moanpack_sel_input)
+							moan_selection = moanpack_sel_input
+							to_chat(user, "<font color='red'>Your character will now use the '[lowertext(moanpack_sel_input)]' moanpack.</font>")*/
 				if("faith")
 					var/list/faiths_named = list()
 					for(var/path as anything in GLOB.preference_faiths)
@@ -1172,7 +1348,7 @@ GLOBAL_LIST_INIT(name_adjustments, list())
 					var/faith_input = browser_input_list(user, "SELECT YOUR HERO'S BELIEF", "PUPPETS ON STRINGS", faiths_named, "\The [selected_patron.associated_faith::name]")
 					if(faith_input)
 						var/datum/faith/faith = faiths_named[faith_input]
-						to_chat(user, "<font color='purple'>Faith: [faith.name]</font>")
+						to_chat(user, "<font color='purple'>Pantheon: [faith.name]</font>")
 						to_chat(user, "<font color='purple'>Background: [faith.desc]</font>")
 						selected_patron = GLOB.preference_patrons[faith.godhead] || GLOB.preference_patrons[pick(GLOB.patrons_by_faith[faith_input])]
 
@@ -1208,12 +1384,9 @@ GLOBAL_LIST_INIT(name_adjustments, list())
 						voice_color = sanitize_hexcolor(new_voice)
 
 				if("headshot")
-					if(!donator)
-						to_chat(user, "This is a donator exclusive feature, your headshot link will be applied but others will only be able to view it if you are a Patreon supporter or Twitch subscriber.")
-
-					to_chat(user, span_notice("Please use an image of the head and shoulder area to maintain immersion level. Lastly, ["<span class='bold'>do not use a real life photo or ANYTHING AI generated.</span>"]"))
-					to_chat(user, span_notice("If the photo doesn't show up properly in-game, ensure that it's a direct image link that opens properly in a browser."))
-					to_chat(user, span_notice("Keep in mind that the photo will be downsized to 325x325 pixels, so the more square the photo, the better it will look."))
+					to_chat(user, "<span class='notice'>Please use an image of the head and shoulder area to maintain immersion level. Lastly, ["<span class='bold'>do not use a real life photo or use any image that is less than serious.</span>"]</span>")
+					to_chat(user, "<span class='notice'>If the photo doesn't show up properly in-game, ensure that it's a direct image link that opens properly in a browser.</span>")
+					to_chat(user, "<span class='notice'>Keep in mind that the photo will be downsized to 325x325 pixels, so the more square the photo, the better it will look.</span>")
 					var/new_headshot_link = input(user, "Input the headshot link (https, hosts: gyazo, lensdump, imgbox, catbox):", "Headshot", headshot_link) as text|null
 					if(!new_headshot_link)
 						return
@@ -1260,7 +1433,7 @@ GLOBAL_LIST_INIT(name_adjustments, list())
 
 				if("species")
 					selected_accent = ACCENT_DEFAULT
-					var/list/selectable = get_selectable_species(donator)
+					var/list/selectable = get_selectable_species()
 					var/result = browser_input_list(user, "SELECT YOUR HERO'S PEOPLE:", "VANDERLIN FAUNA", selectable, pref_species)
 
 					if(result)
@@ -1316,6 +1489,23 @@ GLOBAL_LIST_INIT(name_adjustments, list())
 					flavortext_display = ft
 					to_chat(user, span_notice("Successfully updated flavortext"))
 					log_game("[user] has set their flavortext'.")
+				if("nsfw_headshot")
+					to_chat(user, "<span class='notice'>Finally a place to show it all.</span>")
+					var/new_nsfw_headshot_link = input(user, "Input the nsfw headshot link (https, hosts: gyazo, lensdump, imgbox, catbox):", "NSFW Headshot", nsfw_headshot_link) as text|null
+					if(new_nsfw_headshot_link == null)
+						return
+					if(new_nsfw_headshot_link == "")
+						nsfw_headshot_link = null
+						ShowChoices(user)
+						return
+					if(!is_valid_nsfw_headshot_link(user, new_nsfw_headshot_link))
+						nsfw_headshot_link = null
+						ShowChoices(user)
+						return
+					nsfw_headshot_link = new_nsfw_headshot_link
+					to_chat(user, "<span class='notice'>Successfully updated NSFW Headshot picture</span>")
+					log_game("[user] has set their NSFW Headshot image to '[nsfw_headshot_link]'.") //TA edit end
+
 				if("ooc_notes")
 					to_chat(user, span_notice("["<span class='bold'>Do not put anything NSFW here. This feature is for stuff that wouldn't fit in the flavortext.</span>"]"))
 					var/new_ooc_notes = input(user, "Input your OOC preferences:", "OOC notes", ooc_notes) as message|null
@@ -1344,15 +1534,15 @@ GLOBAL_LIST_INIT(name_adjustments, list())
 						dat += "<br>"
 						dat += "<div align='center'><b>OOC notes</b></div>"
 						dat += "<div align='left' style='line-height: 1.2;'>[ooc_notes_display]</div>"
+					if(is_valid_nsfw_headshot_link(null, nsfw_headshot_link, TRUE))
+						dat += "<br><div align='center'><b>NSFW</b></div>"
+						dat += ("<br><div align='center'><img src='[nsfw_headshot_link]' width='350px' height='350px'></div>")
 					if(ooc_extra)
 						dat += "[ooc_extra]"
 					var/datum/browser/popup = new(user, "[real_name]", "<center>[real_name]</center>", width = 480, height = 700)
 					popup.set_content(dat.Join())
 					popup.open(FALSE)
 				if("ooc_extra")
-					if(!donator)
-						to_chat(user, "This is a donator exclusive feature, your OOC Extra link will be applied but others will only be able to view it if you are a patreon supporter or Twitch Subscriber.")
-
 					to_chat(user, span_notice("Add a link from a suitable host (catbox, etc) to an mp3, mp4, or jpg / png file to have it embed at the bottom of your OOC notes."))
 					to_chat(user, span_notice("If the link doesn't show up properly in-game, ensure that it's a direct link that opens properly in a browser."))
 					to_chat(user, span_notice("Videos will be shrunk to a ~300x300 square. Keep this in mind."))
@@ -1417,15 +1607,14 @@ GLOBAL_LIST_INIT(name_adjustments, list())
 						change_accent = TRUE
 					else
 						change_accent = FALSE
-					if(!donator && !change_accent)
-						to_chat(user, "Sorry, this option is Donator-exclusive or unavailable to your race.")
+					if(!change_accent)
+						to_chat(user, "Sorry, this option is unavailable to your race.")
 						selected_accent = ACCENT_DEFAULT
 						return
 					var/accent
-					if(donator)
-						accent = browser_input_list(user, "CHOOSE YOUR HERO'S ACCENT", "VOICE OF THE WORLD", GLOB.accent_list, selected_accent)
-						if(accent)
-							selected_accent = accent
+					accent = browser_input_list(user, "CHOOSE YOUR HERO'S ACCENT", "VOICE OF THE WORLD", GLOB.accent_list, selected_accent)
+					if(accent)
+						selected_accent = accent
 					else if(change_accent)
 						accent = browser_input_list(user, "CHOOSE YOUR HERO'S ACCENT", "VOICE OF THE WORLD", pref_species.multiple_accents, selected_accent)
 						if(accent)
@@ -1485,16 +1674,14 @@ GLOBAL_LIST_INIT(name_adjustments, list())
 						print_special_text(user, next_special_trait)
 						return
 					to_chat(user, span_boldwarning("You will become special for one round, this could be something negative, positive or neutral and could have a high impact on your character and your experience. You cannot back out from or reroll this, and it will not carry over to other rounds."))
-					if(!donator)
-						to_chat(user, span_boldwarning("THIS COSTS 1 TRIUMPH"))
-						if(user.get_triumphs() < 1)
-							to_chat(user, span_bignotice("YOU DON'T HAVE ENOUGH TRIUMPHS."))
-							return
-					var/result = alert(user, "You'll receive a unique trait for one round\n You cannot back out from or reroll this.\nDo you really wish to [donator ? "" : "spend 1 triumph and " ]proceed?", "Be Special", "Yes", "No")
+					to_chat(user, span_boldwarning("THIS COSTS 1 TRIUMPH"))
+					if(user.get_triumphs() < 1)
+						to_chat(user, span_bignotice("YOU DON'T HAVE ENOUGH TRIUMPHS."))
+						return
+					var/result = alert(user, "You'll receive a unique trait for one round\n You cannot back out from or reroll this\nDo you really want to spend 1 triumph for it?", "Be Special", "Yes", "No")
 					if(result != "Yes")
 						return
-					if(!donator)
-						user.adjust_triumphs(-1)
+					user.adjust_triumphs(-1)
 					if(next_special_trait)
 						return
 					next_special_trait = roll_random_special(user.client)
@@ -1737,11 +1924,11 @@ GLOBAL_LIST_INIT(name_adjustments, list())
 					if(choice)
 						choice = choices[choice]
 						if(!load_character(choice))
-							randomise_appearance_prefs(include_donator = donator)
+							randomise_appearance_prefs()
 							save_character()
 
 				if("randomiseappearanceprefs")
-					randomise_appearance_prefs(include_donator = donator)
+					randomise_appearance_prefs()
 					customizer_entries = list()
 					validate_customizer_entries()
 					reset_all_customizer_accessory_colors()
@@ -1759,9 +1946,9 @@ GLOBAL_LIST_INIT(name_adjustments, list())
 
 /// Sanitization checks to be performed before using these preferences.
 /datum/preferences/proc/sanitize_chosen_prefs()
-	if(!(pref_species.name in get_selectable_species(donator)))
-		pref_species = new /datum/species/human/northern
-		save_character()
+	//if(!(pref_species.name in get_selectable_species(patreon)))
+	//	pref_species = new /datum/species/human/northern
+	//	save_character()
 
 	if(CONFIG_GET(flag/humans_need_surnames) && (pref_species.id == SPEC_ID_HUMEN))
 		var/firstspace = findtext(real_name, " ")
@@ -1785,6 +1972,9 @@ GLOBAL_LIST_INIT(name_adjustments, list())
 		return
 	character.age = age
 	character.gender = gender
+	character.dna.features = features.Copy()
+	character.dna.real_name = character.real_name
+	character.dna.body_markings = deepCopyList(body_markings)
 	character.set_species(pref_species.type, icon_update = FALSE, pref_load = src)
 	if(real_name in GLOB.chosen_names)
 		character.real_name = pref_species.random_name(gender)
@@ -1792,23 +1982,23 @@ GLOBAL_LIST_INIT(name_adjustments, list())
 		character.real_name = real_name
 	character.name = character.real_name
 
-	character.dna.features = features.Copy()
-	character.dna.real_name = character.real_name
-
 	var/obj/item/organ/eyes/organ_eyes = character.getorgan(/obj/item/organ/eyes)
 	if(organ_eyes)
 		organ_eyes.eye_color = eye_color
 		organ_eyes.old_eye_color = eye_color
 
 	character.skin_tone = skin_tone
-	character.underwear = underwear
-	character.undershirt = undershirt
+	//character.underwear = underwear
+	//character.undershirt = undershirt
 	character.detail = detail
-	character.socks = socks
+	//character.socks = socks
 
 	/* V: */
 
 	character.headshot_link = headshot_link
+
+	character.nsfw_headshot_link = nsfw_headshot_link
+
 	character.flavortext = flavortext
 	character.flavortext_display = flavortext_display
 	character.ooc_notes = ooc_notes
@@ -1817,6 +2007,17 @@ GLOBAL_LIST_INIT(name_adjustments, list())
 	character.ooc_extra = ooc_extra
 	character.pronouns = pronouns
 	character.voice_type = voice_type
+
+	//RMH Edit
+	generate_selectable_moanpacks()
+	if(moan_selection == MOANPACK_TYPE_DEF)
+		if(voice_type == VOICE_TYPE_MASC)
+			character.moan_selection = GLOB.selectable_moanpacks["MALE DEFAULT"]
+		else
+			character.moan_selection = GLOB.selectable_moanpacks["FEMALE DEFAULT"]
+	else
+		character.moan_selection = GLOB.selectable_moanpacks[moan_selection]
+
 
 	character.domhand = domhand
 	character.voice_color = voice_color
@@ -1863,13 +2064,10 @@ GLOBAL_LIST_INIT(name_adjustments, list())
 	else
 		change_accent = FALSE
 
-	if(donator)
-		character.accent = selected_accent
-	if(change_accent && !donator)
-		character.accent = selected_accent
-		change_accent = FALSE
+	character.accent = selected_accent
 
 	/* :V */
+	apply_character_kinks(character)
 
 	if(icon_updates)
 		character.update_body()
@@ -2007,13 +2205,43 @@ GLOBAL_LIST_INIT(name_adjustments, list())
 
 	return TRUE
 
+/proc/is_valid_nsfw_headshot_link(mob/user, value, silent = FALSE) //TA edit
+	var/static/link_regex = regex("i.gyazo.com|a.l3n.co|b.l3n.co|c.l3n.co|images2.imgbox.com|thumbs2.imgbox.com|files.catbox.moe") //gyazo, discord, lensdump, imgbox, catbox
+	var/static/list/valid_extensions = list("jpg", "png", "jpeg") // Regex works fine, if you know how it works
+
+	if(!length(value))
+		return FALSE
+
+	var/find_index = findtext(value, "https://")
+	if(find_index != 1)
+		if(!silent)
+			to_chat(user, "<span class='warning'>Your link must be https!</span>")
+		return FALSE
+
+	if(!findtext(value, "."))
+		if(!silent)
+			to_chat(user, "<span class='warning'>Invalid link!</span>")
+		return FALSE
+	var/list/value_split = splittext(value, ".")
+
+	// extension will always be the last entry
+	var/extension = value_split[length(value_split)]
+	if(!(extension in valid_extensions))
+		if(!silent)
+			to_chat(usr, "<span class='warning'>The image must be one of the following extensions: '[english_list(valid_extensions)]'</span>")
+		return FALSE
+
+	find_index = findtext(value, link_regex)
+	if(find_index != 9)
+		if(!silent)
+			to_chat(usr, "<span class='warning'>The image must be hosted on one of the following sites: 'Gyazo, Lensdump, Imgbox, Catbox'</span>")
+		return FALSE
+	return TRUE //TA edit end
+
 
 /datum/preferences/proc/set_loadout(mob/user, loadout_number, datum/loadout_item/loadout)
 	if(!loadout)
 		return
-	if(!donator)
-		to_chat(user, span_danger("This is a donator feature!"))
-		return FALSE
 
 	if(loadout == "None")
 		vars["loadout[loadout]"] = null

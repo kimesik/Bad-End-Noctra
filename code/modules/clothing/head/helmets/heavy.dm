@@ -203,11 +203,11 @@
 //............... Spangenhelm ............... //
 /obj/item/clothing/head/helmet/heavy/viking
 	name = "spangenhelm"
-	desc = "A steel helmet with built-in eye and nose protection, commonly used by warriors of the north."
-	icon_state = "Spangenhelm_item"
-	item_state = "Spangenhelm_worn"
-	icon = 'icons/roguetown/clothing/special/spangenhelm_item.dmi'
-	mob_overlay_icon = 'icons/roguetown/clothing/special/onmob/spangenhelm_worn.dmi'
+	desc = "A steel helmet with built in eye and nose protection, commonly used by warriors of the north."
+	icon_state = "viking_H_gold"
+	item_state = "viking_H_gold"
+	icon = 'modular_rmh/icons/clothing/viking_helmet.dmi'
+	mob_overlay_icon = 'modular_rmh/icons/clothing/onmob/viking_helmet.dmi'
 	body_parts_covered = HEAD|NOSE|EYES
 	slot_flags = ITEM_SLOT_HEAD
 	flags_inv = HIDEFACE|HIDEHAIR

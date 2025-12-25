@@ -44,7 +44,11 @@
 	var/datum/customizer_entry/hair/hair_entry = entry
 	switch(href_list["customizer_task"])
 		if("hair_color")
-			var/list/hairs
+			var/new_color = color_pick_sanitized_lumi(user, "Choose your hair color:", "Character Preference", hair_entry.hair_color)
+			if(!new_color)
+				return
+			hair_entry.hair_color = sanitize_hexcolor(new_color, 6, TRUE)
+			/*var/list/hairs
 			var/new_color
 			if(prefs.age == AGE_OLD && (OLDGREY in prefs.pref_species.species_traits))
 				hairs = prefs.pref_species.get_oldhc_list()
@@ -55,7 +59,7 @@
 				new_color = hairs[new_hair]
 			if(!new_color)
 				return
-			hair_entry.hair_color = sanitize_hexcolor(new_color, 6, TRUE)
+			hair_entry.hair_color = sanitize_hexcolor(new_color, 6, TRUE)*/
 		if("natural_gradient")
 			if(!allows_natural_gradient)
 				return
@@ -324,6 +328,13 @@
 		/datum/sprite_accessory/hair/head/mermaid,
 		/datum/sprite_accessory/hair/head/unkemptcurls,
 		/datum/sprite_accessory/hair/head/shrinepriestess,
+		//RMH
+		/datum/sprite_accessory/hair/head/cowlick,
+		/datum/sprite_accessory/hair/head/cowbangs,
+		/datum/sprite_accessory/hair/head/rakshari/high_tail,
+		/datum/sprite_accessory/hair/head/rakshari/doubleknot,
+		/datum/sprite_accessory/hair/head/rakshari/fluffy_tail,
+
 		)
 
 /datum/customizer/bodypart_feature/hair/head/humanoid/triton
@@ -414,6 +425,10 @@
 		/datum/sprite_accessory/hair/facial/vandyke,
 		/datum/sprite_accessory/hair/facial/burns,
 		/datum/sprite_accessory/hair/facial/hermit,
+		/datum/sprite_accessory/hair/facial/rakshari/kesh,
+		/datum/sprite_accessory/hair/facial/rakshari/spry,
+		/datum/sprite_accessory/hair/facial/rakshari/whiskered,
+		/datum/sprite_accessory/hair/facial/rakshari/jinni,
 	)
 
 /datum/customizer/bodypart_feature/hair/facial/humanoid/rakshari

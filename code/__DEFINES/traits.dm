@@ -240,6 +240,32 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// Buckling yourself to objects with this trait won't immobilize you
 #define TRAIT_NO_IMMOBILIZE "no_immobilize"
 
+//Quirk system from DreamKeep
+#define QUIRK_TRAIT "quirk"
+
+//quirk traits
+#define TRAIT_ALCOHOL_TOLERANCE	"alcohol_tolerance"
+#define TRAIT_AGEUSIA			"ageusia"
+#define TRAIT_HEAVY_SLEEPER		"heavy_sleeper"
+#define TRAIT_NIGHT_VISION		"night_vision"
+#define TRAIT_SPIRITUAL			"spiritual"
+#define TRAIT_FAN_CLOWN			"fan_clown"
+#define TRAIT_FAN_MIME			"fan_mime"
+#define TRAIT_VORACIOUS			"voracious"
+#define TRAIT_SELF_AWARE		"self_aware"
+#define TRAIT_FREERUNNING		"freerunning"
+#define TRAIT_SKITTISH			"skittish"
+#define TRAIT_POOR_AIM			"poor_aim"
+#define TRAIT_PROSOPAGNOSIA		"prosopagnosia"
+#define TRAIT_DRUNK_HEALING		"drunk_healing"
+#define TRAIT_TAGGER			"tagger"
+#define TRAIT_PHOTOGRAPHER		"photographer"
+#define TRAIT_MUSICIAN			"musician"
+#define TRAIT_LIGHT_DRINKER		"light_drinker"
+#define TRAIT_FRIENDLY			"friendly"
+#define TRAIT_GRABWEAKNESS		"grab_weakness"
+#define TRAIT_SNOB				"snob"
+
 // common trait sources
 #define TRAIT_GENERIC "generic"
 #define UNCONSCIOUS_TRAIT "unconscious"
@@ -343,8 +369,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_PSYDONITE "Psydonite's Devotion" // Anti-Miracles on a selective basis, anastasis / cure rot still apply. Slow passive wound healing while you have blood.
 #define TRAIT_BLACKBAGGER "Apprehension Techniques" // Capable of using Garrotes and Blackbags. Apprehension techniques.
 #define TRAIT_LYCANRESILENCE "Werewolf Resilence"
-#define TRAIT_WOUNDREGEN "Wound Regeneration"
-#define TRAIT_ABOMINATION "Abomination"
 #define TRAIT_EVASIVE		"Evasive"
 
 #define TRAIT_WEBWALK 					"Webwalker"
@@ -419,6 +443,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_SEED_FINDER				"Seed Finder"
 #define TRAIT_COIN_ILLITERATE "Barterer"
 #define TRAIT_LUCKY_COOK "Lucky Cook"
+#define TRAIT_GOODLOVER					"Fabled Lover"
 
 /// applied to orphans
 #define TRAIT_ORPHAN 					"Orphan"
@@ -607,3 +632,4 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_DENDOR_DEVOURING "trait_dendor_devouring"
 #define TRAIT_DENDOR_LORDING "trait_dendor_lording"
 
+#define TRAIT_NYMPHO_CURSE "Nymphs Curse"

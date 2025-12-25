@@ -1560,6 +1560,33 @@ function output(message, flag) {
 }
 
 
+// Add CSS for collective tab styling (inject into head or add to CSS file)
+function addCollectiveTabCSS() {
+    var css = `
+        .collective-tab {
+            background-color: #ff6b9d !important;
+            border-color: #e91e63 !important;
+        }
+
+        .collective-tab:hover {
+            background-color: #ff8fab !important;
+        }
+
+        .collective-tab.active {
+            background-color: #e91e63 !important;
+            color: white !important;
+        }
+
+        .collective-indicator {
+            color: #fff;
+            text-shadow: 0 0 2px #e91e63;
+            margin-left: 3px;
+        }
+    `;
+
+    $('<style>').prop('type', 'text/css').html(css).appendTo('head');
+}
+
 
 // Highlighting function (fixed)
 function highlightTerms(element) {
@@ -1918,7 +1945,6 @@ class WebSocketManager {
             return wsManager.websocket ? wsManager.websocket.readyState : WebSocket.CLOSED;
         };
 
-// Fixed filter function that looks at nested elements for chat classes
 function applyFilterToMessage(messageElement) {
     if (!messageElement) return;
 

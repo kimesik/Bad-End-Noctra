@@ -878,7 +878,7 @@
 	id = "nocblessed"
 	alert_type = /atom/movable/screen/alert/status_effect/buff/nocblessed
 	effectedstats = list(STATKEY_INT = 3, STATKEY_PER = 2)
-	duration = -1
+	duration = 300 MINUTES
 
 /atom/movable/screen/alert/status_effect/buff/nocblessed
 	name = "Blessed by Noc"

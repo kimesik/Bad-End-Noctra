@@ -160,12 +160,12 @@
 
 /// Fully randomizes everything in the character.
 // Reflect changes in [datum/preferences/proc/randomise_appearance_prefs]
-/mob/living/carbon/human/proc/randomize_human_appearance(randomise_flags = ALL, include_donator = TRUE)
+/mob/living/carbon/human/proc/randomize_human_appearance(randomise_flags = ALL)
 	if(!dna)
 		return
 
 	if(randomise_flags & RANDOMIZE_SPECIES)
-		var/rando_race = GLOB.species_list[pick(get_selectable_species(include_donator))]
+		var/rando_race = GLOB.species_list[pick(get_selectable_species())]
 		set_species(new rando_race(), FALSE)
 
 	var/datum/species/species = dna.species
@@ -182,8 +182,8 @@
 	if(randomise_flags & RANDOMIZE_NAME)
 		real_name = species.random_name(gender, TRUE)
 
-	if(randomise_flags & RANDOMIZE_UNDERWEAR)
-		underwear = species.random_underwear(gender)
+	//if(randomise_flags & RANDOMIZE_UNDERWEAR)
+	//	underwear = species.random_underwear(gender)
 
 	if(randomise_flags & RANDOMIZE_SKIN_TONE)
 		var/list/skin_list = species.get_skin_list()

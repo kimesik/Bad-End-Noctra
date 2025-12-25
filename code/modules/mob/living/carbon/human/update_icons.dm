@@ -282,6 +282,8 @@ GLOBAL_PROTECT(no_child_icons)
 		update_inv_shirt()
 	if(slot_flags & ITEM_SLOT_ARMOR)
 		update_inv_armor()
+	//RMH add
+	update_reflection()
 
 //For legacy support.
 /mob/living/carbon/human/regenerate_icons()

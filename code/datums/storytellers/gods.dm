@@ -129,8 +129,8 @@
 			STATS_WATER_CONSUMED = list("name" = "Water consumed:", "points" = 0.014, "capacity" = 90),
 		),
 		"Set 3" = list(
-			STATS_ABYSSOR_REMEMBERED = list("name" = "Abyssor remembered:", "points" = 1.1, "capacity" = 50),
-			STATS_ALIVE_TRITONS = list("name" = "Number of tritons:", "points" = 8, "capacity" = 70),
+			STATS_ABYSSOR_REMEMBERED = list("name" = "Abyssor remembered:", "points" = 1.15, "capacity" = 50),
+			STATS_ALIVE_TRITONS = list("name" = "Number of tritons:", "points" = 7.75, "capacity" = 70),
 		),
 		"Set 4" = list(
 			STATS_LEECHES_EMBEDDED = list("name" = "Leeches embedded:", "points" = 0.7, "capacity" = 70),
@@ -252,8 +252,8 @@
 			STATS_WOUNDS_SEWED = list("name" = "Wounds sewed up:", "points" = 0.75, "capacity" = 90),
 		),
 		"Set 3" = list(
-			STATS_LUX_HARVESTED = list("name" = "Lux extracted:", "points" = 8, "capacity" = 70),
-			STATS_LUX_REVIVALS = list("name" = "Lux revivals:", "points" = 16, "capacity" = 70),
+			STATS_LUX_HARVESTED = list("name" = "Lux extracted:", "points" = 7.5, "capacity" = 70),
+			STATS_LUX_REVIVALS = list("name" = "Lux revivals:", "points" = 15, "capacity" = 70),
 		),
 		"Set 4" = list(
 			STATS_ALIVE_MEDICATORS = list("name" = "Number of medicators:", "points" = 8, "capacity" = 70),

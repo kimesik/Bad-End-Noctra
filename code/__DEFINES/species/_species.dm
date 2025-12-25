@@ -107,6 +107,7 @@
 	SPEC_ID_ELF,\
 	SPEC_ID_HALF_ELF,\
 	SPEC_ID_HALFLING,\
+	SPEC_ID_HOLLOWKIN, \
 )
 
 /// Species who are nonheretical to the church. Excluded species typically have an inhumen god associated, like Zizo. Used for church/faith roles.
@@ -120,6 +121,7 @@
 	SPEC_ID_HARPY,\
 	SPEC_ID_TRITON,\
 	SPEC_ID_MEDICATOR,\
+	SPEC_ID_HOLLOWKIN,\
 )
 
 /// Species who are non-exotic to Vanderlin. These are species from foreign lands with no local pull or uncommon species. Used in miscellaneous cases, when they would not be that role.

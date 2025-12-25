@@ -28,7 +28,7 @@
 	specstats_m = list(STATKEY_STR = -4, STATKEY_PER = -2, STATKEY_INT = -2, STATKEY_CON = -4, STATKEY_END = 2, STATKEY_SPD = 2, STATKEY_LCK = 0)
 	specstats_f = list(STATKEY_STR = -4, STATKEY_PER = -2, STATKEY_INT = -2, STATKEY_CON = -4, STATKEY_END = 2, STATKEY_SPD = 2, STATKEY_LCK = 0)
 
-	allowed_pronouns = PRONOUNS_LIST_IT_ONLY
+	// allowed_pronouns = PRONOUNS_LIST_IT_ONLY // Чтобы могли брать любые местоимения
 
 	possible_ages = NORMAL_AGES_LIST
 	use_skintones = TRUE
@@ -43,7 +43,7 @@
 	enflamed_icon = "widefire"
 
 	soundpack_m = /datum/voicepack/male/kobold
-	soundpack_f = /datum/voicepack/male/kobold
+	soundpack_f = /datum/voicepack/female/dwarf // Поменял на женский, так как мужской - это уродск
 
 	exotic_bloodtype = /datum/blood_type/human/kobold
 
@@ -73,6 +73,24 @@
 		OFFSET_ARMOR = list(0,0),\
 		OFFSET_UNDIES = list(0,0),\
 	)
+// Попытка починить смещение органов
+	offset_genitals_m = list(
+		OFFSET_PENIS = list(0,-4),\
+		OFFSET_BREASTS = list(0,-4),\
+		OFFSET_TESTICLES = list(0,-3),\
+		OFFSET_VAGINA = list(0,-4),\
+		OFFSET_BUTT = list(0,-4),\
+		OFFSET_BELLY = list(0,-4),\
+	)
+
+	offset_genitals_f = list(
+		OFFSET_PENIS = list(0,-4),\
+		OFFSET_BREASTS = list(0,-4),\
+		OFFSET_TESTICLES = list(0,-3),\
+		OFFSET_VAGINA = list(0,-4),\
+		OFFSET_BUTT = list(0,-4),\
+		OFFSET_BELLY = list(0,-4),\
+	)
 
 	organs = list(
 		ORGAN_SLOT_BRAIN = /obj/item/organ/brain/smooth,
@@ -85,6 +103,7 @@
 		ORGAN_SLOT_STOMACH = /obj/item/organ/stomach,
 		ORGAN_SLOT_APPENDIX = /obj/item/organ/appendix,
 		ORGAN_SLOT_GUTS = /obj/item/organ/guts,
+		ORGAN_SLOT_ANUS = /obj/item/organ/genitals/filling_organ/anus,
 		ORGAN_SLOT_TAIL = /obj/item/organ/tail/kobold
 	)
 
@@ -93,6 +112,47 @@
 		/datum/customizer/organ/eyes/humanoid,
 		/datum/customizer/bodypart_feature/accessory,
 		/datum/customizer/bodypart_feature/face_detail,
+		/datum/customizer/bodypart_feature/underwear,
+		/datum/customizer/bodypart_feature/legwear,
+		/datum/customizer/bodypart_feature/piercing,
+		/datum/customizer/organ/genitals/penis/anthro,
+		/datum/customizer/organ/genitals/vagina/anthro,
+		/datum/customizer/organ/genitals/breasts/animal,
+		/datum/customizer/organ/genitals/belly/animal,
+		/datum/customizer/organ/genitals/butt/animal,
+		/datum/customizer/organ/genitals/testicles/anthro,
+	)
+	body_markings = list(
+		/datum/body_marking/tonage,
+		/datum/body_marking/womb_tattoo,
+		/datum/body_marking/butterfly,
+		/datum/body_marking/waist,
+		/datum/body_marking/diagonal_eyes,
+		/datum/body_marking/wide_eyes,
+		/datum/body_marking/stripes,
+		/datum/body_marking/plain,
+		/datum/body_marking/spotted,
+		/datum/body_marking/tiger,
+		/datum/body_marking/tiger/dark,
+		/datum/body_marking/sock,
+		/datum/body_marking/sock/tertiary,
+		/datum/body_marking/socklonger,
+		/datum/body_marking/tips,
+		/datum/body_marking/bellyscale,
+		/datum/body_marking/kobold_scale,
+		/datum/body_marking/bellyscaleslim,
+		/datum/body_marking/bellyscalesmooth,
+		/datum/body_marking/bellyscaleslimsmooth,
+		/datum/body_marking/buttscale,
+		/datum/body_marking/belly,
+		/datum/body_marking/bellyslim,
+		/datum/body_marking/tie,
+		/datum/body_marking/butt,
+		/datum/body_marking/tiesmall,
+		/datum/body_marking/backspots,
+		/datum/body_marking/front,
+		/datum/body_marking/flushed_cheeks,
+		/datum/body_marking/eyeliner,
 	)
 	COOLDOWN_DECLARE(kobold_cooldown)
 

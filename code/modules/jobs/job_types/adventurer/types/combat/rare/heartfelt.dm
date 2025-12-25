@@ -24,7 +24,10 @@
 		/datum/skill/misc/riding = 3,
 		/datum/skill/craft/cooking = 1,
 	)
-
+	traits = list(
+		TRAIT_NOBLE,
+		TRAIT_HEAVYARMOR,
+	)
 	jobstats = list(
 		STATKEY_STR = 1,
 		STATKEY_INT = 3,
@@ -34,26 +37,19 @@
 		STATKEY_LCK = 5,
 	)
 
-	traits = list(
-		TRAIT_NOBLE,
-		TRAIT_HEAVYARMOR,
-	)
-
 /datum/outfit/adventurer/heartfeltlord
-	name = "Lord of Heartfelt (Adventurer)"
-
+	name = "Lord of Heartfelt"
 	shirt = /obj/item/clothing/shirt/undershirt
 	belt = /obj/item/storage/belt/leather/black
+	neck = /obj/item/clothing/neck/gorget
 	head = /obj/item/clothing/head/helmet
 	shoes = /obj/item/clothing/shoes/nobleboot
 	pants = /obj/item/clothing/pants/tights/colored/black
 	cloak = /obj/item/clothing/cloak/heartfelt
 	armor = /obj/item/clothing/armor/medium/surcoat/heartfelt
 	beltr = /obj/item/storage/belt/pouch/coins/rich
-	beltl = /obj/item/weapon/sword/long
+	beltl = /obj/item/scomstone
 	gloves = /obj/item/clothing/gloves/leather/black
 	neck = /obj/item/clothing/neck/chaincoif
-	backpack_contents = list(/obj/item/scomstone = 1)
-
-
+	beltl = /obj/item/weapon/sword/long
 

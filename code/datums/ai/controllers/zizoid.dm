@@ -22,8 +22,8 @@
 		/datum/ai_planning_subtree/flesh_ambush_subtree,
 		/datum/ai_planning_subtree/aggro_find_target,
 		/datum/ai_planning_subtree/flesh_advanced_melee_attack,
-		/datum/ai_planning_subtree/find_dead_bodies,
-		/datum/ai_planning_subtree/eat_dead_body,
+		///datum/ai_planning_subtree/find_dead_bodies,
+		///datum/ai_planning_subtree/eat_dead_body,
 	)
 
 	idle_behavior = /datum/idle_behavior/flesh_idle

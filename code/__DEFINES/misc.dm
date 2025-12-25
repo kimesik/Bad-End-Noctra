@@ -19,24 +19,28 @@
 #define FEMALE_BOOB 	2
 
 //Human Overlays Indexes/////////
-#define SMELL_LAYER				52		//Hygiene
-#define REFLECTION_LAYER		51
-#define POTENCE_LAYER			50
-#define MUTATIONS_LAYER			49		//mutations. Tk headglows, cold resistance glow, etc
-#define CLOAK_BEHIND_LAYER		48
-#define HANDS_BEHIND_LAYER		47
-#define BELT_BEHIND_LAYER		46
-#define BACK_BEHIND_LAYER		45
-#define BODY_BEHIND_LAYER		44		//certain mutantrace features (tail when looking south) that must appear behind the body parts
-#define BODY_UNDER_LAYER		43		// Things under the bodyparts but above the "behind body" layer
-#define BODYPARTS_LAYER			42		//Initially "AUGMENTS", this was repurposed to be a catch-all bodyparts flag
-#define BODY_ADJ_LAYER			41		//certain mutantrace features (snout, body markings) that must appear above the body parts
-#define BODY_LAYER				40		//underwear, undershirts, socks, eyes, lips(makeup)
-#define FRONT_MUTATIONS_LAYER	39		//mutations that should appear above body, body_adj and bodyparts layer (e.g. laser eyes)
-#define DAMAGE_LAYER			38		//damage indicators (cuts and burns)
-#define PANTS_LAYER				37
-#define SHOES_LAYER				36
-#define LEG_PART_LAYER			35
+#define SMELL_LAYER				56		//Hygiene
+#define REFLECTION_LAYER		55
+#define POTENCE_LAYER			54
+#define MUTATIONS_LAYER			53		//mutations. Tk headglows, cold resistance glow, etc
+#define CLOAK_BEHIND_LAYER		52
+#define HANDS_BEHIND_LAYER		51
+#define BELT_BEHIND_LAYER		50
+#define BACK_BEHIND_LAYER		49
+#define BODY_BEHIND_LAYER		48		//certain mutantrace features (tail when looking south) that must appear behind the body parts
+#define BODY_UNDER_LAYER		47		// Things under the bodyparts but above the "behind body" layer
+#define BODYPARTS_LAYER			46		//Initially "AUGMENTS", this was repurposed to be a catch-all bodyparts flag
+#define BODY_ADJ_LOW_LAYER		45
+#define BODY_ADJ_LAYER			44		//certain mutantrace features (snout, body markings) that must appear above the body parts
+#define BODY_ADJ_MID_LAYER		43		//
+#define BODY_ADJ_UPPER_LAYER	42		//
+#define BODY_LAYER				41		//underwear, undershirts, socks, eyes, lips(makeup)
+#define FRONT_MUTATIONS_LAYER	40		//mutations that should appear above body, body_adj and bodyparts layer (e.g. laser eyes)
+#define DAMAGE_LAYER			39		//damage indicators (cuts and burns)
+#define LEG_PART_LAYER			38
+#define LEGWEAR_LAYER			37
+#define PANTS_LAYER				36
+#define SHOES_LAYER				35
 #define LEG_DAMAGE_LAYER		34
 #define LEGSLEEVE_LAYER			33
 #define SHOESLEEVE_LAYER		32
@@ -71,7 +75,7 @@
 #define BITE_LAYER				3
 #define FIRE_LAYER				2		//If you're on fire
 #define TURF_LAYER				1		//If you're on fire
-#define TOTAL_LAYERS			52		//KEEP THIS UP-TO-DATE OR SHIT WILL BREAK ;_;
+#define TOTAL_LAYERS			56		//KEEP THIS UP-TO-DATE OR SHIT WILL BREAK ;_;
 
 #define BACK_CLOAK_SOUTH_LAYER		(BODY_BEHIND_LAYER+1)
 

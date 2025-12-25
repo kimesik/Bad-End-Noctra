@@ -4,21 +4,30 @@ SUBSYSTEM_DEF(migrants)
 	runlevels = RUNLEVEL_GAME
 
 	/// Count of all waves
+
+	/// Count of all waves
 	var/wave_number = 1
+	/// Current wave running
 	/// Current wave running
 	var/current_wave = null
 	/// Time until the next wave
+	/// Time until the next wave
 	var/time_until_next_wave = 2 MINUTES
+	/// Current wave timer
 	/// Current wave timer
 	var/wave_timer = 0
 
 	/// Time between successful waves
+	/// Time between successful waves
 	var/time_between_waves = 3 MINUTES
+	/// Time between failing waves
 	/// Time between failing waves
 	var/time_between_fail_wave = 90 SECONDS
 	/// how long waves wait for players
+	/// how long waves wait for players
 	var/wave_wait_time = 30 SECONDS
 
+	/// Track waves that have happened
 	/// Track waves that have happened
 	var/list/spawned_waves = list()
 	/// Track triumph contributions across all waves
@@ -48,6 +57,7 @@ SUBSYSTEM_DEF(migrants)
 /datum/controller/subsystem/migrants/proc/get_current_disabled_status()
 	return admin_disabled ? "Disabled" : "Enabled"
 
+
 /datum/controller/subsystem/migrants/proc/set_current_wave(wave_type, time, parent_wave = -1)
 	current_wave = wave_type
 	wave_timer = time
@@ -55,6 +65,8 @@ SUBSYSTEM_DEF(migrants)
 		current_parent_wave = parent_wave
 
 /datum/controller/subsystem/migrants/proc/process_migrants(dt)
+	if(admin_disabled)
+		return
 	if(admin_disabled)
 		return
 	if(current_wave)
@@ -137,6 +149,7 @@ SUBSYSTEM_DEF(migrants)
 
 	if(!length(active_migrants))
 		return FALSE
+
 
 	/// Try to assign priority players to positions
 	for(var/i in 1 to assignments.len)
@@ -282,6 +295,7 @@ SUBSYSTEM_DEF(migrants)
 	if(!new_player)
 		return
 
+
 	/// copy pasta from AttemptLateSpawn(rank) further on TODO put it in a proc and use in both places
 
 	var/datum/migrant_role/role_instance = MIGRANT_ROLE(role)
@@ -321,6 +335,7 @@ SUBSYSTEM_DEF(migrants)
 		return
 
 	var/mob/living/carbon/human/human_character = character
+	SSquirks.AssignQuirks(human_character, human_character.client, TRUE)
 
 	var/fakekey = get_display_ckey(human_character.ckey)
 	GLOB.character_list[human_character.mobid] = "[fakekey] was [human_character.real_name] ([migrant_job.title])<BR>"
@@ -352,6 +367,7 @@ SUBSYSTEM_DEF(migrants)
 		if(final_priority > 0)
 			triumph_weighted[client] = final_priority
 
+	//Convert weighted list to prioritized list
 	//Check if all triumph_weighted values are equal
 	var/all_equal = TRUE
 	var/first_val = -1
@@ -382,6 +398,10 @@ SUBSYSTEM_DEF(migrants)
 	if(all_equal)
 		priority = shuffle(priority)
 
+	//Shuffle only if all have equal priority
+	if(all_equal)
+		priority = shuffle(priority)
+
 	return priority
 
 
@@ -404,6 +424,7 @@ SUBSYSTEM_DEF(migrants)
 	if(!player.prefs.allowed_respawn())
 		return FALSE
 
+
 	var/can_join = TRUE
 	if(length(migrant_job.allowed_races) && !(prefs.pref_species.id in migrant_job.allowed_races))
 		if(!(player.has_triumph_buy(TRIUMPH_BUY_RACE_ALL)))
@@ -421,6 +442,7 @@ SUBSYSTEM_DEF(migrants)
 	if(length(migrant_job.allowed_ages) && !(prefs.age in migrant_job.allowed_ages))
 		to_chat(player, span_warning("Wrong age. Your prioritized role only allows [migrant_job.allowed_ages.Join(", ")]."))
 		can_join = FALSE
+
 
 	return can_join
 
@@ -629,6 +651,7 @@ SUBSYSTEM_DEF(migrants)
 	return active
 
 /// Returns a list of all new_player clients with active migrant pref
+/// Returns a list of all new_player clients with active migrant pref
 /datum/controller/subsystem/migrants/proc/get_active_migrants()
 	var/list/migrants = list()
 	for(var/mob/dead/new_player/player as anything in GLOB.new_player_list)
@@ -641,6 +664,7 @@ SUBSYSTEM_DEF(migrants)
 		migrants += player.client
 	return migrants
 
+/// Returns a list of all new_player clients
 /// Returns a list of all new_player clients
 /datum/controller/subsystem/migrants/proc/get_all_migrants()
 	var/list/migrants = list()
@@ -699,6 +723,5 @@ SUBSYSTEM_DEF(migrants)
 		qdel(GET_IT_OUT)
 
 /mob/living/carbon/human/proc/grant_lit_torch()
-	var/obj/item/flashlight/flare/torch/torch = new()
-	torch.spark_act()
-	put_in_hands(torch, forced = TRUE)
+		adv_hugboxing_start()
+

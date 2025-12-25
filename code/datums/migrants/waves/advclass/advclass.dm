@@ -152,4 +152,3 @@
 	roles = list(
 		/datum/migrant_role/advclass/mercenary = 1,
 	)
-

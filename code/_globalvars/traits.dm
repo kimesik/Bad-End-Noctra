@@ -42,6 +42,7 @@ GLOBAL_LIST_INIT(traits_by_type, list(
 		"TRAIT_NOGUNS" = TRAIT_NOGUNS,
 		"TRAIT_NOHUNGER" = TRAIT_NOHUNGER,
 		"TRAIT_NOHYGIENE" = TRAIT_NOHYGIENE,
+		"TRAIT_NOHYGIENE" = TRAIT_NOHYGIENE,
 		"TRAIT_NOMETABOLISM" = TRAIT_NOMETABOLISM,
 		"TRAIT_TOXIMMUNE" = TRAIT_TOXIMMUNE,
 		"TRAIT_EASYDISMEMBER" = TRAIT_EASYDISMEMBER,
@@ -91,6 +92,7 @@ GLOBAL_LIST_INIT(traits_by_type, list(
 		"Golden Blood" = TRAIT_SEEPRICES,
 		"Of the Cabal" = TRAIT_CABAL,
 		"Unleechable" = TRAIT_LEECHIMMUNE,
+		"Good Lover" = TRAIT_GOODLOVER,
 		"Webwalker" = TRAIT_WEBWALK,
 		"Brushwalker" = TRAIT_BRUSHWALK,
 		"Dead Nose" = TRAIT_DEADNOSE,
@@ -155,7 +157,7 @@ GLOBAL_LIST_INIT(traits_by_type, list(
 		"Bad Mood" = TRAIT_BAD_MOOD,
 		"Night Owl" = TRAIT_NIGHT_OWL,
 		"Ugly" = TRAIT_UGLY,
-		"Fishface" = TRAIT_FISHFACE,
+		"Fishface" = TRAIT_FISHFACE, /// Убрал у тритонов, ибо в ДнД у них такого нету
 		"Obese" = TRAIT_FAT,
 		"Hollow Bones" = TRAIT_HOLLOWBONES,
 		"Light Load" = TRAIT_AMAZING_BACK,
@@ -240,6 +242,7 @@ GLOBAL_LIST_INIT(roguetraits, list(
 	TRAIT_ASSASSIN = "My soul has been tainted by Graggar, god of murder.",
 	TRAIT_BARDIC_TRAINING = "Xylixian inspiration grants my songs boons and ailments.",
 	TRAIT_GRAVEROBBER = "Necra favors my grim deeds, I can unearth graves without being cursed by her.",
+	TRAIT_GOODLOVER = span_love("It's a lucky thing to share my bed."),
 	TRAIT_MISSING_NOSE = span_warning("I struggle to breathe."),
 	TRAIT_DISFIGURED = span_warning("No one can recognize me..."),
 	TRAIT_BEAUTIFUL = span_love("My face was shaped by the gods!"),
@@ -304,10 +307,8 @@ GLOBAL_LIST_INIT(roguetraits, list(
 	TRAIT_BLACKBAGGER = span_info("I've been trained to properly abduct individuals through the use of seizing garrotes and blackbags."),
 	TRAIT_NOCSHADES = span_info("The lens I look through allows me to see in the dark clear as dae, at the cost of greater vision."),
 	TRAIT_LYCANRESILENCE = span_info("Dendor's fury flows through my veins, my wounds regenerate over time..."),
-	TRAIT_WOUNDREGEN = span_info("My wounds and bones mend on their own, my bleeding clots quickly.."),
 	TRAIT_COIN_ILLITERATE = span_info("I care little for the concept of coins and prefer to barter via other means."),
 	TRAIT_LUCKY_COOK = span_info("Xylix smiles upon my cooking, I often end up with impossible amounts of extra goods..."),
-	TRAIT_ABOMINATION = span_info("I am an abomination, others will recognise me for what I am"),
 ))
 
 /// value -> trait name, generated on use from trait_by_type global

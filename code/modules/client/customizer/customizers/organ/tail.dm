@@ -100,14 +100,18 @@
 
 /datum/customizer/organ/tail/triton
 	customizer_choices = list(/datum/customizer_choice/organ/tail/triton)
-	allows_disabling = FALSE
 
 /datum/customizer_choice/organ/tail/triton
 	name = "Triton Bell"
 	organ_type = /obj/item/organ/tail/triton
-	allows_accessory_color_customization = FALSE
+	allows_accessory_color_customization = TRUE
+	generic_random_pick = TRUE
 	sprite_accessories = list(
 		/datum/sprite_accessory/tail/triton,
+		/datum/sprite_accessory/tail/tshark,
+		/datum/sprite_accessory/tail/tfish,
+		/datum/sprite_accessory/tail/torca,
+		/datum/sprite_accessory/tail/none,
 	)
 
 /datum/customizer/organ/tail/kobold
@@ -133,4 +137,18 @@
 	allows_accessory_color_customization = FALSE
 	sprite_accessories = list(
 		/datum/sprite_accessory/tail/medicator
+	)
+
+/datum/customizer/organ/tail/rakshari
+	customizer_choices = list(/datum/customizer_choice/organ/tail/rakshari)
+	allows_disabling = FALSE
+
+/datum/customizer_choice/organ/tail/rakshari
+	name = "Rakshari Tail"
+	organ_type = /obj/item/organ/tail/cat
+	allows_accessory_color_customization = TRUE
+	sprite_accessories = list(
+		/datum/sprite_accessory/tail/cat,
+		/datum/sprite_accessory/tail/catbig,
+		/datum/sprite_accessory/tail/tiger,
 	)

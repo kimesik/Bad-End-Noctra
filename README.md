@@ -1,12 +1,12 @@
-# VANDERLIN
+# RIVERMIST HOLLOW
+
+Small-scale and even more explicit Noctra/Vanderlin fork
 
 [![BYOND Build](https://github.com/Monkestation/Vanderlin/actions/workflows/ci_suite.yml/badge.svg)](https://github.com/Monkestation/Vanderlin/actions/workflows/ci_suite.yml)
 
 | Website                   | Link                                           |
 |---------------------------|------------------------------------------------|
-| Discord | [https://discord.monkestation.com](https://discord.monkestation.com) |
-| Code    | [https://github.com/Monkestation/Vanderlin](https://github.com/Monkestation/Vanderlin)    |
-| Wiki    | N/A |
+| Vanderlin Code    | [https://github.com/Monkestation/Vanderlin](https://github.com/Monkestation/Vanderlin)    |
 
 ## LICENSE
 Original Fork Originates from [commit c28b351807bad950d2b323ada048190844bbda32](https://github.com/tgstation/tgstation/commit/c28b351807bad950d2b323ada048190844bbda32).

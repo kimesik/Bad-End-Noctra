@@ -109,6 +109,16 @@
 /mob/proc/set_skillrank(skill, level, silent=TRUE)
 	return ensure_skills().set_skillrank(skill, level, silent)
 
+
+/**
+ * increases the skill level up to a specific amount
+ * Vars:
+ ** skill - associated skill
+ ** level - which level to set the skill to
+ ** silent - do we notify the player of this change?
+*/
+/mob/proc/adjust_skillrank_up_to(skill, amt, silent = FALSE)
+	return ensure_skills().clamped_adjust_skillrank(skill, amt, amt, silent)
 /**
  * purges all skill levels back down to 0
  * Vars:

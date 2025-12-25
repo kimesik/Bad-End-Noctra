@@ -39,7 +39,7 @@
 	icon_state = "plain"
 	affected_bodyparts = HEAD | CHEST | HAND_LEFT | HAND_RIGHT | ARM_LEFT | ARM_RIGHT | LEG_LEFT | LEG_RIGHT
 	default_color = DEFAULT_SECONDARY
-	covers_chest = TRUE
+	//covers_chest = TRUE
 
 /datum/body_marking/spotted
 	icon = 'icons/mob/body_markings/spotted_markings.dmi'
@@ -90,7 +90,7 @@
 	icon_state = "bellyscale"
 	affected_bodyparts = CHEST
 	default_color = DEFAULT_SECONDARY
-	covers_chest = TRUE
+	//covers_chest = TRUE
 
 /datum/body_marking/kobold_scale
 	icon = 'icons/mob/body_markings/chest_markings.dmi'
@@ -98,7 +98,7 @@
 	icon_state = "kobold_scale"
 	affected_bodyparts = CHEST
 	default_color = DEFAULT_SECONDARY
-	covers_chest = TRUE
+	//covers_chest = TRUE
 
 /datum/body_marking/bellyscaleslim
 	icon = 'icons/mob/body_markings/chest_markings.dmi'
@@ -106,7 +106,7 @@
 	icon_state = "bellyscaleslim"
 	affected_bodyparts = CHEST
 	default_color = DEFAULT_SECONDARY
-	covers_chest = TRUE
+	//covers_chest = TRUE
 
 /datum/body_marking/bellyscalesmooth
 	icon = 'icons/mob/body_markings/chest_markings.dmi'
@@ -114,7 +114,7 @@
 	icon_state = "bellyscalesmooth"
 	affected_bodyparts = CHEST
 	default_color = DEFAULT_SECONDARY
-	covers_chest = TRUE
+	//covers_chest = TRUE
 
 /datum/body_marking/bellyscaleslimsmooth
 	icon = 'icons/mob/body_markings/chest_markings.dmi'
@@ -122,7 +122,7 @@
 	icon_state = "bellyscaleslimsmooth"
 	affected_bodyparts = CHEST
 	default_color = DEFAULT_SECONDARY
-	covers_chest = TRUE
+	//covers_chest = TRUE
 
 /datum/body_marking/buttscale
 	icon = 'icons/mob/body_markings/chest_markings.dmi'
@@ -137,7 +137,7 @@
 	icon_state = "belly"
 	affected_bodyparts = CHEST
 	default_color = DEFAULT_SECONDARY
-	covers_chest = TRUE
+	//covers_chest = TRUE
 
 /datum/body_marking/bellyslim
 	icon = 'icons/mob/body_markings/chest_markings.dmi'
@@ -145,7 +145,7 @@
 	icon_state = "bellyslim"
 	affected_bodyparts = CHEST
 	default_color = DEFAULT_SECONDARY
-	covers_chest = TRUE
+	//covers_chest = TRUE
 
 /datum/body_marking/butt
 	icon = 'icons/mob/body_markings/chest_markings.dmi'
@@ -160,7 +160,7 @@
 	icon_state = "tie"
 	affected_bodyparts = CHEST
 	default_color = DEFAULT_SECONDARY
-	covers_chest = TRUE
+	//covers_chest = TRUE
 
 /datum/body_marking/tiesmall
 	icon = 'icons/mob/body_markings/chest_markings.dmi'
@@ -168,7 +168,7 @@
 	icon_state = "tiesmall"
 	affected_bodyparts = CHEST
 	default_color = DEFAULT_SECONDARY
-	covers_chest = TRUE
+	//covers_chest = TRUE
 
 /datum/body_marking/backspots
 	icon = 'icons/mob/body_markings/chest_markings.dmi'
@@ -183,7 +183,7 @@
 	icon_state = "front"
 	affected_bodyparts = CHEST
 	default_color = DEFAULT_SECONDARY
-	covers_chest = TRUE
+	//covers_chest = TRUE
 
 /datum/body_marking/tonage
 	icon = 'icons/mob/body_markings/other_markings.dmi'
@@ -205,7 +205,7 @@
 	icon_state = "plain_s"
 	affected_bodyparts = HEAD | CHEST | HAND_LEFT | HAND_RIGHT | ARM_LEFT | ARM_RIGHT | LEG_LEFT | LEG_RIGHT
 	default_color = DEFAULT_SECONDARY
-	covers_chest = TRUE
+	//covers_chest = TRUE
 
 /datum/body_marking/small/spotted
 	icon = 'icons/mob/body_markings/small_spotted_markings.dmi'
@@ -245,7 +245,7 @@
 	icon_state = "belly_s"
 	affected_bodyparts = CHEST
 	default_color = DEFAULT_SECONDARY
-	covers_chest = TRUE
+	//covers_chest = TRUE
 
 /datum/body_marking/small/bellyslim
 	icon = 'icons/mob/body_markings/small_chest_markings.dmi'
@@ -253,7 +253,7 @@
 	icon_state = "bellyslim_s"
 	affected_bodyparts = CHEST
 	default_color = DEFAULT_SECONDARY
-	covers_chest = TRUE
+	//covers_chest = TRUE
 
 /datum/body_marking/small/butt
 	icon = 'icons/mob/body_markings/small_chest_markings.dmi'
@@ -268,7 +268,7 @@
 	icon_state = "tie_s"
 	affected_bodyparts = CHEST
 	default_color = DEFAULT_SECONDARY
-	covers_chest = TRUE
+	//covers_chest = TRUE
 
 /datum/body_marking/small/tiesmall
 	icon = 'icons/mob/body_markings/small_chest_markings.dmi'
@@ -276,7 +276,7 @@
 	icon_state = "tiesmall_s"
 	affected_bodyparts = CHEST
 	default_color = DEFAULT_SECONDARY
-	covers_chest = TRUE
+	//covers_chest = TRUE
 
 /datum/body_marking/small/backspots
 	icon = 'icons/mob/body_markings/small_chest_markings.dmi'
@@ -291,7 +291,7 @@
 	icon_state = "front_s"
 	affected_bodyparts = CHEST
 	default_color = DEFAULT_SECONDARY
-	covers_chest = TRUE
+	//covers_chest = TRUE
 
 /datum/body_marking/flushed_cheeks
 	icon = 'icons/mob/body_markings/other_markings.dmi'
@@ -306,3 +306,45 @@
 	icon_state = "eyeliner"
 	default_color = "FF0000"
 	affected_bodyparts = HEAD
+
+/datum/body_marking/womb_tattoo
+	icon = 'modular_rmh/icons/mob/body_markings/marks.dmi'
+	name = "Womb Tattoo"
+	icon_state = "groin"
+	default_color = "FF0000"
+	affected_bodyparts = CHEST
+
+/datum/body_marking/butterfly
+	icon = 'modular_rmh/icons/mob/body_markings/marks.dmi'
+	name = "Butterfly"
+	icon_state = "butterfly"
+	default_color = "FF0000"
+	affected_bodyparts = CHEST
+
+/datum/body_marking/waist
+	icon = 'modular_rmh/icons/mob/body_markings/marks.dmi'
+	name = "Waist"
+	icon_state = "waist"
+	default_color = "FF0000"
+	affected_bodyparts = CHEST
+
+/datum/body_marking/diagonal_eyes
+	icon = 'modular_rmh/icons/mob/body_markings/marks.dmi'
+	name = "Diagonal Eyes"
+	icon_state = "diagonal_eyes"
+	default_color = "FF0000"
+	affected_bodyparts = HEAD
+
+/datum/body_marking/wide_eyes
+	icon = 'modular_rmh/icons/mob/body_markings/marks.dmi'
+	name = "Wide Eyes"
+	icon_state = "wide_eyes"
+	default_color = "FF0000"
+	affected_bodyparts = HEAD
+
+/datum/body_marking/stripes
+	icon = 'modular_rmh/icons/mob/body_markings/marks.dmi'
+	name = "Stripes"
+	icon_state = "stripes"
+	default_color = "FF0000"
+	affected_bodyparts = ARM_LEFT | ARM_RIGHT | LEG_LEFT | LEG_RIGHT

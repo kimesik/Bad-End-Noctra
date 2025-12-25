@@ -4,9 +4,9 @@
 
 /proc/make_datum_references_lists()
 	//underwear
-	init_sprite_accessory_subtypes(/datum/sprite_accessory/underwear, GLOB.underwear_list, GLOB.underwear_m, GLOB.underwear_f)
+	//init_sprite_accessory_subtypes(/datum/sprite_accessory/underwear, GLOB.underwear_list, GLOB.underwear_m, GLOB.underwear_f)
 	//undershirt
-	init_sprite_accessory_subtypes(/datum/sprite_accessory/undershirt, GLOB.undershirt_list, GLOB.undershirt_m, GLOB.undershirt_f)
+	//init_sprite_accessory_subtypes(/datum/sprite_accessory/undershirt, GLOB.undershirt_list, GLOB.undershirt_m, GLOB.undershirt_f)
 
 	//Species
 	for(var/spath in subtypesof(/datum/species))
@@ -49,6 +49,8 @@
 	// Faiths
 	for(var/path in subtypesof(/datum/faith))
 		var/datum/faith/faith = new path()
+		if(!istype(faith, /datum/faith/faerun) || isnull(faith.name))
+			continue
 		GLOB.faithlist[path] = faith
 		if(faith.preference_accessible)
 			GLOB.preference_faiths[path] = faith
@@ -61,6 +63,8 @@
 	// Patron Gods
 	for(var/path in subtypesof(/datum/patron))
 		var/datum/patron/patron = new path()
+		if(!istype(patron, /datum/patron/faerun))
+			continue
 		GLOB.patronlist[path] = patron
 		if(!patron.preference_accessible)
 			continue

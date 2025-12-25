@@ -78,6 +78,7 @@
 		update_energy()
 		handle_environment()
 		handle_hygiene()
+		handle_comfy()
 		if(health <= 0)
 			apply_damage(1, OXY)
 		if(dna?.species)

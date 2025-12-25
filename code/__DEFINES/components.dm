@@ -335,6 +335,7 @@
 #define COMSIG_ITEM_ATTACK_EFFECT_SELF "item_attack_effect_self"
 #define COMSIG_DOOR_OPENED "door_open"
 
+#define COMSIG_HORNY_TARGET_SET "comsig_horny_target_set"
 /// send this signal to add /datum/component/vis_radius to a list of mobs or one mob: (mob/mob_or_mobs)
 #define COMSIG_SHOW_RADIUS "show_radius"
 /// send this signal to remove /datum/component/vis_radius to a mobs: ()

@@ -2,6 +2,15 @@
 	name = "roguetown"
 	icon_state = "rogue"
 
+
+	var/town_area = FALSE
+	var/keep_area = FALSE
+	var/tavern_area = FALSE
+	var/warden_area = FALSE
+	var/holy_area = FALSE
+	var/cell_area = FALSE
+	var/ceiling_protected = FALSE //Prevents tunneling into these from above
+
 /area/indoors
 	name = "indoors rt"
 	icon_state = "indoors"

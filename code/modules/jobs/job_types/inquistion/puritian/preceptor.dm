@@ -53,7 +53,6 @@
 
 /datum/outfit/job/preceptor/pre_equip(mob/living/carbon/human/H)
 	..()
-	name = "Preceptor (Herr Prafekt)"
 	shoes = /obj/item/clothing/shoes/psydonboots
 	armor = /obj/item/clothing/armor/regenerating/skin/disciple
 	backl = /obj/item/storage/backpack/satchel/otavan

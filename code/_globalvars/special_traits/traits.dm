@@ -80,7 +80,6 @@
 	greet_text = span_notice("I have learned basic arcyne but my skills are far from good.")
 	weight = 25
 	req_text = "Have Noc or Zizo as your Patron"
-	allowed_patrons = list(/datum/patron/divine/noc, /datum/patron/inhumen/zizo)
 
 /datum/special_trait/latentmagic/on_apply(mob/living/carbon/human/character, silent)
 	character.adjust_skillrank(/datum/skill/magic/arcane, 1, TRUE)
@@ -160,7 +159,6 @@
 	greet_text = span_notice("Noc's path is weak, I have seen the light and practiced magic these fools call forbidden.")
 	weight = 25
 	req_text = "Worship zizo and roll court magician or magician apprentice."
-	allowed_patrons = list(/datum/patron/inhumen/zizo)
 	allowed_jobs = list(/datum/job/magician, /datum/job/mageapprentice)
 
 /datum/special_trait/darkmagic/on_apply(mob/living/carbon/human/character, silent)
@@ -210,7 +208,6 @@
 	name = "Psydon's Drunkest Rider"
 	greet_text = span_notice("I ride! None of the laws shall stop me for that is Psydon's divine will!")
 	req_text = "Worship Psydon"
-	allowed_patrons = list(/datum/patron/psydon, /datum/patron/psydon/extremist)
 	weight = 100
 
 /datum/special_trait/psydons_rider/on_apply(mob/living/carbon/human/character, silent)
@@ -353,7 +350,6 @@
 	name = "The Burdened One"
 	greet_text = span_notice("You are a true instrument of creation, the most blessed of Malum, nothing will stop your toil, be it sleep or fatigue.")
 	weight = 10
-	allowed_patrons = list(/datum/patron/divine/malum)
 	req_text = "Worship Malum, must be a carpenter, elder, smith, artificer or miner."
 	allowed_jobs = list(/datum/job/carpenter, /datum/job/armorsmith, /datum/job/weaponsmith, /datum/job/artificer, /datum/job/bapprentice, /datum/job/miner, /datum/job/town_elder) // no combat roles
 
@@ -404,7 +400,6 @@
 	name = "Fortune's Grace"
 	greet_text = span_notice("Xylix favor me, I am extremely lucky.")
 	req_text = "Have Xylix as your Patron"
-	allowed_patrons = list(/datum/patron/divine/xylix)
 	weight = 7
 
 /datum/special_trait/lucky/on_apply(mob/living/carbon/human/character, silent)
@@ -415,7 +410,6 @@
 	greet_text = span_notice("I am beloved by the Ten, I have been blessed by all their boons.")
 	req_text = "Be Tennite"
 	weight = 7
-	allowed_patrons = ALL_TEMPLE_PATRONS
 
 /datum/special_trait/blessed/on_apply(mob/living/carbon/human/character, silent)
 	ADD_TRAIT(character, TRAIT_APRICITY, "[type]")
@@ -704,7 +698,6 @@
 	The trinity of what builds a great leader and an even greater kingdom... \
 	or whatever those nimrods were yapping about! <b>I cast FIREBALL!!!</b>")
 	req_text = "Monarch, worship Noc or Zizo"
-	allowed_patrons = list(/datum/patron/divine/noc, /datum/patron/inhumen/zizo)
 	allowed_jobs = list(/datum/job/lord)
 	weight = 25 //Should be fine.
 
@@ -766,7 +759,6 @@
 	greet_text = span_notice("I am a devoted warrior of the Ten, and my equipments lie hidden in their resting place, ready to be donned when the call comes.")
 	allowed_jobs = list(/datum/job/royalknight)
 	allowed_flaw = /datum/charflaw/addiction/godfearing
-	allowed_patrons = ALL_TEMPLE_PATRONS
 	req_text = "Be a Royal knight, With the Flaw 'devout follower' and be a follower of the ten."
 	weight = 50
 
@@ -901,7 +893,6 @@
 	weight = 50
 	req_text = "Worship Dendor and be an acolyte"
 	allowed_jobs = list(/datum/job/monk)
-	allowed_patrons = list(/datum/patron/divine/dendor)
 
 /datum/special_trait/bestial/on_apply(mob/living/carbon/human/character, silent)
 	character.grant_language(/datum/language/beast)
@@ -966,7 +957,7 @@
 	var/datum/inspiration/I = new /datum/inspiration(character)
 	I.grant_inspiration(character, bard_tier = BARD_T2)
 	character.adjust_skillrank(/datum/skill/misc/music, 4, TRUE)
-
+/*
 /datum/special_trait/baothan
 	name = "Adored by Baotha"
 	greet_text = span_notice("Baotha adore me so much that she gave me some goodies, dope tbh.")
@@ -982,4 +973,4 @@
 		devotion.make_churching()
 		devotion.grant_to(character)
 	character.mind.special_items["Baotha's Gift"] = /obj/item/clothing/head/corruptflower
-	character.AddComponent(/datum/component/theme_music)
+	character.AddComponent(/datum/component/theme_music)*/

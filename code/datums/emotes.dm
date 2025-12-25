@@ -80,9 +80,18 @@
 	if(!msg && nomsg == FALSE)
 		return
 
+	var/collective_span = ""
+	if(ishuman(user))
+		var/mob/living/carbon/human/human_speaker = user
+		// Find any collective this person is involved in
+		for(var/datum/collective_message/collective in GLOB.sex_collectives)
+			if(human_speaker in collective.involved_mobs)
+				collective_span = " [collective.collective_span_class]"
+				break
+
 	if(!nomsg)
 		user.log_message(msg, LOG_EMOTE)
-		msg = "<b>[user]</b> " + msg
+		msg = "<span class = '[collective_span]'><b>[user]</b> " + msg + "</span>"
 
 	var/pitch = 1 //bespoke vary system so deep voice/high voiced humans
 	if(isliving(user))
@@ -163,7 +172,36 @@
 				possible_sounds = H.dna.species.soundpack_f.get_sound(key,modifier)
 			else if(H.dna.species.soundpack_m)
 				possible_sounds = H.dna.species.soundpack_m.get_sound(key,modifier)
-			if(H.voice_type)
+			//RMH ADD - manual voicepack selection
+			if(H.moan_selection && (key in list("sexmoanlight","sexmoanmed","sexmoanhvy","groan","painmoan","whimper","sexmoangag","sexmoangag_org")))
+				var/datum/moan_pack/vpath = new H.moan_selection
+				switch(key)
+					if("sexmoanlight")
+						if(vpath.sounds_sexmoanlight)
+							possible_sounds = vpath.get_moans(key)
+					if("sexmoanmed")
+						if(vpath.sounds_sexmoanmed)
+							possible_sounds = vpath.get_moans(key)
+					if("sexmoanhvy")
+						if(vpath.sounds_sexmoanhvy)
+							possible_sounds = vpath.get_moans(key)
+					if("groan")
+						if(vpath.sounds_groan)
+							possible_sounds = vpath.get_moans(key)
+					if("painmoan")
+						if(vpath.sounds_painmoan)
+							possible_sounds = vpath.get_moans(key)
+					if("whimper")
+						if(vpath.sounds_whimper)
+							possible_sounds = vpath.get_moans(key)
+					if("sexmoangag")
+						if(vpath.sounds_sexmoangag)
+							possible_sounds = vpath.get_moans(key)
+					if("sexmoangag_org")
+						if(vpath.sounds_sexmoangag_org)
+							possible_sounds = vpath.get_moans(key)
+
+			else if(H.voice_type)
 				switch (H.voice_type)
 					if (VOICE_TYPE_MASC)
 						possible_sounds = H.dna.species.soundpack_m.get_sound(key, modifier)

@@ -55,7 +55,7 @@
 	GLOB.outlawed_players |= spawned.real_name
 
 /datum/outfit/escprisoner
-	name = "Escaped Prisoner (Migrant Wave)"
+	name = "Escaped Prisoner"
 	pants = /obj/item/clothing/pants/loincloth/colored/brown
 	mask = /obj/item/clothing/face/facemask/prisoner
 	cloak = /obj/item/clothing/cloak/raincloak/furcloak/colored/brown

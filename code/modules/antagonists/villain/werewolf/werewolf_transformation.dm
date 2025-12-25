@@ -3,6 +3,9 @@
 	var/mob/living/carbon/human/H = user
 	if(H.stat == DEAD) return
 	if(H.advsetup) return
+	if(H.mind?.has_antag_datum(/datum/antagonist/zombie)) return
+	if(HAS_TRAIT(H, TRAIT_SILVER_BLESSED)) return
+	if(forced_transform) return
 	// Werewolf transforms at night AND under the sky
 	if(!HAS_TRAIT(user, TRAIT_WEREWOLF_RAGE))
 		if(GLOB.tod == "night")
@@ -69,6 +72,25 @@
 		ww_path = /mob/living/carbon/human/species/werewolf/female
 
 	var/mob/living/carbon/human/species/werewolf/W = new ww_path(loc)
+
+	W.verbs |= /mob/living/carbon/human/proc/toggle_werewolf_transform
+
+	if(getorganslot(ORGAN_SLOT_PENIS))
+		var/obj/item/organ/genitals/penis/penis = W.getorganslot(ORGAN_SLOT_PENIS)
+		penis = new /obj/item/organ/genitals/penis/knotted/big
+		penis.Insert(W, TRUE)
+	if(getorganslot(ORGAN_SLOT_TESTICLES))
+		var/obj/item/organ/genitals/filling_organ/testicles/testicles = W.getorganslot(ORGAN_SLOT_TESTICLES)
+		testicles = new /obj/item/organ/genitals/filling_organ/testicles/internal
+		testicles.Insert(W, TRUE)
+	if(getorganslot(ORGAN_SLOT_BREASTS))
+		var/obj/item/organ/genitals/filling_organ/breasts/breasts = W.getorganslot(ORGAN_SLOT_BREASTS)
+		breasts = new /obj/item/organ/genitals/filling_organ/breasts
+		breasts.Insert(W, TRUE)
+	if(getorganslot(ORGAN_SLOT_VAGINA))
+		var/obj/item/organ/genitals/filling_organ/vagina/vagina = W.getorganslot(ORGAN_SLOT_VAGINA)
+		vagina = new /obj/item/organ/genitals/filling_organ/vagina
+		vagina.Insert(W, TRUE)
 
 	W.set_patron(src.patron)
 	W.gender = gender
@@ -178,7 +200,6 @@
 
 	to_chat(W, span_userdanger("I return to my facade."))
 	playsound(W.loc, pick('sound/combat/gib (1).ogg','sound/combat/gib (2).ogg'), 200, FALSE, 3)
-	W.spawn_gibs(FALSE)
 	W.Knockdown(30)
 	W.Stun(30)
 

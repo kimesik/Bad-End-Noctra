@@ -57,10 +57,10 @@
 			if(mind.has_antag_datum(/datum/antagonist/zombie) || mind.has_antag_datum(/datum/antagonist/skeleton) || mind.has_antag_datum(/datum/antagonist/lich))
 				record_round_statistic(STATS_DEADITES_KILLED)
 
-	if(!gibbed)
+	/*if(!gibbed)
 		if(!has_world_trait(/datum/world_trait/necra_requiem))
 			if(!is_in_roguetown(src) || has_world_trait(/datum/world_trait/zizo_defilement))
-				zombie_check()
+				zombie_check()*/
 
 	stop_sound_channel(CHANNEL_HEARTBEAT)
 	var/obj/item/organ/heart/H = getorganslot(ORGAN_SLOT_HEART)
@@ -88,13 +88,13 @@
 		if(mind && yeae)
 			// Omens are handled here
 			if((is_lord_job(mind.assigned_role)))
-				addomen(OMEN_NOLORD)
+				//addomen(OMEN_NOLORD)
 				for(var/mob/living/carbon/human/HU in GLOB.player_list)
 					if(HU.stat <= CONSCIOUS && is_in_roguetown(HU))
 						HU.playsound_local(get_turf(HU), 'sound/music/lorddeath.ogg', 80, FALSE, pressure_affected = FALSE)
 
-			if(is_priest_job(mind.assigned_role))
-				addomen(OMEN_NOPRIEST)
+			//if(is_priest_job(mind.assigned_role))
+			//	addomen(OMEN_NOPRIEST)
 
 		if(!gibbed && yeae)
 			for(var/mob/living/carbon/human/HU in viewers(7, src))

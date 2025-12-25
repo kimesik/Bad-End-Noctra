@@ -24,8 +24,23 @@
 
 	cmode_music = 'sound/music/cmode/combat_grenzelhoft.ogg'
 
+/datum/outfit/mercenary/grenzelhoft/pre_equip(mob/living/carbon/human/H)
+	..()
+	if(H.mind)
+		H.adjust_skillrank(/datum/skill/misc/swimming, 2, TRUE)
+		H.adjust_skillrank(/datum/skill/misc/climbing, 3, TRUE)
+		H.adjust_skillrank(/datum/skill/misc/sneaking, 3, TRUE)
+		H.adjust_skillrank(/datum/skill/combat/wrestling, 3, TRUE)
+		H.adjust_skillrank(/datum/skill/misc/athletics, 4, TRUE)	//Big sword user so - really helps them.
+		H.adjust_skillrank(/datum/skill/combat/unarmed, 2, TRUE)
+		H.adjust_skillrank(/datum/skill/combat/swords, 4, TRUE)
+		H.adjust_skillrank(/datum/skill/combat/whipsflails, pick(1,1,2), TRUE)
+		H.adjust_skillrank(/datum/skill/combat/axesmaces, pick(2,3), TRUE) // Equal chance between skilled and average, can use a cudgel to beat less dangerous targets into submission
+		H.adjust_skillrank(/datum/skill/combat/shields, pick(0,0,1), TRUE)
+		H.adjust_skillrank(/datum/skill/misc/reading, 1, TRUE)
+		H.adjust_skillrank(/datum/skill/craft/cooking, 1, TRUE)
+
 /datum/outfit/mercenary/grenzelhoft
-	name = "Grenzelhoft (Mercenary)"
 	neck = /obj/item/clothing/neck/chaincoif
 	pants = /obj/item/clothing/pants/grenzelpants
 	shoes = /obj/item/clothing/shoes/rare/grenzelhoft
@@ -35,12 +50,6 @@
 	head = /obj/item/clothing/head/helmet/skullcap/grenzelhoft
 	armor = /obj/item/clothing/armor/cuirass/grenzelhoft
 
-/datum/outfit/mercenary/grenzelhoft/pre_equip(mob/living/carbon/human/H)
-	. = ..()
-	if(H.gender == FEMALE)
-		H.underwear = "Femleotard"
-		H.underwear_color = CLOTHING_SOOT_BLACK
-		H.update_body()
 
 /datum/job/advclass/mercenary/grenzelhoft/after_spawn(mob/living/carbon/human/H)
 	. = ..()

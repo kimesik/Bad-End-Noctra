@@ -38,10 +38,10 @@
 
 /datum/job/migrant/urchinbrain/after_spawn(mob/living/carbon/human/spawned, client/player_client)
 	. = ..()
-	spawned.adjust_skillrank(/datum/skill/combat/wrestling, rand(3), TRUE)
+	spawned.adjust_skillrank(/datum/skill/combat/wrestling, rand(3))
 
 /datum/outfit/urchinbrain
-	name = "Urchin Leader (Migrant Wave)"
+	name = "Urchin Leader"
 	head = /obj/item/clothing/head/fancyhat
 	shirt = /obj/item/clothing/shirt/undershirt/colored/vagrant
 	neck = /obj/item/storage/belt/pouch/coins/poor
@@ -87,10 +87,10 @@
 
 /datum/job/migrant/urchinbrawn/after_spawn(mob/living/carbon/human/spawned, client/player_client)
 	. = ..()
-	spawned.adjust_skillrank(/datum/skill/combat/unarmed, pick(1, 2), TRUE)
+	spawned.adjust_skillrank(/datum/skill/combat/unarmed, pick(1, 2))
 
 /datum/outfit/urchinbrawn
-	name = "Urchin (Migrant Wave)"
+	name = "Urchin"
 	neck = /obj/item/storage/belt/pouch/coins/poor
 	shirt = /obj/item/clothing/shirt/undershirt/colored/vagrant
 	armor = /obj/item/clothing/shirt/rags

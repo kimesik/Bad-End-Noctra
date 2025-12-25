@@ -147,6 +147,8 @@
 #define SKIN_COLOR_KELP "0d844e"
 /// Brownish/Yellow "#bcbb7a"
 #define SKIN_COLOR_SAND "bcbb7a"
+/// Light Gray "#979ca8"
+#define SKIN_COLOR_SHELL "979ca8" /// Временная замена
 
 // MEDICATOR SKIN TONES
 /// Gray "#5e5e5e"

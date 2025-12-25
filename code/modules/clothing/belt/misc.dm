@@ -159,6 +159,23 @@
 /obj/item/storage/belt/leather/cloth/bandit
 	color = "#ff0000"
 
+/obj/item/storage/belt/potion_belt
+    name = "Belt for potion"
+    desc = "Belt with pockets and straps for potion bottles."
+    icon_state = "potion_belt"
+    item_state = "potion_belt"
+    strip_delay = 20
+    var/max_storage = 8
+    var/empty_when_dropped = FALSE
+    sewrepair = TRUE
+    component_type = /datum/component/storage/concrete/grid/potion_belt
+
+//Проверка на тип предмета, что вкладывают в пояс рукой
+/obj/item/storage/belt/potion_belt/attackby(obj/item/B, mob/living/user, params)
+    if (!istype(B, /obj/item/reagent_containers/glass/bottle))
+        to_chat(user, span_warning("This belt only holds bottles!"))
+        return FALSE
+
 /obj/item/storage/belt/pouch
 	name = "pouch"
 	desc = "Usually used for holding coins."

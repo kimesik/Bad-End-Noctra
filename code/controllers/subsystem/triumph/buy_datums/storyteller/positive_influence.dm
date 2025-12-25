@@ -12,7 +12,7 @@
 /datum/triumph_buy/storyteller_influence_bonus/on_activate()
 	. = ..()
 	if(storyteller_name)
-		adjust_storyteller_influence(storyteller_name, 25)
+		adjust_storyteller_influence(storyteller_name, 20)
 
 /datum/triumph_buy/storyteller_influence_bonus/matthios
 	name = "Matthios' Influence"

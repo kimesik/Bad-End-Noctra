@@ -37,3 +37,11 @@ map voyager
 	maxplayers 0
 	votable
 endmap
+
+map hsector
+	default
+	votable
+endmap
+
+map roguetest
+endmap

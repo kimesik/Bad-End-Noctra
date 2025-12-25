@@ -161,16 +161,18 @@
 			var/turf/our_turf = get_turf(src)
 			var/turf/under_turf = GET_TURF_BELOW(our_turf)
 			if(under_turf && our_turf && isopenturf(under_turf))
-				playsound(loc,'sound/items/dig_shovel.ogg', 100, TRUE)
-				user.visible_message("[user] starts digging out the bottom of [src]", "I start digging out the bottom of [src].")
-				if(!do_after(user, 10 SECONDS * attacking_shovel.time_multiplier, src))
-					return TRUE
-				attacking_shovel.heldclod = new(attacking_shovel)
-				attacking_shovel.update_appearance(UPDATE_ICON_STATE)
-				playsound(our_turf,'sound/items/dig_shovel.ogg', 100, TRUE)
-				our_turf.ScrapeAway(flags = CHANGETURF_INHERIT_AIR)
-				qdel(src)
-				return
+				var/area/underA = under_turf.loc
+				if((underA && !underA.ceiling_protected) || !underA)
+					playsound(loc,'sound/items/dig_shovel.ogg', 100, TRUE)
+					user.visible_message("[user] starts digging out the bottom of [src]", "I start digging out the bottom of [src].")
+					if(!do_after(user, 10 SECONDS * attacking_shovel.time_multiplier, src))
+						return TRUE
+					attacking_shovel.heldclod = new(attacking_shovel)
+					attacking_shovel.update_appearance(UPDATE_ICON_STATE)
+					playsound(our_turf,'sound/items/dig_shovel.ogg', 100, TRUE)
+					our_turf.ScrapeAway(flags = CHANGETURF_INHERIT_AIR)
+					qdel(src)
+					return
 			to_chat(user, "<span class='warning'>I think that's deep enough.</span>")
 			return
 		playsound(loc,'sound/items/dig_shovel.ogg', 100, TRUE)

@@ -963,3 +963,17 @@
 		/datum/wound,
 		/datum/surgery,
 	)
+
+/obj/item/recipe_book/medical
+	name = "The Feldsher's Handbook: Field Medicine and Improvised Care"
+	desc = "Compiled by Grim the fickle."
+	icon_state ="book4_0"
+	base_icon_state = "book4"
+
+	types = list(
+		/datum/book_entry/grims_guide,
+		/datum/chimeric_table,
+		/datum/chimeric_node,
+		/datum/wound,
+		/datum/surgery,
+	)
