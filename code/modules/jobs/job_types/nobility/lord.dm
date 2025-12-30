@@ -2,8 +2,8 @@ GLOBAL_VAR(lordsurname)
 GLOBAL_LIST_EMPTY(lord_titles)
 
 /datum/job/lord
-	title = "Monarch"
-	var/ruler_title = "Monarch"
+	title = "Baron"
+	var/ruler_title = "Baron"
 	tutorial = "Elevated to your throne througha a web of intrigue, political maneuvering, and divine sanction, you are the \
 	unquestioned authority of these lands. The Church has bestowed upon you the legitimacy of the gods themselves, and now \
 	you sit at the center of every plot, and every whisper of ambition. Every man, woman, and child may envy your power and \
@@ -15,6 +15,7 @@ GLOBAL_LIST_EMPTY(lord_titles)
 	faction = FACTION_TOWN
 	total_positions = 1
 	spawn_positions = 1
+	allowed_sexes = list(MALE)
 	spells = list(
 		/datum/action/cooldown/spell/undirected/list_target/grant_title,
 		/datum/action/cooldown/spell/undirected/list_target/grant_nobility,

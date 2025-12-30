@@ -9,8 +9,8 @@
 	display_order = JDO_VET
 	job_flags = (JOB_ANNOUNCE_ARRIVAL | JOB_SHOW_IN_CREDITS | JOB_EQUIP_RANK | JOB_NEW_PLAYER_JOINABLE)
 	faction = FACTION_TOWN
-	total_positions = 1
-	spawn_positions = 1
+	total_positions = 0
+	spawn_positions = 0
 	spells = list(/datum/action/cooldown/spell/undirected/list_target/convert_role/militia)
 	allowed_sexes = list(MALE, FEMALE)
 	allowed_ages = list(AGE_OLD, AGE_IMMORTAL)
@@ -221,7 +221,6 @@
 	traits = list(
 		TRAIT_HEAVYARMOR,
 		TRAIT_MEDIUMARMOR,
-		TRAIT_NOBLE,
 		TRAIT_STEELHEARTED
 	)
 

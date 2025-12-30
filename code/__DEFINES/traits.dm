@@ -446,6 +446,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_COIN_ILLITERATE "Barterer"
 #define TRAIT_LUCKY_COOK "Lucky Cook"
 #define TRAIT_GOODLOVER					"Fabled Lover"
+#define TRAIT_INDENTURED				"Indentured"
 
 /// applied to orphans
 #define TRAIT_ORPHAN 					"Orphan"

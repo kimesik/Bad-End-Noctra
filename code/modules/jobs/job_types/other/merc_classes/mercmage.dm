@@ -47,10 +47,6 @@
 		/datum/skill/misc/reading = 4
 	)
 
-	traits = list(
-		TRAIT_NOBLE
-	)
-
 /datum/job/advclass/mercenary/sellmage/after_spawn(mob/living/carbon/human/spawned, client/player_client)
 	. = ..()
 	spawned.merctype = 9

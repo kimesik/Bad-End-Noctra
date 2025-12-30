@@ -35,7 +35,6 @@
 	)
 
 	traits = list(
-		TRAIT_NOBLE,
 		TRAIT_HEAVYARMOR,
 	)
 

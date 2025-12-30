@@ -13,6 +13,7 @@ GLOBAL_LIST_EMPTY(townmaster_titles)
 	faction = FACTION_TOWN
 	total_positions = 1
 	spawn_positions = 1
+	allowed_sexes = list(MALE)
 
 	spells = list(
 		/datum/action/cooldown/spell/undirected/list_target/grant_title,

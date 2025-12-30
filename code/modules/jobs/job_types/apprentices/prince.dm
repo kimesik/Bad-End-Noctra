@@ -1,6 +1,6 @@
 /datum/job/prince
-	title = "Prince"
-	f_title = "Princess"
+	title = "Heir"
+	f_title = "Noble-woman"
 	tutorial = "You've never felt the gnawing of the winter, \
 	never known the bite of hunger and certainly have never known a honest day's work. \
 	You are as free as any bird in the sky, \
@@ -38,10 +38,11 @@
 
 /datum/job/prince/after_spawn(mob/living/carbon/human/spawned, client/player_client)
 	. = ..()
+	if(spawned.gender == FEMALE)
+		spawned.set_flaw(/datum/charflaw/indentured)
 	addtimer(CALLBACK(SSfamilytree, TYPE_PROC_REF(/datum/controller/subsystem/familytree, AddRoyal), spawned, FAMILY_PROGENY), 10 SECONDS)
 	if(GLOB.keep_doors.len > 0)
 		addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(know_keep_door_password), spawned), 5 SECONDS)
-
 /datum/job/advclass/heir
 	inherit_parent_title = TRUE
 	allowed_ages = list(AGE_ADULT, AGE_CHILD)

@@ -132,3 +132,9 @@
 	owner.legwear_socks = legwear_item
 	legwear_item.legwears_feature = src
 	legwear_item.color = accessory_colors
+
+/datum/bodypart_feature/indentured_brand
+	name = "Indentured Brand"
+	feature_slot = BODYPART_FEATURE_BRAND
+	body_zone = BODY_ZONE_CHEST
+	accessory_type = /datum/sprite_accessory/brand/indentured_womb

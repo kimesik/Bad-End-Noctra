@@ -60,7 +60,6 @@
 	)
 
 	pack_traits = list(
-		TRAIT_NOBLE,
 		TRAIT_DODGEEXPERT
 	)
 

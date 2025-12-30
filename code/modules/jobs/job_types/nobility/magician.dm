@@ -45,7 +45,6 @@
 
 	traits = list(
 	TRAIT_SEEPRICES,
-	TRAIT_NOBLE,
 	TRAIT_OLDPARTY,
 	)
 

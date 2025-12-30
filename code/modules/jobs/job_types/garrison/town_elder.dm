@@ -113,7 +113,6 @@
 	)
 
 	traits = list(
-		TRAIT_NOBLE,
 		TRAIT_SEEPRICES,
 		TRAIT_BARDIC_TRAINING
 	)
@@ -135,7 +134,6 @@
 	spawned.add_spell(/datum/action/cooldown/spell/vicious_mockery)
 	spawned.add_spell(/datum/action/cooldown/spell/bardic_inspiration)
 
-	ADD_TRAIT(spawned, TRAIT_NOBLE, TRAIT_GENERIC)
 	ADD_TRAIT(spawned, TRAIT_SEEPRICES, TRAIT_GENERIC)
 	ADD_TRAIT(spawned, TRAIT_BARDIC_TRAINING, TRAIT_GENERIC)
 

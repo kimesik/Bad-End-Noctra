@@ -63,6 +63,8 @@
 
 /datum/job/captain/after_spawn(mob/living/carbon/human/spawned, client/player_client)
 	. = ..()
+	if(spawned.gender == FEMALE)
+		spawned.set_flaw(/datum/charflaw/indentured)
 	var/prev_real_name = spawned.real_name
 	var/prev_name = spawned.name
 	var/honorary = "Sir"
