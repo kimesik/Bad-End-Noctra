@@ -10,6 +10,7 @@
 	total_positions = 1
 	spawn_positions = 1
 	bypass_lastclass = TRUE
+	allowed_sexes = list(FEMALE)
 
 	spells = list(/datum/action/cooldown/spell/undirected/list_target/convert_role/servant)
 	allowed_races = RACES_PLAYER_ROYALTY

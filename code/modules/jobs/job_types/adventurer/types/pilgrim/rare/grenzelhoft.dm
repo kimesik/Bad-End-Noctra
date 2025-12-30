@@ -31,7 +31,6 @@
 
 	traits = list(
 		TRAIT_MEDIUMARMOR,
-		TRAIT_NOBLE,
 		TRAIT_FOREIGNER
 	)
 

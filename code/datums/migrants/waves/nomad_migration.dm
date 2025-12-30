@@ -39,7 +39,6 @@
         TRAIT_MEDIUMARMOR,
 		TRAIT_STEELHEARTED,
         TRAIT_DUALWIELDER,
-        TRAIT_NOBLE,
 	)
 
 	cmode_music = 'sound/music/cmode/adventurer/CombatOutlander2.ogg'

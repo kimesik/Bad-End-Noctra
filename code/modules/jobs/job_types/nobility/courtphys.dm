@@ -49,9 +49,6 @@
 	if(spawned.age == AGE_OLD)
 		spawned.adjust_skillrank(/datum/skill/misc/medicine, 1, TRUE)
 
-	if(spawned.dna?.species?.id in RACES_PLAYER_NONDISCRIMINATED)
-		ADD_TRAIT(spawned, TRAIT_NOBLE, TRAIT_GENERIC)
-
 /datum/outfit/courtphys
 	name = "Court Physician"
 	shoes = /obj/item/clothing/shoes/shortboots

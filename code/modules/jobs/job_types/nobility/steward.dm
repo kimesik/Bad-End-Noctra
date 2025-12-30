@@ -49,6 +49,7 @@
 	..()
 	if(H.gender == FEMALE)
 		shirt = /obj/item/clothing/shirt/dress/stewarddress
+		H.set_flaw(/datum/charflaw/indentured)
 	else
 		shirt = /obj/item/clothing/shirt/undershirt/fancy
 		pants = /obj/item/clothing/pants/trou/leathertights

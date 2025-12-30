@@ -336,16 +336,6 @@
 	character.adjust_skillrank(/datum/skill/craft/engineering, 2, TRUE)
 	character.adjust_skillrank(/datum/skill/craft/tanning, 2, TRUE)
 
-/datum/special_trait/blueblood
-	name = "Noble Lineage"
-	greet_text = span_notice("I come of noble blood.")
-	restricted_traits = list(TRAIT_NOBLE)
-	weight = 100
-
-/datum/special_trait/blueblood/on_apply(mob/living/carbon/human/character, silent)
-	ADD_TRAIT(character, TRAIT_NOBLE, "[type]")
-	character.adjust_skillrank(/datum/skill/misc/reading, 2, TRUE)
-
 /datum/special_trait/burdened
 	name = "The Burdened One"
 	greet_text = span_notice("You are a true instrument of creation, the most blessed of Malum, nothing will stop your toil, be it sleep or fatigue.")

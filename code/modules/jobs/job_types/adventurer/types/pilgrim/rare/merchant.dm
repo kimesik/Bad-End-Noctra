@@ -27,7 +27,6 @@
 	)
 
 	traits = list(
-		TRAIT_NOBLE,
 		TRAIT_SEEPRICES,
 		TRAIT_FOREIGNER
 	)
