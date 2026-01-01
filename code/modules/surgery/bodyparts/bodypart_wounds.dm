@@ -88,6 +88,8 @@
 	if(!wound.apply_to_bodypart(src, silent, crit_message))
 		qdel(wound)
 		return
+	owner.invalidate_wound_cache()
+	owner.invalidate_bleed_rate_cache()
 	return wound
 
 /// Removes a wound from this bodypart, removing any associated effects
@@ -99,6 +101,8 @@
 	. = wound.remove_from_bodypart()
 	if(.)
 		qdel(wound)
+		owner?.invalidate_wound_cache()
+		owner?.invalidate_bleed_rate_cache()
 
 /// Check to see if we can apply a bleeding wound on this bodypart
 /obj/item/bodypart/proc/can_bloody_wound()
@@ -534,6 +538,8 @@
 			owner.next_attack_msg += " <span class='userdanger'>[embedder] runs through [owner]'s [src.name]!</span>"
 		if(can_be_disabled)
 			update_disabled()
+		owner.invalidate_embedded_cache()
+		owner.invalidate_bleed_rate_cache()
 	return TRUE
 
 /// Removes an embedded object from this bodypart
@@ -559,6 +565,8 @@
 			owner.remove_stress(/datum/stress_event/embedded)
 		if(can_be_disabled)
 			update_disabled()
+		owner.invalidate_embedded_cache()
+		owner.invalidate_bleed_rate_cache()
 	return TRUE
 
 /obj/item/bodypart/proc/try_bandage(obj/item/new_bandage)
@@ -566,6 +574,7 @@
 		return FALSE
 	bandage = new_bandage
 	new_bandage.forceMove(src)
+	owner?.invalidate_bleed_rate_cache()
 	return TRUE
 
 /obj/item/bodypart/proc/try_bandage_expire()
@@ -600,6 +609,7 @@
 		return FALSE
 	if(owner.stat != DEAD)
 		to_chat(owner, "<span class='warning'>Blood soaks through the bandage on my [name].</span>")
+	owner.invalidate_bleed_rate_cache()
 	return bandage.add_mob_blood(owner)
 
 /obj/item/bodypart/proc/remove_bandage()
@@ -611,6 +621,7 @@
 	else
 		qdel(bandage)
 	bandage = null
+	owner?.invalidate_bleed_rate_cache()
 	owner?.update_damage_overlays()
 	return TRUE
 

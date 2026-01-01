@@ -148,19 +148,29 @@
 		remove_stress(/datum/stress_event/bleeding)
 
 /mob/living/proc/get_bleed_rate()
+	if(last_bleed_rate_cache_time == world.time)
+		return cached_bleed_rate
 	var/bleed_rate = 0
 	for(var/datum/wound/wound as anything in get_wounds())
 		bleed_rate += wound.bleed_rate
 	for(var/obj/item/embedded as anything in simple_embedded_objects)
 		bleed_rate += embedded.embedding?.embedded_bloodloss
+	cached_bleed_rate = bleed_rate
+	last_bleed_rate_cache_time = world.time
 	return bleed_rate
 
 /mob/living/carbon/get_bleed_rate()
 	if(NOBLOOD in dna?.species?.species_traits)
+		cached_bleed_rate = 0
+		last_bleed_rate_cache_time = world.time
 		return 0
+	if(last_bleed_rate_cache_time == world.time)
+		return cached_bleed_rate
 	var/bleed_rate = 0
 	for(var/obj/item/bodypart/bodypart as anything in bodyparts)
 		bleed_rate += bodypart.get_bleed_rate()
+	cached_bleed_rate = bleed_rate
+	last_bleed_rate_cache_time = world.time
 	return bleed_rate
 
 /// How much slower we'll be bleeding for every CON point. 0.1 = 10% slower.

@@ -3,12 +3,39 @@
 	var/list/datum/wound/simple_wounds
 	/// Simple embedded objects with no associated bodyparts
 	var/list/obj/item/simple_embedded_objects
+	/// Cached wound list for the current tick.
+	var/list/cached_wounds
+	var/last_wounds_cache_time
+	/// Cached embedded object list for the current tick.
+	var/list/cached_embedded_objects
+	var/last_embedded_cache_time
+	/// Cached bleed rate for the current tick.
+	var/cached_bleed_rate
+	var/last_bleed_rate_cache_time
+
+/mob/living/proc/invalidate_wound_cache()
+	cached_wounds = null
+	last_wounds_cache_time = null
+	invalidate_bleed_rate_cache()
+
+/mob/living/proc/invalidate_embedded_cache()
+	cached_embedded_objects = null
+	last_embedded_cache_time = null
+	invalidate_bleed_rate_cache()
+
+/mob/living/proc/invalidate_bleed_rate_cache()
+	cached_bleed_rate = null
+	last_bleed_rate_cache_time = null
 
 /// Returns every embedded object we have, simple or not
 /mob/living/proc/get_embedded_objects()
+	if(last_embedded_cache_time == world.time && cached_embedded_objects)
+		return cached_embedded_objects
 	var/list/all_embedded_objects = list()
 	if(length(simple_embedded_objects))
 		all_embedded_objects += simple_embedded_objects
+	cached_embedded_objects = all_embedded_objects
+	last_embedded_cache_time = world.time
 	return all_embedded_objects
 
 /// Checks if we have any embedded objects whatsoever
@@ -32,9 +59,13 @@
 
 /// Returns every wound we have, simple or not
 /mob/living/proc/get_wounds()
+	if(last_wounds_cache_time == world.time && cached_wounds)
+		return cached_wounds
 	var/list/all_wounds = list()
 	if(length(simple_wounds))
 		all_wounds += simple_wounds
+	cached_wounds = all_wounds
+	last_wounds_cache_time = world.time
 	return all_wounds
 
 /// Gets all sewable wounds in a mob
@@ -85,6 +116,7 @@
 		qdel(wound)
 		return
 	SEND_SIGNAL(src, COMSIG_LIVING_WOUND_GAINED, wound)
+	invalidate_wound_cache()
 	return wound
 
 /// Simple version for removing a wound - DO NOT CALL THIS ON CARBON MOBS!
@@ -98,6 +130,7 @@
 	. = wound.remove_from_mob()
 	if(.)
 		qdel(wound)
+		invalidate_wound_cache()
 
 /// Simple version of crit rolling, attempts to do a critical hit on a mob that uses simple wounds - DO NOT CALL THIS ON CARBON MOBS, THEY HAVE BODYPARTS!
 /mob/living/proc/simple_woundcritroll(bclass, dam, mob/living/user, zone_precise, silent = FALSE, crit_message = FALSE)
@@ -231,6 +264,7 @@
 		emote("embed")
 	if(crit_message)
 		next_attack_msg += " <span class='userdanger'>[embedder] is stuck in [src]!</span>"
+	invalidate_embedded_cache()
 	return TRUE
 
 /// Simple version for removing an embedded object - DO NOT CALL THIS ON CARBON MOBS!
@@ -250,4 +284,5 @@
 			embedder.forceMove(drop_location)
 		else
 			qdel(embedder)
+	invalidate_embedded_cache()
 	return TRUE

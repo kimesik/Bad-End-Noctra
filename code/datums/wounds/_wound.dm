@@ -176,6 +176,8 @@ GLOBAL_LIST_INIT(primordial_wounds, init_primordial_wounds())
 	sortTim(affected.wounds, GLOBAL_PROC_REF(cmp_wound_severity_dsc))
 	bodypart_owner = affected
 	owner = bodypart_owner.owner
+	owner.invalidate_wound_cache()
+	owner.invalidate_bleed_rate_cache()
 	on_bodypart_gain(affected)
 	INVOKE_ASYNC(src, PROC_REF(on_mob_gain), affected.owner) //this is literally a fucking lint error like new species cannot possible spawn with wounds until after its ass
 	if(crit_message)
@@ -204,6 +206,8 @@ GLOBAL_LIST_INIT(primordial_wounds, init_primordial_wounds())
 	LAZYREMOVE(bodypart_owner.wounds, src)
 	bodypart_owner = null //honestly shouldn't be nulling the owner before calling on loss procs
 	owner = null
+	was_owner?.invalidate_wound_cache()
+	was_owner?.invalidate_bleed_rate_cache()
 	on_bodypart_loss(was_bodypart, was_owner)
 	on_mob_loss(was_owner)
 	return TRUE
@@ -233,6 +237,8 @@ GLOBAL_LIST_INIT(primordial_wounds, init_primordial_wounds())
 	LAZYADD(affected.simple_wounds, src)
 	sortTim(affected.simple_wounds, GLOBAL_PROC_REF(cmp_wound_severity_dsc))
 	owner = affected
+	owner.invalidate_wound_cache()
+	owner.invalidate_bleed_rate_cache()
 	on_mob_gain(affected)
 	if(crit_message)
 		var/message = get_crit_message(affected)
@@ -261,6 +267,8 @@ GLOBAL_LIST_INIT(primordial_wounds, init_primordial_wounds())
 		return FALSE
 	on_mob_loss(owner)
 	LAZYREMOVE(owner.simple_wounds, src)
+	owner.invalidate_wound_cache()
+	owner.invalidate_bleed_rate_cache()
 	owner = null
 	return TRUE
 

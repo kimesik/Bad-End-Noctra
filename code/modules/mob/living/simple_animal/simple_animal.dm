@@ -900,7 +900,7 @@ GLOBAL_VAR_INIT(farm_animals, FALSE)
 /mob/living/simple_animal/Life()
 	. = ..()
 	if(.)
-		if(SEND_SIGNAL(src, COMSIG_MOB_RETURN_HUNGER) > 0)
+		if(GetComponent(/datum/component/generic_mob_hunger) && SEND_SIGNAL(src, COMSIG_MOB_RETURN_HUNGER) > 0)
 			pooprog += 0.5
 			if(pooprog >= 100)
 				pooprog = 0

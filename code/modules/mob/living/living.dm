@@ -973,6 +973,7 @@
 			qdel(wound)
 		else
 			wound.heal_wound(wound.whp)
+	invalidate_wound_cache()
 	ExtinguishMob()
 	fire_stacks = 0
 	divine_fire_stacks = 0

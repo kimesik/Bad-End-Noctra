@@ -1112,6 +1112,8 @@
 /mob/living/carbon/proc/add_bodypart(obj/item/bodypart/new_bodypart)
 	bodyparts += new_bodypart
 	new_bodypart.set_owner(src)
+	invalidate_wound_cache()
+	invalidate_embedded_cache()
 
 	switch(new_bodypart.body_part)
 		if(LEG_LEFT, LEG_RIGHT)
@@ -1126,6 +1128,8 @@
 ///Proc to hook behavior on bodypart removals.
 /mob/living/carbon/proc/remove_bodypart(obj/item/bodypart/old_bodypart)
 	bodyparts -= old_bodypart
+	invalidate_wound_cache()
+	invalidate_embedded_cache()
 
 	switch(old_bodypart.body_part)
 		if(LEG_LEFT, LEG_RIGHT)
