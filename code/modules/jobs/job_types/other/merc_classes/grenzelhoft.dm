@@ -33,9 +33,8 @@
 		H.adjust_skillrank(/datum/skill/combat/wrestling, 3, TRUE)
 		H.adjust_skillrank(/datum/skill/misc/athletics, 4, TRUE)	//Big sword user so - really helps them.
 		H.adjust_skillrank(/datum/skill/combat/unarmed, 2, TRUE)
-		H.adjust_skillrank(/datum/skill/combat/swords, 4, TRUE)
+		H.adjust_skillrank(/datum/skill/combat/swords, 2, TRUE)
 		H.adjust_skillrank(/datum/skill/combat/whipsflails, pick(1,1,2), TRUE)
-		H.adjust_skillrank(/datum/skill/combat/axesmaces, pick(2,3), TRUE) // Equal chance between skilled and average, can use a cudgel to beat less dangerous targets into submission
 		H.adjust_skillrank(/datum/skill/combat/shields, pick(0,0,1), TRUE)
 		H.adjust_skillrank(/datum/skill/misc/reading, 1, TRUE)
 		H.adjust_skillrank(/datum/skill/craft/cooking, 1, TRUE)
@@ -67,5 +66,5 @@
 			H.equip_to_slot_or_del(new /obj/item/storage/belt/pouch/coins/poor, ITEM_SLOT_BELT_R, TRUE)
 			H.equip_to_slot_or_del(new /obj/item/weapon/mace/cudgel, ITEM_SLOT_BELT_L, TRUE)
 			H.adjust_stat_modifier(STATMOD_JOB, STATKEY_STR, 2) // They need this to roll at least min STR for the Zwei.
-			H.adjust_skillrank(/datum/skill/combat/axesmaces, pick(2,3), TRUE) // Equal chance between skilled and average, can use a cudgel to beat less dangerous targets into submission
-			H.adjust_skillrank(/datum/skill/combat/swords, 2, TRUE)
+			H.adjust_skillrank(/datum/skill/combat/axesmaces, 2, TRUE)
+			H.adjust_skillrank(/datum/skill/combat/swords, 1, TRUE)

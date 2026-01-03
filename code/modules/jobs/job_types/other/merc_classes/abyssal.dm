@@ -15,7 +15,7 @@
 		/datum/skill/combat/wrestling = 2,
 		/datum/skill/combat/unarmed = 2,
 		/datum/skill/combat/knives = 2,
-		/datum/skill/combat/polearms = 2,
+		/datum/skill/combat/polearms = 3,
 		/datum/skill/combat/swords = 2,
 	)
 
@@ -34,7 +34,7 @@
 		spawned.equip_to_appropriate_slot(shield)
 		spawned.adjust_skillrank(/datum/skill/combat/shields, 3, TRUE)
 		spawned.adjust_skillrank(/datum/skill/misc/athletics, 1, TRUE)
-		spawned.adjust_skillrank(/datum/skill/combat/unarmed, 2, TRUE)
+		spawned.adjust_skillrank(/datum/skill/combat/unarmed, 1, TRUE)
 		spawned.adjust_stat_modifier(STATMOD_JOB, STATKEY_STR, 1)
 		spawned.adjust_stat_modifier(STATMOD_JOB, STATKEY_CON, 1)
 		spawned.adjust_stat_modifier(STATMOD_JOB, STATKEY_INT, -1)

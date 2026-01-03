@@ -47,12 +47,12 @@
 		spawned.cmode_music = 'sound/music/cmode/adventurer/CombatOutlander2.ogg'
 
 		// Dwarf-specific skill adjustments
-		spawned.adjust_skillrank(/datum/skill/combat/axesmaces, 4)
+		spawned.adjust_skillrank(/datum/skill/combat/axesmaces, 3)
 		spawned.adjust_skillrank(/datum/skill/combat/shields, 2)
 		spawned.adjust_skillrank(/datum/skill/craft/bombs, 4) // Dwarves get to make bombs.
 	else
 		// Non-dwarf skill adjustment
-		spawned.adjust_skillrank(/datum/skill/combat/swords, 4)
+		spawned.adjust_skillrank(/datum/skill/combat/swords, 3)
 
 /datum/outfit/mercenary/underdweller
 	name = "Underdweller (Mercenary)"

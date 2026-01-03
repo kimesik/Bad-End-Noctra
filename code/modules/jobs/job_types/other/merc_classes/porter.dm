@@ -17,7 +17,7 @@
 	)
 
 	skills = list(
-		/datum/skill/combat/wrestling = 4, //To get out of grasps slippery bastard
+		/datum/skill/combat/wrestling = 3, //To get out of grasps slippery bastard
 		/datum/skill/combat/unarmed = 1,
 		/datum/skill/misc/athletics = 4,
 		/datum/skill/misc/climbing = 3,

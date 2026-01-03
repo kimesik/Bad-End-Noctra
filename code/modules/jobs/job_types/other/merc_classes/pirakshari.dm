@@ -19,7 +19,7 @@
 		/datum/skill/combat/knives = 2,
 		/datum/skill/combat/swords = 3,
 		/datum/skill/combat/crossbows = 2,
-		/datum/skill/combat/bows = 4,
+		/datum/skill/combat/bows = 3,
 		/datum/skill/misc/athletics = 3,
 		/datum/skill/misc/riding = 3,
 		/datum/skill/labor/taming = 2,

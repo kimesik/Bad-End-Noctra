@@ -24,7 +24,7 @@
 		/datum/skill/combat/unarmed = 3,
 		/datum/skill/craft/crafting = 1,
 		/datum/skill/craft/tanning = 1,
-		/datum/skill/combat/axesmaces = 4,
+		/datum/skill/combat/axesmaces = 3,
 		/datum/skill/craft/cooking = 1,
 		/datum/skill/misc/reading = 1,
 		/datum/skill/misc/sewing = 2,

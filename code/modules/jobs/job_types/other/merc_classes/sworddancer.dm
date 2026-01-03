@@ -2,7 +2,7 @@
 	title = "Sword Dancer"
 	tutorial = "You were a former bard, but when times got tough you picked up a blade to defend yourself. \
 	Now you travel the lands of Psydonia, selling your sword and your songs to the highest bidder."
-	allowed_races = list(SPEC_ID_TIEFLING)
+	allowed_races = RACES_PLAYER_ALL
 	outfit = /datum/outfit/mercenary/sworddancer
 	category_tags = list(CTAG_MERCENARY)
 	total_positions = 2
@@ -22,7 +22,7 @@
 	)
 
 	skills = list(
-		/datum/skill/combat/swords = 4,
+		/datum/skill/combat/swords = 3,
 		/datum/skill/combat/knives = 2,
 		/datum/skill/combat/unarmed = 2,
 		/datum/skill/misc/athletics = 3,

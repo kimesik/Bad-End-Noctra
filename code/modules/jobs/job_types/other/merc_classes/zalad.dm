@@ -32,7 +32,7 @@
 		/datum/skill/combat/bows = 2,
 		/datum/skill/combat/wrestling = 3,
 		/datum/skill/combat/unarmed = 2,
-		/datum/skill/combat/swords = 4,
+		/datum/skill/combat/swords = 3,
 		/datum/skill/combat/polearms = 1,
 		/datum/skill/combat/whipsflails = 1,
 		/datum/skill/misc/reading = 1,

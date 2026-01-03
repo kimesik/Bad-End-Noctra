@@ -28,7 +28,7 @@
 		/datum/skill/misc/climbing = 3,
 		/datum/skill/misc/sneaking = 3,
 		/datum/skill/misc/athletics = 3,
-		/datum/skill/combat/swords = 4,
+		/datum/skill/combat/swords = 3,
 		/datum/skill/combat/bows = 3,
 		/datum/skill/labor/taming = 3,
 	)

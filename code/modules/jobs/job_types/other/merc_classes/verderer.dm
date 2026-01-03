@@ -19,7 +19,7 @@
 	skills = list(
 		/datum/skill/combat/knives = 2,
 		/datum/skill/combat/axesmaces = 2,
-		/datum/skill/combat/polearms = 4,
+		/datum/skill/combat/polearms = 3,
 		/datum/skill/combat/bows = 2,
 		/datum/skill/craft/tanning = 2,
 		/datum/skill/combat/wrestling = 2,

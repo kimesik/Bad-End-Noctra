@@ -46,9 +46,9 @@
 		return
 	switch(choice)
 		if("Spear")
-			spawned.adjust_skillrank(/datum/skill/combat/polearms, 4, TRUE)
+			spawned.adjust_skillrank(/datum/skill/combat/polearms, 3, TRUE)
 		if("Regal Elven Club")
-			spawned.adjust_skillrank(/datum/skill/combat/axesmaces, 4, TRUE)
+			spawned.adjust_skillrank(/datum/skill/combat/axesmaces, 3, TRUE)
 	spawned.merctype = 4
 
 
