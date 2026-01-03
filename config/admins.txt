@@ -1,4 +1,1 @@
 necbromancer = Host
-necBROmancer = Host
-necbromancer = host
-necBROmancer = host
